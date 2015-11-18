@@ -1,0 +1,59 @@
+#!/bin/bash
+
+function remap_caps_lock () {
+    # Set the internal field seperator to new line
+    IFS=$'\n'
+    # get a list of keyboards and split them into an array on each new line
+    info=($(ioreg -n IOHIDKeyboard -r | grep -e 'class IOHIDKeyboard' -e VendorID\" -e Product))
+    # declare a counter
+    let n=0
+    # loop over each line in the array so we can pull out the vendorID and productID of each keyboard
+    for i in "${info[@]}"; do
+        # Set the internal field seperator so that we can split each element again
+        IFS=$' = '
+        # increment our counter
+        let n+=1
+        # declare variables in this scope
+        set vendorID
+        set productID
+        # if we are on the third element then it is the vendorID
+        if [[ $n -eq 3 ]]; then
+            # parse out the actual id
+            array=($i)
+            vendorID=${array[2]}
+        # if we are on the fourth element then it is the productID
+        elif [[ $n -eq 4 ]]; then
+            # parse out the actual id
+            array=($i)
+            productID=${array[2]}
+            # write the new keybinding for this keyboard
+            defaults -currentHost write -g "com.apple.keyboard.modifiermapping.$vendorID-$productID-0" -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>2</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'
+            # reset the counter to zero so we can work our way over the next keyboard
+            let n=0
+        fi
+    done
+}
+
+function link_dotfiles () {
+	# make sure we don't get something nasty if the dotfiles are missing
+	shopt -s nullglob
+	# loop through all the dotfiles and dirs
+	for file in .*; do
+		# make sure we don't us . or ..
+		if [[ "$file" != "." && "$file" != ".." ]]; then
+			# make sure we only use files, not dirs
+			if [[ -f "$file" ]]; then
+				# link the file to home directory
+				ln -sf "$file" ~/
+			fi
+		fi
+	done
+	exec zsh -ls
+	echo "Environment is setup"
+}
+
+function setup_sublime () {
+	cd ~/Library/Application Support/Sublime Text 3/Packages || exit
+	rm -rf User
+	ln -s ~/Dropbox/Sublime/User
+}

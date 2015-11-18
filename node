@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#==============================================================================#
+#                      INSTALL NODE AND ALL GLOBAL PACKAGES                    #
+#==============================================================================#
+
+echo "Installing Node.........................................................."
+brew install node
+
+echo "Installing bower..."
+npm install -g bower
+
+echo "Grunting it up..."
+npm install -g grunt
+npm install -g grunt-cli
+npm install -g grunt-init
+
+echo "Installing Gulp..."
+npm install -g gulp
+
+echo "Installing Ionic..."
+npm insatll -g ionic
+
+echo "Installing linters..."
+npm install -g bootlint
+npm install -g coffeelint
+npm install -g csslint
+npm install -g htmllint
+npm install -g jscs
+npm install -g jshint
+npm install -g standard
+npm install -g standard-format
+npm install -g write-good
+
+echo "Installing mongodb..."
+npm install -g mongo
+npm install -g mongod
+npm install -g mongodb
+
+
+echo "Installing precompilers..."
+npm install -g coffie-script
+npm install -g less
+npm install -g markdown-preview
+npm install -g sass
+npm install -g stylus
+
+echo "Installing Yeoman..."
+npm install -g yo
+npm install -g generator-meanjs

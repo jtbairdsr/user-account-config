@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load in extra functions
-source functions
+source tools/functions
 
 #----------------- Ask for the administrator password upfront -----------------#
 echo "Start by getting permission----------------------------------------------"
@@ -46,12 +46,13 @@ brew tap homebrew/versions
 
 #---------------------- Install miscellaneous brew stuff -----------------------
 echo "Installing other brew stuff----------------------------------------------"
-brew install tree         # a visually easy to follow recursive ls
-brew install wget         # adds wget (which should already be there)
-brew install python       # This updates python
-brew install shellcheck   # linter for shell scripts
-brew install coreutils    # adds color to ls
-brew install mobile-shell # fault tollerent ssh
+brew install tree              # a visually easy to follow recursive ls
+brew install wget              # adds wget (which should already be there)
+brew install python            # This updates python
+brew install shellcheck        # linter for shell scripts
+brew install coreutils         # adds color to ls
+brew install mobile-shell      # fault tollerent ssh
+brew install terminal-notifier # send notifications from the termnal
 
 #---------------------------- Setup for development ----------------------------
 echo "Setting up for development-----------------------------------------------"
@@ -72,7 +73,7 @@ brew install git-flow
 
 # NODE
 
-source node
+source tools/node
 
 #==============================================================================#
 #                            Get dotfiles form Github                          #
@@ -142,6 +143,7 @@ apps=(
     appcleaner # for tracking down app files when uninstalling
     disk-inventory-x # for managing full disks
     dropbox-experimental # get my data everywhere
+    flux-beta # manage the color and brightness of your monitors to fight insomnia
     netgeargenie # for managing netgear routers
     nvalt # quick note taking
     yujitach-menumeters # activity monitor for the menubar
@@ -157,6 +159,7 @@ apps=(
     superduper # for backingup a backup
     # transmit # the #1 Mac OS X FTP client.
     # cleanmymac
+    # glyphs
     #---------------------------------- MAYBE ----------------------------------
     # mailbox
 
@@ -179,5 +182,5 @@ setup_sublime
 #==============================================================================#
 #                              Tweak OS X Settings                             #
 #==============================================================================#
-source osx
+source tools/osx
 

@@ -56,9 +56,22 @@ function link_dotfiles () {
         ln -sf "$SOURCE_LOCATION/$file" "$TARGET_LOCATION/.$file"
     done
 
+    #------------------------------- Link ~/bin --------------------------------
+    ln -sf "$CONFIG_DIRECTORY/bin" "$HOME"
+
+    #----------------------- Create shortcuts directory ------------------------
+    create_shortcuts
+
     #------------------------------- Reload zsh --------------------------------
 	exec zsh -ls
 	echo "Environment is setup"
+}
+
+function create_shortcuts {
+    mkdir "$HOME/.shortcuts"
+    for file in "work" "try" "school"; do
+        touch ~/.shortcuts/"$file"
+    done
 }
 
 function setup_sublime () {

@@ -35,21 +35,43 @@ function remap_caps_lock () {
 }
 
 function link_dotfiles () {
-	# make sure we don't get something nasty if the dotfiles are missing
-	shopt -s nullglob
-	# loop through all the dotfiles and dirs
-	for file in .*; do
-		# make sure we don't us . or ..
-		if [[ "$file" != "." && "$file" != ".." ]]; then
-			# make sure we only use files, not dirs
-			if [[ -f "$file" ]]; then
-				# link the file to home directory
-				ln -sf "$file" ~/
-			fi
-		fi
-	done
+    set -e
+    CONFIG_DIRECTORY="$HOME/.user-account-config"
+    SOURCE_LOCATION="$CONFIG_DIRECTORY/dotfiles"
+    TARGET_LOCATION="$HOME"
+
+    #---------------------------- Install oh-my-zsh ----------------------------
+    echo "Installing oh-my-zsh..."
+
+    "$CONFIG_DIRECTORY/install-oh-my-zsh"
+    # remove the custom dir in .oh-my-zsh so that we can link to our custom dir
+    rm -rf "$HOME/.oh-my-zsh/custom"
+    # link our custom dir to .oh-my-zsh
+    ln -sf "$CONFIG_DIRECTORY/custom" "$HOME/.oh-my-zsh"
+    echo "Setting ZSH as default shell..."
+    chsh -s /bin/zsh
+
+    #------------------------ Install my custom dofiles ------------------------
+    find "$SOURCE_LOCATION" -mindepth 1 -maxdepth 1 | cut -sd / -f 6- | while read -r file; do
+        ln -sf "$SOURCE_LOCATION/$file" "$TARGET_LOCATION/.$file"
+    done
+
+    #------------------------------- Link ~/bin --------------------------------
+    ln -sf "$CONFIG_DIRECTORY/bin" "$HOME"
+
+    #----------------------- Create shortcuts directory ------------------------
+    create_shortcuts
+
+    #------------------------------- Reload zsh --------------------------------
 	exec zsh -ls
 	echo "Environment is setup"
+}
+
+function create_shortcuts {
+    mkdir "$HOME/.shortcuts"
+    for file in "work" "try" "school"; do
+        touch ~/.shortcuts/"$file"
+    done
 }
 
 function setup_sublime () {

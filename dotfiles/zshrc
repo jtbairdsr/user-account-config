@@ -1,0 +1,114 @@
+#!/bin/bash
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+autoload -Uz promptinit
+promptinit
+prompt walters
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+[[ -n "$SSH_CLIENT" ]] && ZSH_THEME="haven-remote" || ZSH_THEME="haven-power"
+export ZSH_THEME
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want disable red dots displayed while waiting for completion
+# DISABLE_COMPLETION_WAITING_DOTS="true"
+
+# shellcheck disable=SC2034
+# Which plugins would you like to load? (find plugins in ~/.oh-my-zsh/plugins/*)
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(
+	vi-mode                  # This plugin increase vi-like zsh functionality.
+	battery                  # allows see battery status in PS
+	boot2docker              # Adds autocomplete options for all boot2docker commands
+	bower                    # Front-end package manager https://github.com/bower/bower
+	brew                     # package manger http://brew.sh/
+	colored-man-pages        # Adds colors to manpages
+	colorize                 # cat with syntax highlighting support
+	consular                 # Consular automates your development workflow setup.
+	copydir                  # Copies current dir full path to clipboard
+	copyfile                 # copies selected file content to clipboard
+	cp                       # cp with progress bar (rsync)
+	dircycle
+	docker-compose           # A copy of the completion script from the docker-compose git repo.
+	docker                   # application shipment tool https://github.com/dotbutt/docker
+	emoji-clock              # fancy shell clocks
+	extract                  # 'x' alias - swiss knife for archive extracting
+	gas                      # small utility used to manage Git authors.
+	git                      # The git plugin provides many aliases and a few useful functions.
+	git-extras               # This plugin provides completion definitions for some of the commands defined by git-extras.
+	git-flow                 # autocompletion for git-flow
+	github                   # cli access, url shortener
+	grunt                    # autocompletion for grunt
+	jump                     # Easily jump around the file system by manually adding marks
+	mosh                     # mobile shell with roaming (wifi, mobile networks) and local echo http://mosh.mit.edu/
+	node                     # NodeJS docs easy access via CLI
+	npm                      # package manager for NodeJS
+	nvm                      # NodeJS version manager
+	osx                      # MacOS completions and iTunes control
+	pip                      # Python package manager http://www.pip-installer.org/en/latest/
+	pod                      # http://cocoapods.org library dependency manager for Xcode
+	safe-paste               # extended copy/paste in terminal
+	sublime                  # aliases for SublimeText Editor
+	sudo                     # toggle sudo with esc esc
+	taskwarrior              # autocompletion for http://taskwarrior.org
+	tugboat                  # Digital Ocean droplet manager
+	vagrant                  # autocompletion for Vagrant commands, task names, box names and built-in handy documentation. All in one place.
+	yeoman                   # autocompletion for yeoman
+	zsh-completions					 # this is simply a clone of zsh-users/zsh-completions repo https://github.com/zsh-users/zsh-completions
+	zsh-syntax-highlighting  # commandline syntax highlighting
+	history-substring-search # This is a clean-room implementation of the Fish shell's history search
+)
+
+# shellcheck source=/Users/jonathan/.oh-my-zsh/oh-my-zsh.sh
+# shellcheck disable=SC1094
+. "$ZSH/oh-my-zsh.sh"
+
+# Customize to your needs...
+
+################################################################################
+#                               MY CUSTOMIZATIONS                              #
+################################################################################
+
+# ********************************** BINDKEY ********************************* #
+
+# ----------- hack to fix the broken history-substring-search plugin --------- #
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+
+# ************************************ MISC ********************************** #
+zmodload zsh/stat
+alias size='stat +size'
+
+export DEFAULT_USER='jonathan' # used to determine wether or not to show user@host in the prompt
+
+setopt NO_NOMATCH # fixes an issue with ^ when using it in git
+
+
+# this command makes most file operations faster: rm/ln/mv/chmod/chgrp/mkdir/rmdir
+zmodload zsh/files
+
+# shellcheck disable=SC1091
+[ -f ~/.aliases ] && . ~/.aliases
+
+# shellcheck disable=SC1091
+[ -f ~/.zshrc.local ] && . ~/.zshrc.local
+
+# shellcheck disable=SC1091
+[ -f ~/.iterm2_shell_integration.zsh ] && . ~/.iterm2_shell_integration.zsh
+
+# enables zsh-completions plugin
+autoload -U compinit && compinit

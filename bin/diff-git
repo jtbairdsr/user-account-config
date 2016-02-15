@@ -1,0 +1,16 @@
+#!/bin/sh
+showParams()
+{
+p=1;
+while [ $# -gt 0 ] 
+do
+	echo \$$p=$1
+	shift
+	p=$((p+1))
+done
+}
+showParams $* >/dev/null
+echo "======================================= $1 ======================================="
+# p4merge $2 $5
+diff -wBb --minimal $2 $5 | less
+exit 0

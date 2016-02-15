@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+alias ssh.bffdt='ssh -R 700${myport}:localhost:22 -R 590${myport}:localhost:5900 -g oasis.builderfusion.com'
+alias ssh.jos='myport=1; ssh.bffdt'
+alias ssh.gen='myport=2; ssh.bffdt'
+alias ssh.cj='myport=3; ssh.bffdt'
+alias ssh.judito='myport=4; ssh.bffdt'
+alias ssh.jtbaird='myport=9; ssh.bffdt'
+backups="/Volumes/MobileBackup/Backups.backupdb/parrilla"
+backup="$backups/Latest/Macintosh HD"
+alias vi='open -a MacVim'
+
+# alias sql="mysql --user=root --password='my\$ql'"
+alias sql="sed -i -e 's:\\\040: :g ' $ZDOTDIR/.mysql_history ; mysql"
+alias mysql="mysql5 "
+
+alias fixagent='exec ssh-agent zsh -ls'
+BOFMPAGES=642
+INTROPAGES=11
+((bofmRatio=557./$BOFMPAGES))
+strftime -r -s baseSeconds "%D %Z" "11/07/09 MST"
+alias stixDays='days=$(( (EPOCHSECONDS - baseSeconds) / (60*60*24) )) '
+alias stixEpoch='strftime -s epoch -r %s $((days * 60 * 60 * 24 + `strftime -r "%D %Z" "11/07/09 MST" ` )) '
+alias stixPage='page=$(( (days * 2) % (BOFMPAGES + INTROPAGES) + 1 )); [ $page = 0 ] && page=$((BOFMPAGES+INTROPAGES)) ; if [ $page -le $INTROPAGES ]; then intro="(in the intro)" ; offset=0; else offset=$INTROPAGES; intro=; fi ; npage=$((page - offset))'
+alias stixMsg='echo "read through page $npage ($((int(npage * bofmRatio)))) $intro today(`strftime %D $epoch`)" '
+alias stix='stixDays; stixEpoch; stixPage; stixMsg';
+
+Documents=$HOME/Documents
+Downloads=$HOME/Downloads
+BF=$Documents/BuilderFusion
+hash -d BF Downloads Documents
+

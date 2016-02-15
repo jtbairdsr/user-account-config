@@ -1,0 +1,5 @@
+#! /bin/bash
+
+mv ~/Library/Application\ Support/minecraft/mods/1.7.2/WorldCore-universal-1.6.4-1.1.0.17.jar ~/Library/Application\ Support/minecraft/mods/
+
+open /Applications/Minecraft.app

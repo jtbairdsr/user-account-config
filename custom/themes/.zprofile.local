@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+
+CVSROOT=:ext:cvs.builderfusion.com:/usr/local/cvs_rep;   export CVSROOT
+CVS_RSH=ssh; export CVS_RSH
+export Work=/usr/local/etc
+
+export fin=finances
+
+# cleverly put . in the list so that it appears at the very front....
+pathmunge PATH ~ /usr/bin /bin /usr/sbin /sbin /usr/local/git/bin /opt/local/bin /opt/local/sbin /opt/local/apache2/bin . /Applications/Xcode.app/Contents/Developer/usr/bin after ~/Installed/android-sdk-macosx/tools after
+
+# eventually get rid of this path when cvs no longer needed
+pathmunge PATH ~/Downloads/usr_4.2/bin after
+
+[ -x $ZDOTDIR/bin/diff-git ] && export GIT_EXTERNAL_DIFF=$ZDOTDIR/bin/diff-git
+
+# nasty hack:  xauth doesn't like file names with . in them
+# case "$DISPLAY" in
+# (*.*)
+# 	if [ -e "$DISPLAY" ] 
+# 	then
+# 		dispdir=`dirname $DISPLAY `
+# 		newdisp=$dispdir/:0
+# 		if [ ! -e $newdisp ]
+# 		then
+# 			ln -s $DISPLAY $newdisp
+# 			xauth -q generate $newdisp
+# 		fi
+# 		export DISPLAY=$newdisp
+# 	fi
+# 
+# ps flags for Darwin
+if [ `uname` = Darwin ]
+then
+	export SHOWPIDFLAGS="-awwwwxo user,pid,ppid,%cpu,%mem,lstart,tty,command" 
+fi
+# 	;;
+# esac
+# 
+SHORTCUTS=($SHORTCUTS fin )
+export TOMCAT_HOME=~/Installed/tomcat CATALINA_BASE=~/git/BuilderFusion/build/node1
+
+# digital ocean docker defaults
+export DIGITALOCEAN_ACCESS_TOKEN=9248f2a0b21707d1b42386867093f7e764e79c92791fdada85bd344634fc2bcd
+export DIGITALOCEAN_IMAGE=docker
+export DIGITALOCEAN_SIZE=1gb
+export DIGITALOCEAN_IPV6=true
+export DIGITALOCEAN_BACKUPS=true

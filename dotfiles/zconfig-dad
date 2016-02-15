@@ -1,0 +1,121 @@
+###############################################################################
+#                             INHERITED FROM DAD                              #
+#                           (and don't understand)                            #
+###############################################################################
+set -J
+set -- `type ping`
+alias rsync='rsync --partial --compress --archive'
+
+function killpid {
+	showpid $1 | awk '{print $2}'
+}
+
+function stelnet {
+	openssl s_client -crlf -connect ${1:-localhost}:${2:-143}
+}
+
+
+function show {
+	pr -t -i3 "$@" | pr -n3 -t -e3
+}
+
+function clear {
+	# disable the clear that comes in zlogout!
+}
+
+function iCanChangeFile() {
+	local f1="$1" ; shift
+	local d1=`dirname "$f1" `
+	[ -w "$f1" ] &&
+	[ -w "$d1" ]
+}
+
+function swapfile() {
+	local f1=$1; shift
+	local f2=$1; shift
+	local t=$f1.$$
+	local result=0
+	local SUDO=
+	local MV=mv
+
+	# now make sure that f1 and f2 are distinct
+	# and that f1 and f2 exist
+	# and that my tmp file t doesn't exist
+	# refuse to do ANYTHING if these tests fail
+	if
+		[ "$f1" != "$f2" ] &&
+		[ -e "$f1" ] &&
+		[ -e "$f2" ] &&
+		[ ! -e "$t" ]
+	then
+		# now see if we need to escalate permissions
+		iCanChangeFile "$f1" || SUDO=sudo
+		iCanChangeFile "$f2" || SUDO=sudo
+		if [ "$SUDO" = sudo ]
+		then
+			msg="swapping $f1 and $f2 requires escalated permissions - we will use sudo, and you may be asked for a password"
+			echo $msg >&2
+			$SUDO echo $msg >/dev/null
+		fi
+		if $SUDO $MV "$f1" "$t"
+		then
+			if $SUDO $MV "$f2" "$f1"
+			then
+				if $SUDO $MV "$t" "$f2"
+				then result=0
+				else
+					result=1
+					echo unable to rename "$f1" to "$f2", rolling back >&2
+					if $SUDO $MV "$f1" "$f2"
+					then
+						if $SUDO $MV "$t" "$f1"
+						then echo recovered: $result >&2
+						else
+							result="$result"1
+							echo unable to fully recover: $result >&2
+						fi
+					else
+						result="$result"2
+						echo unable to recover: $result >&2
+					fi
+				fi
+			else
+				result=2
+				echo unable to rename "$f2" to "$f1", rolling back >&2
+				if $SUDO $MV "$t" "$f1"
+				then echo recovered: $result >&2
+				else
+					result="$result"1
+					echo "unable to recover: $result" >&2
+				fi
+			fi
+		else
+			result=3
+			echo unable to stash $f1 >&2
+		fi
+	else
+		result=4
+		echo preconditions fail: $f1 and $f2 are duplicates, may not exist, or the temporary file $t exists >&2
+	fi
+	return $result
+}
+
+function sqlencode() {
+	if [ $# -gt 0 ]
+	then
+		echo "$@"
+	else
+		cat
+	fi |
+		sed -e "s:':'':g"
+}
+
+
+# ps flags for redhat Darwin
+if [ `uname` = Linux ]
+then
+	# cuz it can't export an array, and yet it wants this to be
+	# an array so that the args to the "o" switch  are in the
+	# next positional parameter
+	SHOWPIDFLAGS=(axwwwwo user,pid,ppid,%cpu,%mem,lstart,tty,state,command)
+fi

@@ -1,0 +1,56 @@
+#!/bin/zsh
+
+alias dm=docker-machine
+alias whu-phones="ssh -ttt macserver ssh whu-phones"
+# alias ant="ant -Djunit.path=$HOME/Installed -Djunit.jar=junit-4.11.jar -Dtomcat.home=$HOME/Installed/tomcat -Dbuild.compiler=org.eclipse.jdt.core.JDTCompilerAdapter -Dant.build.javac.source=1.6 -lib ~/Installed/ecj-3.7.jar "
+alias ant="ant -Djavac.path=/usr/bin/javac -Dant.build.javac.source=1.7 -Dant.build.java.target=1.7 -Ddevelop.url=localhost/war/WEB-INF/junit -Dtomcat.home=$HOME/Installed/tomcat -Dnode.path=/usr/local/bin "
+alias Ant="ant complie.jspc"
+alias antc=Ant
+alias tomcat=$TOMCAT_HOME/bin/catalina.sh
+alias tomcat-restart='echo; tomcat stop ; echo ; tomcat start; echo'
+alias Diff="diff -x .git\* -x build -x .DS_Store -x CVS  -x .\*.swp -x \*.pbxuser -x \*.mode1v3 -x \*.xcworkspace -x xcuserdata -x project.pbxproj "
+# lgrep -- limited grep - excludes some dirs...
+alias lgrep='grep -IR --exclude-dir=angular --exclude-dir=node_modules --exclude-dir=build --exclude-dir=dist --exclude-dir=deploy --exclude-dir=.tmp --exclude-dir=apache --exclude=\*.min.\*js\* --exclude-dir=build-cordova --exclude-dir=lib --exclude-dir=.cache'
+alias Grep='lgrep --include=\*.{jsp,sql,java,xml,properties,js,css,htm,html,tld,xsd,sh,conf,json} '
+alias Grepjs='lgrep --include=\*.js --include=\*.htm\* '
+alias Grepjsp='lgrep --include=\*.jsp '
+alias Grepjava='lgrep --include=\*.java '
+alias Grepjspjava='lgrep --include=\*.java --include=\*.jsp '
+alias Fgrep='Grep -F' 
+alias Fgrepjs='Grepjs -F' 
+alias Fgrepjsp='Grepjsp -F'
+alias Fgrepjava='Grepjava -F'
+alias Fgrepjspjava='Grepjspjava -F'
+alias oracle='ssh oracle'
+alias cj='ssh cj'
+alias jos='ssh jos'
+alias judito='ssh judito'
+alias gen='ssh gen'
+alias load='top -l2 -n4 -ocpu -ncols 17 | tail +17 | grep -EC17 "(([a-zA-Z]*  *[0-9]*\.[0-9]* )|([0-9]* running)|([0-9.*%]* idle)|(: [0-9. ,]*$)|([0-9KMG ]*free))" '
+alias ssid='networksetup -getairportnetwork en1 | cut -d: -f2-';
+alias ip='echo `ssid` `curl -A Mozilla/4.0 http://ipecho.net/plain 2>/dev/null` '
+alias bfg='case "`ssid`" ; in (*-G) ;; (*) networksetup -setairportnetwork en1 BuilderFusion-G Bfadmin1;; esac ;  ip'
+alias bfp='case "`ssid`" ; in (*-P) ;; (*) networksetup -setairportnetwork en1 BuilderFusion-P Bfadmin1;; esac ;  ip'
+alias bfdba='ssh bfdba'
+
+
+alias sqlplus='rlwrap ssh oracle sqlplus'
+alias sqlLive="sqlplus bf/d00rknob@bfdba "
+alias sqlLocal="sqlplus bf/powerful1@localhost "
+alias sqllive='rlwrap ssh zoe -t ORACLE_HOME=/u01/app/oracle/product/10.2.0 /u01/app/oracle/product/10.2.0/bin/sqlplus' 
+
+zmodload zsh/mathfunc
+zmodload zsh/datetime
+alias top="top -X"
+
+alias nssh='ssh -p22 -o StrictHostKeyChecking=no'
+
+alias bd=boot2docker
+rhb () {
+	local cmd=$1
+	shift
+	rhc $cmd --config ~/.openshift/blacktop.conf "$@"
+}
+
+$(bd shellinit 2>/dev/null )
+[ -f $ZDOTDIR/.zshrc.personal ] && . $ZDOTDIR/.zshrc.personal

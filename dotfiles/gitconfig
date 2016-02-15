@@ -1,0 +1,54 @@
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[user]
+	name = Jonathan Baird
+	email = jtbairdsr@me.com
+[credential]
+	helper = osxkeychain
+
+[push]
+	default = simple
+
+[alias]
+	adds = !git add $@ && git status
+	br = branch --list --color -vv
+	hist = log --oneline
+	ptg = push origin HEAD:ref/for/master\n
+	cm = commit -m
+	rim = rebase -i master
+
+#------------------------------------P4MERGE-----------------------------------#
+[diff]
+	tool = p4mergetool
+
+[difftool "p4mergetool"]
+	cmd = /opt/homebrew-cask/Caskroom/p4merge/2014.3-1007540/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+
+[merge]
+	summary = true
+	tool = p4merge
+
+[mergetool]
+	keepBackup = false
+
+[mergetool "p4merge"]
+	cmd = $HOME/bin/p4merge "$PWD/$BASE" "$PWD/$LOCAL" "$PWD/$REMOTE" "$PWD/$MERGED"
+	keepBackup = false
+	trustExitCode = false
+	prompt = false
+
+[mergetool "p4merge"]
+	trustExitCode = false
+
+#----------------------------------SUBLIMERGE----------------------------------#
+# [merge]
+# 	tool = sublimerge
+
+# [mergetool "sublimerge"]
+# 	cmd = subl -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\" --command \"sublimerge_diff_views{\\\"full_screen\\\": true}\"
+# 	trustExitCode = false
+
+# [difftool "sublimerge"]
+# 	cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\\\"left_read_only\\\": true, \\\"right_read_only\\\": true, \\\"full_screen\\\": true}\"

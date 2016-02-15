@@ -1,0 +1,412 @@
+" INITIALIZE VUNDLE {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               INITIALIZE VUNDLE                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+	set nocompatible
+	filetype off
+	set rtp+=~/.vim/bundle/Vundle.vim
+	call vundle#begin()
+
+	" Let Vundle manage itself
+	Plugin 'gmarik/Vundle.vim'
+
+	" Plugins
+	Plugin 'airblade/vim-gitgutter'
+	Plugin 'airblade/vim-rooter'
+	Plugin 'bling/vim-airline'
+	Plugin 'bonsaiben/bootstrap-snippets'
+	Plugin 'bronson/vim-visual-star-search'
+	Plugin 'bronson/vim-trailing-whitespace'
+	Plugin 'burnettk/vim-angular'
+	Plugin 'matthewsimo/angular-vim-snippets'
+	Plugin 'chrisbra/Colorizer'
+	Plugin 'chrisbra/csv.vim'
+	Plugin 'claco/jasmine.vim'
+	Plugin 'edkolev/promptline.vim'
+	"Plugin 'edsono/vim-matchit'
+	Plugin 'godlygeek/tabular'
+	Plugin 'honza/vim-snippets'
+	Plugin 'jistr/vim-nerdtree-tabs'
+	Plugin 'kien/ctrlp.vim'
+	Plugin 'Lokaltog/vim-easymotion'
+	Plugin 'maksimr/vim-karma'
+	Plugin 'marijnh/tern_for_vim'
+	Plugin 'michaeljsmith/vim-indent-object'
+	"Plugin 'neitanod/vim-clevertab'
+	Plugin 'othree/javascript-libraries-syntax.vim'
+	Plugin 'pangloss/vim-javascript'
+	Plugin 'rking/ag.vim'
+	Plugin 'scrooloose/syntastic'
+	Plugin 'scrooloose/nerdcommenter'
+	Plugin 'scrooloose/nerdtree'
+	Plugin 'Shougo/vimshell.vim'
+	Plugin 'Shougo/vimproc.vim'
+	Plugin 'SirVer/ultisnips'
+	Plugin 'sjl/gundo.vim'
+	Plugin 'Townk/vim-autoclose'
+	Plugin 'tpope/vim-fugitive'
+	"Plugin 'tpope/vim-sleuth'
+	Plugin 'tpope/vim-surround'
+	Plugin 'tpope/vim-abolish'
+	Plugin 'tpope/vim-commentary'
+	Plugin 'tpope/vim-git'
+	Plugin 'tpope/vim-pathogen'
+	Plugin 'tpope/vim-scriptease'
+	Plugin 'tpope/vim-sensible'
+	Plugin 'tpope/vim-speeddating'
+	Plugin 'tyru/open-browser.vim'
+	Plugin 'Valloric/YouCompleteMe'
+	Plugin 'vim-scripts/a.vim'
+	"Plugin 'vim-scripts/closetag.vim'
+	Plugin 'vim-scripts/text-object-left-and-right'
+	Plugin 'vim-scripts/YankRing.vim'
+	Plugin 'xolox/vim-misc'
+	Plugin 'Yggdroot/indentLine'
+	"Plugin 'elzr/vim-json'
+	"Plugin 'justinmk/vim-sneak'
+	"Plugin 'majutsushi/tagbar'
+	"Plugin 'mhinz/vim-signify'
+	"Plugin 'plasticboy/vim-markdown'
+
+
+	" Color schemes
+	" Plugin 'altercation/vim-colors-solarized'
+
+	call vundle#end()
+	filetype plugin indent on
+" }}}
+" CUSTOMIZATIONS I INHERITED FROM DAD {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                    CUSTOMIZATIONS I INHERITED FROM DAD                       "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+	set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+	map = :e!#
+	se wm=0 terse ws sm ai sw=3 ts=3 history=9999 viminfo='1000,f1,\"500,:9999,/9999 number
+	map n /
+	map N ?
+	map  :n!
+	map  :rew!
+	function! CleverTab()"{{{
+		if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+			return "\<Tab>"
+		else
+			return "\<C-N>"
+	endfunction"}}}
+	inoremap <Tab> <C-R>=CleverTab()<CR>
+	"hi Comment ctermfg=2*
+	hi Identifier ctermfg=5
+	hi phpIdentifier ctermfg=4
+	hi phpIdentifierSimply ctermfg=4
+	hi Statement ctermfg=4
+	hi Type cterm=underline ctermfg=4
+	hi PreProc ctermfg=4
+	hi Special ctermfg=0
+	hi Constants cterm=underline ctermfg=1
+
+	let php_parent_error_close = 1 " php_parent_error_close = 1 for highlighting parent error ] or )
+	let php_sql_query          = 1 " Options php_sql_query = 1  for SQL syntax highlighting inside strings
+	let php_htmlInStrings      = 1 " php_htmlInStrings = 1 for HTML syntax highlighting inside strings
+	let php_baselib            = 1 " php_baselib = 1 for highlighting baselib functions
+	let php_asp_tags           = 1 " php_asp_tags = 1 for highlighting ASP-style short tags
+	let php_parent_error_open  = 1 " php_parent_error_open = 1 for skipping an php end tag, if there exists an open ( or [ without a closing one
+" }}}
+" MY CUSTOMIZATIONS {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              MY CUSTOMIZATIONS                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	" Plugin Helpers {{{
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                              Plugin Helpers                             "
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		" Airline {{{
+			" bundle name: vim-airline
+			let g:airline_powerline_fonts = 1 " Enable fancy powerline fonts
+		" }}}End Airline
+		" Bootstrap-Snippets {{{
+			" bundle name: bootstrap-snippets
+			" add bootstrap snippets to the dictionary
+			set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
+			set complete+=k
+		" }}}End Bootstrap-Snippets
+		" Colors-Solarized {{{
+			" bundle name: vim-colors-solarized
+			set background=light  " default to a nice light background
+			" colorscheme solarized " a really nice color scheme
+			" create a mapping that lets me change from light to dark on the fly
+			map <F1> :set background=light<CR>
+			map <F2> :set background=dark<CR>
+		" }}}End Colors-Solarized
+		" Clevertab (currently not installed) {{{
+			" bundle name: vim-clevertab
+			"inoremap <silent><tab>   <c-r>=CleverTab#Complete('start')<CR>
+									"\<c-r>=CleverTab#Complete('tab')<CR>
+									"\<c-r>=CleverTab#Complete('keyword')<CR>
+									"\<c-r>=CleverTab#Complete('stop')<CR>
+			"inoremap <silent><s-tab> <c-r>=CleverTab#Complete('prev')<CR>
+		" }}}End Clevertab
+		" CtrlP {{{
+			" bundle name: ctrlp
+			set wildignore+=*/tmp/*,*.so,*.swp,*.zip                " Exclude files and directories using Vim's wildignore
+			let g:ctrlp_custom_ignore     = '\v[\/]\.(git|hg|svn)$' " Exclude files and directories using CtrlP's own g:ctrlp_custom_ignore
+			let g:ctrlp_user_command      = 'find %s -type f'       " Use a custom file listing command:
+			let g:ctrlp_working_path_mode = 'ra'                    " When invoked without a starting directory CtrlP will set its local working directory according to this variable:
+		" }}}End CtrlP
+		" EasyMotion {{{
+		" bundle name: vim-easymotion
+			map <Space> <Plug>(easymotion-prefix)
+		" }}}End EasyMotion
+		" Fugitive {{{
+			" bundle name: vim-fugitive
+			noremap \gs :Gstatus<CR>
+			noremap \gc :Gcommit<CR>
+			noremap \gl :Glog<CR>
+			noremap \gd :Gdiff<CR>
+		" }}}End Fugitive
+		" GitGutter {{{
+			" bundle name: vim-gitgutter
+			let g:gitgutter_realtime        = 1 " make the signs change real time as soon as I stop typing
+			let g:gitgutter_eager           = 1 " make the signs update anytime the tab or window recieves focus
+			"let g:gitgutter_highlight_lines = 1 " turn on line highlighting by default
+			" revert the current change in the file to HEAD
+			nnoremap \gr <Plug>GitGutterRevertHunk
+			" preview what the current change is
+			nnoremap \gp <Plug>GitGutterPreviewHunk
+			" stage current hunk
+			nnoremap \gS <Plug>GitGutterStageHunk
+			" make the sign column match the number column
+			highlight clear SignColumn
+		" }}}End GitGutter
+		" Gundo {{{
+			" bundle name: gundo
+			nnoremap <C-F6> :GundoToggle<CR>
+		" }}}End Gundo
+		" IndentLine {{{
+			" bundle name: indentLine
+			" mark leading spaces to distiguish them from tabs
+            let g:indentLine_leadingSpaceEnabled = 1   " mark leading spaces
+            let g:indentLine_leadingSpaceChar    = '▓' " char to mark leading spaces
+            let g:indentLine_char                = '▓' " char to mark leading spaces
+			set list                                   " show tabs
+			set listchars=tab:\\                      " a nice pretty char to show tabs
+		" }}}End IndentLine
+		" JavaScript {{{
+			" bundle name: vim-javascript
+			"this sets some defaults that conceal js keywords to shorten code
+			au FileType javascript setl conceallevel=2 concealcursor=nc
+			let g:javascript_conceal_function  = "ƒ"
+			let g:javascript_conceal_null      = "ø"
+			let g:javascript_conceal_this      = "@"
+			let g:javascript_conceal_return    = "⇚"
+			let g:javascript_conceal_undefined = "¿"
+			let g:javascript_conceal_NaN       = "ℕ"
+			let g:javascript_conceal_prototype = "¶"
+			let g:javascript_conceal_static    = "•"
+			let g:javascript_conceal_super     = "Ω"
+		" }}}End JavaScript
+		" JavaScript-Libraries-Syntax {{{
+			" bundle name: javascript-libraries-sytax
+			let g:used_javascript_libs = 'angularjs,angularui,jquery,underscore'
+		" }}}End JavaScript-Libraries-Syntax
+		" NERD-Commenter {{{
+			" bundle name: nerdcommenter
+			filetype plugin on
+			" map <F4> to start a new comment while in insert mode
+			imap <F4> <Plug>NERDCommenterInsert
+		" }}}End NERD-Commenter
+		" NERD-Tree and NERD-Tree_Tabs {{{
+			" bundle name: nerdtree
+			" bundle name: vim-nerdtree-tabs
+			let NERDTreeWinPos='right'
+			noremap \nf  :NERDTreeFind<CR>
+			noremap <F5> :NERDTreeTabsToggle<CR>
+		" }}}End NERD-Tree and NERD-Tree_Tabs"
+		" PromptLine {{{
+			" bundle name: promptline
+			let g:promptline_powerline_symbols = 1
+			let g:promptline_preset = {
+				\'a':    [ promptline#slices#host() ],
+				\'b':    [ promptline#slices#user() ],
+				\'c':    [ promptline#slices#cwd() ],
+				\'y':    [ promptline#slices#vcs_branch() ],
+				\'warn': [ promptline#slices#last_exit_code() ]}
+		" }}}End PromptLine
+		" Syntastic {{{
+			" bundle name: syntastic
+			set statusline+=%#warningmsg#
+			set statusline+=%{SyntasticStatuslineFlag()}
+			set statusline+=%*
+			let g:syntastic_check_on_open            = 1
+			let g:syntastic_check_on_wq              = 0
+			" function! ToggleErrors {{{
+			function! ToggleErrors()
+				if empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") is# "quickfix"'))
+					" No location/quickfix list shown, open syntastic error location panel
+					Errors
+				else
+					lclose
+				endif
+			endfunction
+			nnoremap <Silent> <F12> :<C-u>call ToggleErrors()<CR>
+			" }}}End ToggleErrors
+		" }}}End Syntastic
+		" Tabular {{{
+			" bundle name: tabular
+			" a normal mode shortcut to align on '='
+			nmap ,a= :Tabularize /=<CR>
+			" a visual mode shortcut to align on '='
+			vmap ,a= :Tabularize /=<CR>
+			" a normal mode shortcut to align on '"'
+			nmap ,a" :Tabularize /"<CR>
+			" a visual mode shortcut to align on '"'
+			vmap ,a" :Tabularize /"<CR>
+			" a normal mode shortcut to align on ':\zs'
+			nmap ,a: :Tabularize /:\zs<CR>
+			" a visual mode shortcut to align on ':\zs'
+			vmap ,a: :Tabularize /:\zs<CR>
+			" realtime table builder based on '|'"{{{
+				inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+				function! s:align()
+					let p = '^\s*|\s.*\s|\s*$'
+					if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+						let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+						let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+						Tabularize/|/l1
+						normal! 0
+						call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+					endif
+				endfunction"}}}
+			" }}}End Tabular
+			" UltiSnips {{{
+				"inoremap <F3> * <ESC>: call UltiSnips#ExpandSnippet()<CR>
+			" }}}End UltiSnips
+		" Visual-Star-Search {{{
+			" bundle name: vim-visual-star-search
+			" use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
+			nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
+			vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('grep', '--literal ' . shellescape(@/))<CR>
+		" }}}End Visual-Star-Search
+		" YCM {{{
+			let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+			let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+		" }}}End YCM
+	" }}}End Plugin Helpers
+	" Key Remapping {{{
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                              Key Remapping                              "
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		" edit vimrc/zshrc
+		nnoremap <Leader>ev :vsp $MYVIMRC<CR>
+		nnoremap <Leader>ez :vsp ~/.zshrc<CR>
+		" reload vimrc
+		nnoremap <Leader>sv :source $MYVIMRC<CR>
+		" save session
+		nnoremap <Leader>s :mksession<CR>
+		" turn of search highlight
+		nnoremap <Leader><Space> :nohlsearch<CR>
+		" move verically by visual line
+		nnoremap j gj
+		nnoremap k gk
+		" highlight last inserted text
+		nnoremap gV `[v`]
+		" remove the obnoxious <Shift> from :
+		nnoremap ; :
+	" }}}End Key Remapping
+	" VIM Appearance {{{
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                              VIM Appearance                             "
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		set encoding=utf-8                            " declare the encoding
+		set guifont=Source\ Code\ Pro\ for\ Powerline\ Modified " this forces the needed font for some of the fancyness
+		syntax on                                     " turn on syntax highlighting
+		au BufNewFile,BufRead *.b,*/*BP*/* setf jbase " enable syntax highlighting for jBASE (Pick) Basic
+		" highlight the 80th column
+		" In Vim >= 7.3, also highlight columns 120+
+		if exists('+colorcolumn')
+			let &colorcolumn="80,".join(range(120,500),",")
+		else
+		" fallback for Vim < v7.3
+			autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg','\%>80v.\+', -1)
+		endif
+		hi Folded term=bold cterm=bold
+		hi Tab cterm=none gui=none ctermbg=none
+		set fillchars="fold: "                       " remove the dashes from folds
+	" }}}End VIM Appearance
+	" VIM Behavior {{{
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                               VIM Behavior                              "
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		filetype indent on             " load filetype-specific indent files
+		set wildmenu                   " visual autocomplete for command menu
+		set lazyredraw                 " redraw the screen only when we need to
+		set showmatch                  " highlight matching {}[]()
+		set incsearch                  " show search results as I type
+		set hlsearch                   " highlight all search results
+		set noexpandtab                " prevent vi from expanding tabs to spaces
+		set copyindent                 " make vi maintain indentation level automatically
+		set cinoptions=(0,u0,U0        " make indenting of parameters look really nice
+		set preserveindent             " make vi use the same indent stucture as on the previous line
+		set shiftwidth=4               " use 4 spaces for each step of autoindent
+		set tabstop=4                  " make tabs count for 4 spaces
+		set breakindent                " make sure Vim will wrap indented lines correctly
+		set hidden                     " don't unload buffer when switching away
+		set backspace=indent,eol,start " sane backspace
+		set mouse=a                    " enable mouse for all modes settings
+		set nomousehide                " don't hide the mouse cursor while typing
+		set mousemodel=popup           " right-click pops up context menu
+		set ruler                      " show cursor position in status bar
+		set number                     " show absolute line number of the current line
+		set scrolloff=10               " scroll the window so we can always see 10 lines around the cursor
+		set cursorline                 " highlight the current line
+		set cursorcolumn               " highlight the current column
+		set printoptions=paper:letter  " user letter as the print output paper format
+		set shell=/bin/zsh             " define the shell to match my system shell
+		set foldenable                 " enable folding
+		set foldlevelstart=10          " open most folds by default
+		set foldmethod=syntax          " fold based on indent level
+		set modeline                   " turns on modelines
+		set modelines=5                " tell vim to look at a comment on the last line of a file for file specific settings
+		set showcmd                    " show command in bottom bar
+		command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+		" Change color scheme to dark at night but light during the day
+"		let hour = strftime("%H")
+"		if hour >= 6 && hour < 18
+"			set background=light
+"		else
+"			set background=dark
+"		endif
+"		colorscheme solarized
+	" }}} End Vim Behavior
+	" VIM Functions {{{
+		" Return indent (all whitespace at start of a line), converted from
+		" tabs to spaces if what = 1, or from spaces to tabs otherwise.
+		" When converting to tabs, result has no redundant spaces.
+		function! Indenting(indent, what, cols)
+			let spccol = repeat(' ', a:cols)
+			let result = substitute(a:indent, spccol, '\t', 'g')
+			let result = substitute(result, ' \+\ze\t', '', 'g')
+			if a:what == 1
+				let result = substitute(result, '\t', spccol, 'g')
+			endif
+			return result
+		endfunction
+
+		" Convert whitespace used for indenting (before first non-whitespace).
+		" what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
+		" cols = string with number of columns per tab, or empty to use 'tabstop'.
+		" The cursor position is restored, but the cursor will be in a different
+		" column when the number of characters in the indent of the line is changed.
+		function! IndentConvert(line1, line2, what, cols)
+			let savepos = getpos('.')
+			let cols = empty(a:cols) ? &tabstop : a:cols
+			execute a:line1 . ',' . a:line2 .  's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
+			call histdel('search', -1)
+			call setpos('.', savepos)
+		endfunction
+		command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-args>)
+		command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
+		command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>''
+	" }}}
+" }}}
+" vim:foldmethod=marker:foldlevel=0

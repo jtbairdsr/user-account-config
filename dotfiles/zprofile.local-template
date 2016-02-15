@@ -1,0 +1,82 @@
+#!/bin/zsh
+
+################################################################################
+#                             Environment Variables                            #
+################################################################################
+
+# ---------------------------------- General ----------------------------------#
+export SHELLCHECK_OPTS='-x'
+export IS_LAPTOP=true  # This enables a battery gauge in my shell
+export APACHE_ENV='develop'
+PATH=$PATH:~/Downloads/usr_4.2/bin:/Applications/VMware\ Fusion.app/Contents/Library
+CDPATH=$CDPATH:/usr/local:~/work:/Users:~/Documents:/Volumes:~/Documents/BuilderFusion
+
+# --------------------------- Digital Ocean Account ---------------------------#
+export DIGITALOCEAN_ACCESS_TOKEN=9248f2a0b21707d1b42386867093f7e764e79c92791fdada85bd344634fc2bcd
+export DIGITALOCEAN_IMAGE=docker
+export DIGITALOCEAN_SIZE=1gb
+export DIGITALOCEAN_IPV6=true
+export DIGITALOCEAN_BACKUPS=true
+export GIT_EXTERNAL_DIFF=$HOME/bin/diff-git
+
+# ---------------------------------- Blacktop ---------------------------------#
+export BT_ENV=development
+export BT_IP=`ipconfig getifaddr en0`
+export BT_PORT=3000
+
+################################################################################
+#                                    Aliases                                   #
+################################################################################
+
+# ---------------------------------- General ----------------------------------#
+alias flushdns="sudo discoveryutil mdnsflushcache"          # TODO: got it from dad and I don't know what id does
+alias rzsh='echo relaunching zsh.......;exec zsh -ls'       # an alias for relaunching zsh
+alias e2e='echo -ne "\e]1;e2e testing\a"'                   # set e2e testing window title
+alias unit='echo -ne "\e]1;unit testing\a";work;grunt test' # set unit testing window title
+alias misc='echo -ne "\e]1;misc\a";work;git status'         # set misc window title
+alias lvr='echo -ne "\e]1;live reload\a";work;grunt watch'  # set live reload window title
+alias edit='echo -ne "\e]1;editing\a"'                      # set unit testing window title
+alias clr='colorize'                                        # a shortened version of the colorize alias
+# --------------------------------- VirtualBox --------------------------------#
+alias cit325='VBoxManage startvm Database325 --type headless;\ssh database' # start DB vm
+alias vblist='VBoxManage list runningvms'                                   # show running vms
+
+# ---------------------------------- Blacktop ---------------------------------#
+alias blktp='showenv bt;work;grunt'            # show blacktop env and launch server
+alias blktpP='export BT_ENV=production;blktp'  # set env to production
+alias blktpD='export BT_ENV=development;blktp' # set env to development
+alias blktpT='export BT_ENV=test;blktp'        # set env to test
+
+###############################################################################
+#                             INHERITED FROM DAD                              #
+#                           (and don't understand)                            #
+###############################################################################
+
+if [ `uname` = Darwin ]
+then
+	export SHOWPIDFLAGS="-awwwwxo user,pid,ppid,%cpu,%mem,lstart,tty,command"
+fi
+SHORTCUTS=($SHORTCUTS fin )
+
+[ -f $HOME/.bash_profile ] && . $HOME/.bash_profile 2>/dev/null
+
+###############################################################################
+#                                Experimintation                              #
+###############################################################################
+
+function testaFunc {
+	echo $@
+}
+function rbg {
+	b=master
+	for x in `git branch --no-merged $b`
+	do
+		case "$x" in (\*|$@)
+			echo skipping $x >&2
+			continue
+		esac
+		echo rebasing $x
+		git rebase $b $x || break
+	done
+}
+

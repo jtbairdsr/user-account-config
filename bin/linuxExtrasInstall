@@ -1,0 +1,5 @@
+sudo yum install zsh
+
+sudo yum install rlwrap
+
+sudo yum install vim

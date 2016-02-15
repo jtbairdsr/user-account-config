@@ -1,0 +1,34 @@
+# @(#)local.profile 1.8	99/03/26 SMI
+
+export SHELL=`type zsh | (read zsh is here; echo $here)`
+export file ENV
+export PATH CDPATH path
+export WATCH=notme
+export WATCHFMT="%n has %a %l from %m %@ %W"
+export CLICOLOR=xerm-color
+
+stty istrip erase '^H' 2>/dev/null
+
+
+
+export SAVEHIST=100000
+HISTSIZE=$SAVEHIST export HISTSIZE
+HISTFILE=~/.sh.history export HISTFILE
+EDITOR=vim export EDITOR
+PAGER=less export PAGER
+ZSHEDIT=vim export ZSHEDIT
+
+PATH=$PATH:~/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:
+
+CDPATH=:..:~:/home
+
+MANPATH=:man:/usr/man:/usr/local/man:/usr/share/man
+export MANPATH
+
+#RPROMPT="[%T]"	 export RPROMPT
+
+export BLOCKSIZE=M
+export log=/var/log/bf
+SHORTCUTS=(alt work db school)
+
+[ -f ~/.zprofile.local ] && . ~/.zprofile.local

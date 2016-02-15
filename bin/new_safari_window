@@ -1,0 +1,14 @@
+##########
+#!/bin/bash
+ready=`expr "$1" : 'http'`
+if [[ $ready != 4 ]]
+then
+url=http://$1
+else
+url=$1
+fi
+
+osascript <<EOD
+tell application "Safari" to make new document with properties {URL:"$url"}
+return
+EOD

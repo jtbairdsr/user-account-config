@@ -37,7 +37,7 @@
 	"requireSpacesInConditionalExpression": true,                                  // Requires space before and/or after ? or : in conditional expressions.
 	"requireSpacesInForStatement": true,                                           // Requires spaces inbetween for statement
 	"safeContextKeyword": ["that", "object"],                                      // Option to check var that = this expressions
-	"validateIndentation": "\t",                                                   // Validates indentation for switch statements and block statements
+	"validateIndentation": " ",                                                   // Validates indentation for switch statements and block statements
 	"validateQuoteMarks": "'",                                                     // Requires all quote marks to be either the supplied value, or consistent if true
 	"requireSpaceBeforeKeywords": [                                                // Requires space before keyword.
 		"do",

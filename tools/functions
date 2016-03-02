@@ -43,7 +43,7 @@ function link_dotfiles () {
     #---------------------------- Install oh-my-zsh ----------------------------
     echo "Installing oh-my-zsh..."
 
-    "$CONFIG_DIRECTORY/install-oh-my-zsh"
+    "$CONFIG_DIRECTORY/tools/install-oh-my-zsh"
     # remove the custom dir in .oh-my-zsh so that we can link to our custom dir
     rm -rf "$HOME/.oh-my-zsh/custom"
     # link our custom dir to .oh-my-zsh
@@ -60,7 +60,7 @@ function link_dotfiles () {
     ln -sf "$CONFIG_DIRECTORY/bin" "$HOME"
 
     #----------------------- Create shortcuts directory ------------------------
-    create_shortcuts
+    # create_shortcuts
 
     #------------------------------- Reload zsh --------------------------------
 	exec zsh -ls
@@ -70,12 +70,13 @@ function link_dotfiles () {
 function create_shortcuts {
     mkdir "$HOME/.shortcuts"
     for file in "work" "try" "school"; do
-        touch ~/.shortcuts/"$file"
+        echo $HOME >  ~/.shortcuts/"$file"
     done
+    echo "$HOME/.user-account-config" > ~/.shortcuts/config
 }
 
 function setup_sublime () {
-	cd ~/Library/Application Support/Sublime Text 3/Packages || exit
+	cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages || exit
 	rm -rf User
 	ln -s ~/Dropbox/Sublime/User
 }

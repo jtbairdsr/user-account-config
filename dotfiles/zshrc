@@ -53,6 +53,7 @@ plugins=(
 	git-flow                 # autocompletion for git-flow
 	github                   # cli access, url shortener
 	grunt                    # autocompletion for grunt
+	gulp                     # autocompletion for gulp
 	jump                     # Easily jump around the file system by manually adding marks
 	mosh                     # mobile shell with roaming (wifi, mobile networks) and local echo http://mosh.mit.edu/
 	node                     # NodeJS docs easy access via CLI

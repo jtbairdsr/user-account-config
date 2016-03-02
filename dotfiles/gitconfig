@@ -52,3 +52,9 @@
 
 # [difftool "sublimerge"]
 # 	cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\\\"left_read_only\\\": true, \\\"right_read_only\\\": true, \\\"full_screen\\\": true}\"
+[filter "lfs"]
+	smudge = git-lfs smudge %f
+	required = true
+	clean = git-lfs clean %f
+[core]
+	editor = vim

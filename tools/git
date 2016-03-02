@@ -1,0 +1,10 @@
+echo "Installing Git..........................................................."
+brew install git
+
+echo "Git config..."
+git config --global user.name "Jonathan Baird"
+git config --global user.email "jtbairdj@gmail.com"
+
+echo "Installing brew git utilities..."
+brew install git-extras
+brew install git-flow

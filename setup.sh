@@ -2,6 +2,7 @@
 
 # load in extra functions
 source tools/functions
+useraccountconfig=$(pwd)
 
 #----------------- Ask for the administrator password upfront -----------------#
 echo "Start by getting permission----------------------------------------------"
@@ -24,66 +25,21 @@ xcode-select --install
 #                     The missing package manager for OS X                     #
 #==============================================================================#
 
-#----------------------------- Check for Homebrew ------------------------------
-if test ! "$(which brew)"; then
-    # Install if we don't have it
-    echo "Installing Hombrew-------------------------------------------------------"
-    # Redirect stdin to /dev/null so that it won't ask if you are sure. This is
-    # a hack and based on undocumented digging into the source so it may break
-    # and need to be fixed
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
-fi
-
-#--------------------------- Update Homebrew recipes ---------------------------
-echo "Updating Homebrew--------------------------------------------------------"
-brew update
-
-#--------- Install versioned formulae for the Homebrew package manager ---------
-# These formulae provide multiple versions of existing packages, or newer
-# versions of packages.
-echo "Installing Hombrew Versions----------------------------------------------"
-brew tap homebrew/versions
-
-#---------------------- Install miscellaneous brew stuff -----------------------
-echo "Installing other brew stuff----------------------------------------------"
-brew install tree              # a visually easy to follow recursive ls
-brew install wget              # adds wget (which should already be there)
-brew install python            # This updates python
-brew install shellcheck        # linter for shell scripts
-brew install coreutils         # adds color to ls
-brew install mobile-shell      # fault tollerent ssh
-brew install terminal-notifier # send notifications from the termnal
-
+source tools/brew
 #---------------------------- Setup for development ----------------------------
 echo "Setting up for development-----------------------------------------------"
 
 
 # GIT
-
-echo "Installing Git..........................................................."
-brew install git
-
-echo "Git config..."
-git config --global user.name "Jonathan Baird"
-git config --global user.email "jtbairdj@gmail.com"
-
-echo "Installing brew git utilities..."
-brew install git-extras
-brew install git-flow
+cd $useraccountconfig
+source tools/git
 
 # NODE
 
-source tools/node
+cd $useraccountconfig
+# source tools/node
 
-#==============================================================================#
-#                            Get dotfiles form Github                          #
-#==============================================================================#
-
-echo "Getting dotfiles from Github..."
-cd ~ || exit
-git clone --recursive # add repo once I get it up there
-cd ~/dotfiles || exit
-link_dotfiles
+# link_dotfiles
 
 #==============================================================================#
 #                             Install Custom Fonts                             #
@@ -147,6 +103,7 @@ apps=(
     netgeargenie # for managing netgear routers
     nvalt # quick note taking
     yujitach-menumeters # activity monitor for the menubar
+    xquartz
 
     #--------------------- upgrades for finders quicklook ----------------------
     qlcolorcode # syntax highlighting
@@ -167,7 +124,9 @@ apps=(
 
 #-------------------------------- Install apps ---------------------------------
 echo "Installing apps with Cask------------------------------------------------"
-brew cask install "${apps[0]}"
+# for app in "${apps[@]}"; do
+    brew cask install "${$app[@]}"
+# done
 
 echo "Cleaning up..."
 brew cask cleanup
@@ -182,5 +141,6 @@ setup_sublime
 #==============================================================================#
 #                              Tweak OS X Settings                             #
 #==============================================================================#
+cd "$useraccountconfig"
 source tools/osx
 

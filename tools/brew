@@ -25,10 +25,16 @@ brew tap homebrew/versions
 
 #---------------------- Install miscellaneous brew stuff -----------------------
 echo "Installing other brew stuff----------------------------------------------"
-brew install tree              # a visually easy to follow recursive ls
-brew install wget              # adds wget (which should already be there)
-brew install python            # This updates python
-brew install shellcheck        # linter for shell scripts
-brew install coreutils         # adds color to ls
-brew install mobile-shell      # fault tollerent ssh
-brew install terminal-notifier # send notifications from the termnal
+
+apps=(
+	tree              # a visually easy to follow recursive ls
+	wget              # adds wget (which should already be there)
+	python            # This updates python
+	shellcheck        # linter for shell scripts
+	coreutils         # adds color to ls
+	mobile-shell      # fault tollerent ssh
+	terminal-notifier # send notifications from the termnal
+	heroku-toolbelt   # heroku cli cmds etc.
+)
+
+brew install "${$apps[@]}"

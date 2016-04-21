@@ -67,70 +67,7 @@ rm -rf .custom-fonts
 echo "Installing Hombrew Cask--------------------------------------------------"
 brew install caskroom/cask/brew-cask
 
-# Apps
-apps=(
-    #-------------------------------- Browsers ---------------------------------
-    firefox
-
-    #---------------------------------- Media ----------------------------------
-    vlc # because it can do all media
-    handbrake # to encode all media
-
-
-    #-------------------------- Workflow improvements --------------------------
-    alfred # much better than spotlight (checkout the workflows)
-    iterm2-beta # the latest release of iterm2 on the beta branch
-    bettertouchtool
-
-    #------------------------------- Development -------------------------------
-    application-loader # for ios app development
-    dockertoolbox # for managing docker
-    gitx # my personal preference on gui git client
-    java # make sure it is up to date
-    macdown # intense markdown editor
-    macvim # the gui vim for mac
-    p4merge # this rocks merging in git
-    slack
-    sublime-text3
-    virtualbox
-    vagrant
-
-    #------------------------------ General/Misc -------------------------------
-    appcleaner # for tracking down app files when uninstalling
-    disk-inventory-x # for managing full disks
-    dropbox-experimental # get my data everywhere
-    flux-beta # manage the color and brightness of your monitors to fight insomnia
-    netgeargenie # for managing netgear routers
-    nvalt # quick note taking
-    yujitach-menumeters # activity monitor for the menubar
-    xquartz
-
-    #--------------------- upgrades for finders quicklook ----------------------
-    qlcolorcode # syntax highlighting
-    suspicious-package # see details of installation packages
-    qlmarkdown # preview markdown files
-    qlstephen # preview files without a file extension (i.e. INSTALL, MAKEFILE)
-    #-------------------- would like it but it costs money ---------------------
-    bartender # clean up the menubar
-    harvest # timeclock app
-    superduper # for backingup a backup
-    # transmit # the #1 Mac OS X FTP client.
-    # cleanmymac
-    # glyphs
-    #---------------------------------- MAYBE ----------------------------------
-    # mailbox
-
-)
-
-#-------------------------------- Install apps ---------------------------------
-echo "Installing apps with Cask------------------------------------------------"
-# for app in "${apps[@]}"; do
-    brew cask install "${$app[@]}"
-# done
-
-echo "Cleaning up..."
-brew cask cleanup
-brew cleanup
+source tools/cask-apps
 
 #==============================================================================#
 #                                 Setup Sublime                                #

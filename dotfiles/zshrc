@@ -62,7 +62,6 @@ plugins=(
 	osx                      # MacOS completions and iTunes control
 	pip                      # Python package manager http://www.pip-installer.org/en/latest/
 	pod                      # http://cocoapods.org library dependency manager for Xcode
-	safe-paste               # extended copy/paste in terminal
 	sublime                  # aliases for SublimeText Editor
 	sudo                     # toggle sudo with esc esc
 	taskwarrior              # autocompletion for http://taskwarrior.org

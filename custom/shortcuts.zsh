@@ -12,3 +12,13 @@ for x in "${SHORTCUTS[@]}"; do
     alias $x="cd \"\$$x\"; pwd"
     hash -d "$x"
 done
+
+function createShortcut () {
+	pwd > ~/.shortcuts/"$1" && rzsh
+}
+
+function removeShortcut () {
+	rm ~/.shortcuts/"$1"
+	echo shortcut $1 removed
+	rzsh
+}

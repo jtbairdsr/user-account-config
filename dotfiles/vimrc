@@ -71,7 +71,7 @@
 
 
 	" Color schemes
-	" Plugin 'altercation/vim-colors-solarized'
+	Plugin 'altercation/vim-colors-solarized'
 
 	call vundle#end()
 	filetype plugin indent on
@@ -133,7 +133,7 @@
 		" Colors-Solarized {{{
 			" bundle name: vim-colors-solarized
 			set background=light  " default to a nice light background
-			" colorscheme solarized " a really nice color scheme
+			colorscheme solarized " a really nice color scheme
 			" create a mapping that lets me change from light to dark on the fly
 			map <F1> :set background=light<CR>
 			map <F2> :set background=dark<CR>
@@ -319,7 +319,7 @@
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 		set encoding=utf-8                            " declare the encoding
 		set guifont=Source\ Code\ Pro\ for\ Powerline\ Modified " this forces the needed font for some of the fancyness
-		syntax on                                     " turn on syntax highlighting
+		syntax enable                                 " turn on syntax highlighting
 		au BufNewFile,BufRead *.b,*/*BP*/* setf jbase " enable syntax highlighting for jBASE (Pick) Basic
 		" highlight the 80th column
 		" In Vim >= 7.3, also highlight columns 120+
@@ -370,13 +370,13 @@
 		set showcmd                    " show command in bottom bar
 		command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 		" Change color scheme to dark at night but light during the day
-"		let hour = strftime("%H")
-"		if hour >= 6 && hour < 18
-"			set background=light
-"		else
-"			set background=dark
-"		endif
-"		colorscheme solarized
+		let hour = strftime("%H")
+		if hour >= 6 && hour < 18
+			set background=light
+		else
+			set background=dark
+		endif
+		colorscheme solarized
 	" }}} End Vim Behavior
 	" VIM Functions {{{
 		" Return indent (all whitespace at start of a line), converted from

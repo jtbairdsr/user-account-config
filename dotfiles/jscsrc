@@ -36,42 +36,11 @@
 	"requireSpaceBetweenArguments": true,                                          // Ensure there are spaces after argument separators in call expressions.
 	"requireSpacesInConditionalExpression": true,                                  // Requires space before and/or after ? or : in conditional expressions.
 	"requireSpacesInForStatement": true,                                           // Requires spaces inbetween for statement
-	"safeContextKeyword": ["that", "object"],                                      // Option to check var that = this expressions
-	"validateIndentation": " ",                                                   // Validates indentation for switch statements and block statements
+	"safeContextKeyword": ["that", "_this", "$this"],                              // Option to check var that = this expressions
+	"validateIndentation": "\t",                                                    // Validates indentation for switch statements and block statements
 	"validateQuoteMarks": "'",                                                     // Requires all quote marks to be either the supplied value, or consistent if true
-	"requireSpaceBeforeKeywords": [                                                // Requires space before keyword.
-		"do",
-    	"for",
-    	"if",
-    	"else",
-    	"switch",
-    	"case",
-    	"try",
-    	"catch",
-    	"void",
-    	"while",
-    	"with",
-    	"return"
-    ],
-	"requireSpaceAfterKeywords": [                                                 // Requires space after keyword.
-		"do",
-    	"for",
-    	"if",
-    	"else",
-    	"switch",
-    	"case",
-    	"try",
-    	"catch",
-    	"void",
-    	"while",
-    	"with",
-    	"return",
-    	"typeof"
-    ],
-	"requireSpacesInFunction": {                                                   // Requires space before () or {} in function expressions (both named and anonymous) and function declarations.
-		"beforeOpeningCurlyBrace": true
-	},
-	"disallowSpacesInFunction": {                                                  // Disallows space before () or {} in function expressions (both named and anonymous) and function declarations.
-		"beforeOpeningRoundBrace": true
-	}
+	"requireSpaceBeforeKeywords": ["do", "for", "if", "else", "switch", "case", "try", "catch", "void", "while", "with", "return"],          // Requires space before keyword.
+	"requireSpaceAfterKeywords": ["do", "for", "if", "else", "switch", "case", "try", "catch", "void", "while", "with", "return", "typeof"], // Requires space after keyword.
+	"requireSpacesInFunction": {"beforeOpeningCurlyBrace": true},                  // Requires space before () or {} in function expressions (both named and anonymous) and function declarations.
+	"disallowSpacesInFunction": {"beforeOpeningRoundBrace": true}                  // Disallows space before () or {} in function expressions (both named and anonymous) and function declarations.
 }

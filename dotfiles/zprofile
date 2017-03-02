@@ -13,7 +13,7 @@ stty istrip erase '^H' 2>/dev/null
 export SAVEHIST=100000
 HISTSIZE=$SAVEHIST export HISTSIZE
 HISTFILE=~/.sh.history export HISTFILE
-EDITOR='/usr/local/Cellar/macvim/HEAD/bin/mvim -v' export EDITOR
+EDITOR='/usr/local/bin/mvim -v' export EDITOR
 PAGER=less export PAGER
 ZSHEDIT=vim export ZSHEDIT
 

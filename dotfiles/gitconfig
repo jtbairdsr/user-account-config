@@ -4,7 +4,7 @@
 	smudge = git media smudge %f
 [user]
 	name = Jonathan Baird
-	email = jtbairdsr@me.com
+	email = jtbairdj@gmail.com
 [credential]
 	helper = osxkeychain
 
@@ -24,7 +24,7 @@
 	tool = p4mergetool
 
 [difftool "p4mergetool"]
-	cmd = /opt/homebrew-cask/Caskroom/p4merge/2014.3-1007540/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
 
 [merge]
 	summary = true
@@ -42,19 +42,15 @@
 [mergetool "p4merge"]
 	trustExitCode = false
 
-#----------------------------------SUBLIMERGE----------------------------------#
-# [merge]
-# 	tool = sublimerge
-
-# [mergetool "sublimerge"]
-# 	cmd = subl -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\" --command \"sublimerge_diff_views{\\\"full_screen\\\": true}\"
-# 	trustExitCode = false
-
-# [difftool "sublimerge"]
-# 	cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\\\"left_read_only\\\": true, \\\"right_read_only\\\": true, \\\"full_screen\\\": true}\"
 [filter "lfs"]
 	smudge = git-lfs smudge %f
 	required = true
 	clean = git-lfs clean %f
 [core]
 	editor = vim
+[difftool]
+	prompt = false
+	prompt = false
+	prompt = false
+[status]
+	submodulesummary = 1

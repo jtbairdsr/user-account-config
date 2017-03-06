@@ -1,91 +1,85 @@
-" INITIALIZE VUNDLE {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               INITIALIZE VUNDLE                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-	set nocompatible
-	filetype off
-	set rtp+=~/.vim/bundle/Vundle.vim
-	call vundle#begin()
+" INITIALIZE PLUG {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                    INITIALIZE PLUG                                                   ""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	call plug#begin()
 
-	" Let Vundle manage itself
-	Plugin 'gmarik/Vundle.vim'
-
-	" Plugins
-	Plugin 'airblade/vim-gitgutter'
-	Plugin 'airblade/vim-rooter'
-	Plugin 'bling/vim-airline'
-	Plugin 'bonsaiben/bootstrap-snippets'
-	Plugin 'bronson/vim-visual-star-search'
-	Plugin 'bronson/vim-trailing-whitespace'
-	Plugin 'burnettk/vim-angular'
-	Plugin 'matthewsimo/angular-vim-snippets'
-	Plugin 'chrisbra/Colorizer'
-	Plugin 'chrisbra/csv.vim'
-	Plugin 'claco/jasmine.vim'
-	Plugin 'edkolev/promptline.vim'
-	"Plugin 'edsono/vim-matchit'
-	Plugin 'godlygeek/tabular'
-	Plugin 'honza/vim-snippets'
-	Plugin 'jistr/vim-nerdtree-tabs'
-	Plugin 'kien/ctrlp.vim'
-	Plugin 'Lokaltog/vim-easymotion'
-	Plugin 'maksimr/vim-karma'
-	Plugin 'marijnh/tern_for_vim'
-	Plugin 'michaeljsmith/vim-indent-object'
-	"Plugin 'neitanod/vim-clevertab'
-	Plugin 'othree/javascript-libraries-syntax.vim'
-	Plugin 'pangloss/vim-javascript'
-	Plugin 'rking/ag.vim'
-	Plugin 'scrooloose/syntastic'
-	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'Shougo/vimshell.vim'
-	Plugin 'Shougo/vimproc.vim'
-	Plugin 'SirVer/ultisnips'
-	Plugin 'sjl/gundo.vim'
-	Plugin 'Townk/vim-autoclose'
-	Plugin 'tpope/vim-fugitive'
-	"Plugin 'tpope/vim-sleuth'
-	Plugin 'tpope/vim-surround'
-	Plugin 'tpope/vim-abolish'
-	Plugin 'tpope/vim-commentary'
-	Plugin 'tpope/vim-git'
-	Plugin 'tpope/vim-pathogen'
-	Plugin 'tpope/vim-scriptease'
-	Plugin 'tpope/vim-sensible'
-	Plugin 'tpope/vim-speeddating'
-	Plugin 'tyru/open-browser.vim'
-	Plugin 'Valloric/YouCompleteMe'
-	Plugin 'vim-scripts/a.vim'
-	"Plugin 'vim-scripts/closetag.vim'
-	Plugin 'vim-scripts/text-object-left-and-right'
-	Plugin 'vim-scripts/YankRing.vim'
-	Plugin 'xolox/vim-misc'
-	Plugin 'Yggdroot/indentLine'
-	"Plugin 'elzr/vim-json'
-	"Plugin 'justinmk/vim-sneak'
-	"Plugin 'majutsushi/tagbar'
-	"Plugin 'mhinz/vim-signify'
-	"Plugin 'plasticboy/vim-markdown'
+	" Plugins ----------------------------------------------------------------------------------------------------------
+	Plug 'airblade/vim-gitgutter'
+	Plug 'airblade/vim-rooter'
+	Plug 'bonsaiben/bootstrap-snippets'
+	Plug 'bronson/vim-visual-star-search'
+	Plug 'bronson/vim-trailing-whitespace'
+	Plug 'burnettk/vim-angular'
+	Plug 'matthewsimo/angular-vim-snippets'
+	Plug 'chrisbra/Colorizer'
+	Plug 'chrisbra/csv.vim'
+	Plug 'claco/jasmine.vim'
+	Plug 'edkolev/promptline.vim'
+	Plug 'edsono/vim-matchit'
+	Plug 'godlygeek/tabular'
+	Plug 'honza/vim-snippets'
+	Plug 'jistr/vim-nerdtree-tabs'
+	Plug 'kien/ctrlp.vim'
+	Plug 'leafgarland/typescript-vim'
+	Plug 'Lokaltog/vim-easymotion'
+	Plug 'majutsushi/tagbar'
+	Plug 'maksimr/vim-karma'
+	Plug 'marijnh/tern_for_vim'
+	Plug 'michaeljsmith/vim-indent-object'
+	Plug 'neitanod/vim-clevertab'
+	Plug 'othree/javascript-libraries-syntax.vim'
+	Plug 'pangloss/vim-javascript'
+	Plug 'rking/ag.vim'
+	Plug 'scrooloose/syntastic'
+	Plug 'scrooloose/nerdcommenter'
+	Plug 'scrooloose/nerdtree'
+	Plug 'severin-lemaignan/vim-minimap'
+	Plug 'Shougo/vimshell.vim'
+	Plug 'Shougo/vimproc.vim'
+	Plug 'sjl/gundo.vim'
+	Plug 'Townk/vim-autoclose'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-sleuth'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-abolish'
+	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-git'
+	Plug 'tpope/vim-pathogen'
+	Plug 'tpope/vim-scriptease'
+	Plug 'tpope/vim-sensible'
+	Plug 'tpope/vim-speeddating'
+	Plug 'tyru/open-browser.vim'
+	Plug 'Valloric/YouCompleteMe'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'vim-scripts/a.vim'
+	Plug 'vim-scripts/closetag.vim'
+	Plug 'vim-scripts/text-object-left-and-right'
+	Plug 'vim-scripts/YankRing.vim'
+	Plug 'xolox/vim-misc'
+	Plug 'Yggdroot/indentLine'
+	Plug 'elzr/vim-json'
+	Plug 'justinmk/vim-sneak'
+	Plug 'majutsushi/tagbar'
+	Plug 'mhinz/vim-signify'
+	Plug 'plasticboy/vim-markdown'
 
 
-	" Color schemes
-	Plugin 'altercation/vim-colors-solarized'
 
-	call vundle#end()
-	filetype plugin indent on
+	" Color schemes ----------------------------------------------------------------------------------------------------
+	Plug 'altercation/vim-colors-solarized'
+
+	call plug#end()
 " }}}
+
 " CUSTOMIZATIONS I INHERITED FROM DAD {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    CUSTOMIZATIONS I INHERITED FROM DAD                       "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                          CUSTOMIZATIONS I INHERITED FROM DAD                                         "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
 	set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
-	map = :e!#
 	se wm=0 terse ws sm ai sw=3 ts=3 history=9999 viminfo='1000,f1,\"500,:9999,/9999 number
-	map n /
-	map N ?
 	map  :n!
 	map  :rew!
 	function! CleverTab()"{{{
@@ -97,133 +91,150 @@
 	inoremap <Tab> <C-R>=CleverTab()<CR>
 	"hi Comment ctermfg=2*
 	hi Identifier ctermfg=5
-	hi phpIdentifier ctermfg=4
-	hi phpIdentifierSimply ctermfg=4
 	hi Statement ctermfg=4
 	hi Type cterm=underline ctermfg=4
 	hi PreProc ctermfg=4
 	hi Special ctermfg=0
 	hi Constants cterm=underline ctermfg=1
-
-	let php_parent_error_close = 1 " php_parent_error_close = 1 for highlighting parent error ] or )
-	let php_sql_query          = 1 " Options php_sql_query = 1  for SQL syntax highlighting inside strings
-	let php_htmlInStrings      = 1 " php_htmlInStrings = 1 for HTML syntax highlighting inside strings
-	let php_baselib            = 1 " php_baselib = 1 for highlighting baselib functions
-	let php_asp_tags           = 1 " php_asp_tags = 1 for highlighting ASP-style short tags
-	let php_parent_error_open  = 1 " php_parent_error_open = 1 for skipping an php end tag, if there exists an open ( or [ without a closing one
 " }}}
+
 " MY CUSTOMIZATIONS {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                              MY CUSTOMIZATIONS                              "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                   MY CUSTOMIZATIONS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	" Plugin Helpers {{{
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	"                              Plugin Helpers                             "
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                                                 Plugin Helpers                                                   "
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 		" Airline {{{
-			" bundle name: vim-airline
+			" bundle name: vim-airline ---------------------------------------------------------------------------------
 			let g:airline_powerline_fonts = 1 " Enable fancy powerline fonts
 		" }}}End Airline
+
+		" Airline-Themes {{{
+			" bundle name: vim-airline-themes --------------------------------------------------------------------------
+			let g:airline_theme='solarized'
+		" }}}End Airline
+
 		" Bootstrap-Snippets {{{
-			" bundle name: bootstrap-snippets
-			" add bootstrap snippets to the dictionary
-			set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
+			" bundle name: bootstrap-snippets --------------------------------------------------------------------------
+			set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary  " add bootstrap snippets to the dictionary
 			set complete+=k
 		" }}}End Bootstrap-Snippets
+
 		" Colors-Solarized {{{
-			" bundle name: vim-colors-solarized
-			set background=light  " default to a nice light background
-			colorscheme solarized " a really nice color scheme
-			" create a mapping that lets me change from light to dark on the fly
-			map <F1> :set background=light<CR>
-			map <F2> :set background=dark<CR>
+			" bundle name: vim-colors-solarized ------------------------------------------------------------------------
+			set background=light               " default to a nice light background
+			colorscheme solarized              " a nice color scheme
+			map <F1> :set background=light<CR> " create a mapping that lets me change from light to dark on the fly
+			map <F2> :set background=dark<CR>  " create a mapping that lets me change from light to dark on the fly
 		" }}}End Colors-Solarized
-		" Clevertab (currently not installed) {{{
-			" bundle name: vim-clevertab
-			"inoremap <silent><tab>   <c-r>=CleverTab#Complete('start')<CR>
-									"\<c-r>=CleverTab#Complete('tab')<CR>
-									"\<c-r>=CleverTab#Complete('keyword')<CR>
-									"\<c-r>=CleverTab#Complete('stop')<CR>
-			"inoremap <silent><s-tab> <c-r>=CleverTab#Complete('prev')<CR>
+
+		" Clevertab (not installed) {{{
+			" bundle name: vim-clevertab -------------------------------------------------------------------------------
+			" inoremap <silent><tab>   <c-r>=CleverTab#Complete('start')<CR>
+			" 						\<c-r>=CleverTab#Complete('tab')<CR>
+			" 						\<c-r>=CleverTab#Complete('keyword')<CR>
+			" 						\<c-r>=CleverTab#Complete('stop')<CR>
+			" inoremap <silent><s-tab> <c-r>=CleverTab#Complete('prev')<CR>
 		" }}}End Clevertab
+
 		" CtrlP {{{
-			" bundle name: ctrlp
+			" bundle name: ctrlp ---------------------------------------------------------------------------------------
+			let g:ctrlp_map               = '<c-p>'
+			let g:ctrlp_cmd               = 'CtrlP'
+			let g:ctrlp_working_path_mode = 'ra'                    " set the default start directory
 			set wildignore+=*/tmp/*,*.so,*.swp,*.zip                " Exclude files and directories using Vim's wildignore
 			let g:ctrlp_custom_ignore     = '\v[\/]\.(git|hg|svn)$' " Exclude files and directories using CtrlP's own g:ctrlp_custom_ignore
 			let g:ctrlp_user_command      = 'find %s -type f'       " Use a custom file listing command:
 			let g:ctrlp_working_path_mode = 'ra'                    " When invoked without a starting directory CtrlP will set its local working directory according to this variable:
 		" }}}End CtrlP
+
 		" EasyMotion {{{
-		" bundle name: vim-easymotion
+		" bundle name: vim-easymotion ----------------------------------------------------------------------------------
 			map <Space> <Plug>(easymotion-prefix)
 		" }}}End EasyMotion
+
 		" Fugitive {{{
-			" bundle name: vim-fugitive
+			" bundle name: vim-fugitive --------------------------------------------------------------------------------
 			noremap \gs :Gstatus<CR>
 			noremap \gc :Gcommit<CR>
 			noremap \gl :Glog<CR>
 			noremap \gd :Gdiff<CR>
 		" }}}End Fugitive
+
 		" GitGutter {{{
-			" bundle name: vim-gitgutter
-			let g:gitgutter_realtime        = 1 " make the signs change real time as soon as I stop typing
-			let g:gitgutter_eager           = 1 " make the signs update anytime the tab or window recieves focus
-			"let g:gitgutter_highlight_lines = 1 " turn on line highlighting by default
-			" revert the current change in the file to HEAD
-			nnoremap \gr <Plug>GitGutterRevertHunk
-			" preview what the current change is
-			nnoremap \gp <Plug>GitGutterPreviewHunk
-			" stage current hunk
-			nnoremap \gS <Plug>GitGutterStageHunk
-			" make the sign column match the number column
-			highlight clear SignColumn
+			" bundle name: vim-gitgutter -------------------------------------------------------------------------------
+			let g:gitgutter_realtime        = 1     " make the signs change real time as soon as I stop typing
+			let g:gitgutter_eager           = 1     " make the signs update anytime the tab or window recieves focus
+			let g:gitgutter_highlight_lines = 1     " turn on line highlighting by default
+			nnoremap \gr <Plug>GitGutterRevertHunk  " revert the current change in the file to HEAD
+			nnoremap \gp <Plug>GitGutterPreviewHunk " preview what the current change is
+			nnoremap \gS <Plug>GitGutterStageHunk   " stage current hunk
+			highlight clear SignColumn              " make the sign column match the number column
 		" }}}End GitGutter
+
 		" Gundo {{{
-			" bundle name: gundo
+			" bundle name: gundo ---------------------------------------------------------------------------------------
 			nnoremap <C-F6> :GundoToggle<CR>
 		" }}}End Gundo
+
 		" IndentLine {{{
-			" bundle name: indentLine
+			" bundle name: indentLine ----------------------------------------------------------------------------------
 			" mark leading spaces to distiguish them from tabs
-            let g:indentLine_leadingSpaceEnabled = 1   " mark leading spaces
-            let g:indentLine_leadingSpaceChar    = '▓' " char to mark leading spaces
-            let g:indentLine_char                = '▓' " char to mark leading spaces
-			set list                                   " show tabs
-			set listchars=tab:\\                      " a nice pretty char to show tabs
+			let g:indentLine_leadingSpaceEnabled = 1   " mark leading spaces
+			let g:indentLine_leadingSpaceChar    = ' ' " char to mark leading spaces
+			let g:indentLine_char                = ' ' " char to mark leading spaces
+			set list lcs=tab:\\                       " show tabs
 		" }}}End IndentLine
+
 		" JavaScript {{{
-			" bundle name: vim-javascript
+			" bundle name: vim-javascript ------------------------------------------------------------------------------
 			"this sets some defaults that conceal js keywords to shorten code
-			au FileType javascript setl conceallevel=2 concealcursor=nc
-			let g:javascript_conceal_function  = "ƒ"
-			let g:javascript_conceal_null      = "ø"
-			let g:javascript_conceal_this      = "@"
-			let g:javascript_conceal_return    = "⇚"
-			let g:javascript_conceal_undefined = "¿"
-			let g:javascript_conceal_NaN       = "ℕ"
-			let g:javascript_conceal_prototype = "¶"
-			let g:javascript_conceal_static    = "•"
-			let g:javascript_conceal_super     = "Ω"
+			" au FileType javascript setl conceallevel=2 concealcursor=nc
+			" let g:javascript_conceal_function  = "ƒ"
+			" let g:javascript_conceal_null      = "ø"
+			" let g:javascript_conceal_this      = "@"
+			" let g:javascript_conceal_return    = "⇚"
+			" let g:javascript_conceal_undefined = "¿"
+			" let g:javascript_conceal_NaN       = "ℕ"
+			" let g:javascript_conceal_prototype = "¶"
+			" let g:javascript_conceal_static    = "•"
+			" let g:javascript_conceal_super     = "Ω"
 		" }}}End JavaScript
+
 		" JavaScript-Libraries-Syntax {{{
-			" bundle name: javascript-libraries-sytax
+			" bundle name: javascript-libraries-sytax ------------------------------------------------------------------
 			let g:used_javascript_libs = 'angularjs,angularui,jquery,underscore'
 		" }}}End JavaScript-Libraries-Syntax
+
+		" MiniMap {{{
+			" bundle name: vim-minimap ---------------------------------------------------------------------------------
+			let g:mimimap_highlight='Visual'
+		" }}}
+
 		" NERD-Commenter {{{
-			" bundle name: nerdcommenter
+			" bundle name: nerdcommenter url(https://github.com/scrooloose/nerdcommenter) ------------------------------
 			filetype plugin on
-			" map <F4> to start a new comment while in insert mode
-			imap <F4> <Plug>NERDCommenterInsert
+			imap <F4> <Plug>NERDCommenterInsert                                    " map <F4> to start a new comment while in insert mode
+			let g:NERDSpaceDelims       = 1                                        " Add spaces after comment delimiters by default
+			let g:NERDCompactSexyComs   = 1                                        " Use compact syntax for prettified multi-line comments
+			let g:NERDDefaultAlign      = 'left'                                   " Align line-wise comment delimiters flush left instead of following code indentation
+			let g:NERDAltDelims_java    = 1                                        " Set a language to use its alternate delimiters by default
+			let g:NERDCustomDelimiters  = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
+			let g:NERDCommentEmptyLines = 1                                        " Allow commenting and inverting empty lines (useful when commenting a region)
 		" }}}End NERD-Commenter
+
 		" NERD-Tree and NERD-Tree_Tabs {{{
-			" bundle name: nerdtree
-			" bundle name: vim-nerdtree-tabs
-			let NERDTreeWinPos='right'
+			" bundle name: nerdtree ------------------------------------------------------------------------------------
+			" bundle name: vim-nerdtree-tabs ---------------------------------------------------------------------------
+			let NERDTreeWinPos = 'right'
 			noremap \nf  :NERDTreeFind<CR>
 			noremap <F5> :NERDTreeTabsToggle<CR>
 		" }}}End NERD-Tree and NERD-Tree_Tabs"
+
 		" PromptLine {{{
-			" bundle name: promptline
+			" bundle name: promptline ----------------------------------------------------------------------------------
 			let g:promptline_powerline_symbols = 1
 			let g:promptline_preset = {
 				\'a':    [ promptline#slices#host() ],
@@ -232,13 +243,30 @@
 				\'y':    [ promptline#slices#vcs_branch() ],
 				\'warn': [ promptline#slices#last_exit_code() ]}
 		" }}}End PromptLine
+
 		" Syntastic {{{
-			" bundle name: syntastic
+			" bundle name: syntastic ----------------------------------------------------------------------------------
 			set statusline+=%#warningmsg#
 			set statusline+=%{SyntasticStatuslineFlag()}
 			set statusline+=%*
+
+			let g:syntastic_always_populate_loc_list = 1
+			let g:syntastic_auto_loc_list            = 1
 			let g:syntastic_check_on_open            = 1
 			let g:syntastic_check_on_wq              = 0
+			let g:syntastic_javascript_checkers      = ['eslint']
+			let g:syntastic_html_checkers            = ['htmllint']
+			let g:syntastic_sass_checkers            = ['scsslint']
+
+			function! FindConfig(prefix, what, where)
+				let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+				return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+			endfunction
+
+			autocmd FileType javascript let b:syntastic_javascript_eslint_args =
+				\ get(g:, 'syntastic_javascript_eslint_args', '') .
+				\ FindConfig('-c', '.eslintrc', expand('<afile>:p:h', 1))
+
 			" function! ToggleErrors {{{
 			function! ToggleErrors()
 				if empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") is# "quickfix"'))
@@ -251,92 +279,87 @@
 			nnoremap <Silent> <F12> :<C-u>call ToggleErrors()<CR>
 			" }}}End ToggleErrors
 		" }}}End Syntastic
+
 		" Tabular {{{
-			" bundle name: tabular
-			" a normal mode shortcut to align on '='
-			nmap ,a= :Tabularize /=<CR>
-			" a visual mode shortcut to align on '='
-			vmap ,a= :Tabularize /=<CR>
-			" a normal mode shortcut to align on '"'
-			nmap ,a" :Tabularize /"<CR>
-			" a visual mode shortcut to align on '"'
-			vmap ,a" :Tabularize /"<CR>
-			" a normal mode shortcut to align on ':\zs'
-			nmap ,a: :Tabularize /:\zs<CR>
-			" a visual mode shortcut to align on ':\zs'
-			vmap ,a: :Tabularize /:\zs<CR>
+			" bundle name: tabular -------------------------------------------------------------------------------------
+			nmap ,a= :Tabularize /=<CR>    " a normal mode shortcut to align on '='
+			vmap ,a= :Tabularize /=<CR>    " a visual mode shortcut to align on '='
+			nmap ,a" :Tabularize /"<CR>    " a normal mode shortcut to align on ' " '
+			vmap ,a" :Tabularize /"<CR>    " a visual mode shortcut to align on ' " '
+			nmap ,a: :Tabularize /:\zs<CR> " a normal mode shortcut to align on ':\zs'
+			vmap ,a: :Tabularize /:\zs<CR> " a visual mode shortcut to align on ':\zs'
+			inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 			" realtime table builder based on '|'"{{{
-				inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-				function! s:align()
-					let p = '^\s*|\s.*\s|\s*$'
-					if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-						let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-						let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-						Tabularize/|/l1
-						normal! 0
-						call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-					endif
-				endfunction"}}}
-			" }}}End Tabular
-			" UltiSnips {{{
-				"inoremap <F3> * <ESC>: call UltiSnips#ExpandSnippet()<CR>
-			" }}}End UltiSnips
+			function! s:align()
+				let p = '^\s*|\s.*\s|\s*$'
+				if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+					let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+					let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+					Tabularize/|/l1
+					normal! 0
+					call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+				endif
+			endfunction"}}}
+		" }}}End Tabular
+
 		" Visual-Star-Search {{{
-			" bundle name: vim-visual-star-search
+			" bundle name: vim-visual-star-search ----------------------------------------------------------------------
 			" use ag for recursive searching so we don't find 10,000 useless hits inside node_modules
 			nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
 			vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('grep', '--literal ' . shellescape(@/))<CR>
 		" }}}End Visual-Star-Search
+
 		" YCM {{{
+			" bundle name: Valloric/YouCompleteMe ----------------------------------------------------------------------
 			let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
 			let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 		" }}}End YCM
 	" }}}End Plugin Helpers
+
 	" Key Remapping {{{
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	"                              Key Remapping                              "
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-		" edit vimrc/zshrc
-		nnoremap <Leader>ev :vsp $MYVIMRC<CR>
-		nnoremap <Leader>ez :vsp ~/.zshrc<CR>
-		" reload vimrc
-		nnoremap <Leader>sv :source $MYVIMRC<CR>
-		" save session
-		nnoremap <Leader>s :mksession<CR>
-		" turn of search highlight
-		nnoremap <Leader><Space> :nohlsearch<CR>
-		" move verically by visual line
-		nnoremap j gj
-		nnoremap k gk
-		" highlight last inserted text
-		nnoremap gV `[v`]
-		" remove the obnoxious <Shift> from :
-		nnoremap ; :
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                                                  Key Remapping                                                   "
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		nnoremap <Leader>ev :vsp $MYVIMRC<CR>    " edit vimrc
+		nnoremap <Leader>ez :vsp ~/.zshrc<CR>    " edit zshrc
+		nnoremap <Leader>sv :source $MYVIMRC<CR> " reload vimrc
+		nnoremap <Leader>s :mksession<CR>        " save session
+		nnoremap <Leader><Space> :nohlsearch<CR> " turn of search highlight
+		nnoremap gV `[v`]                        " highlight last inserted text
+		nnoremap ; :                             " remove the obnoxious <Shift> from :
 	" }}}End Key Remapping
+
 	" VIM Appearance {{{
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	"                              VIM Appearance                             "
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-		set encoding=utf-8                            " declare the encoding
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                                                  VIM Appearance                                                  "
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		set encoding=utf-8                                      " declare the encoding
 		set guifont=Source\ Code\ Pro\ for\ Powerline\ Modified " this forces the needed font for some of the fancyness
-		syntax enable                                 " turn on syntax highlighting
-		au BufNewFile,BufRead *.b,*/*BP*/* setf jbase " enable syntax highlighting for jBASE (Pick) Basic
+		syntax enable                                           " turn on syntax highlighting
+		au BufNewFile,BufRead *.b,*/*BP*/* setf jbase           " enable syntax highlighting for jBASE (Pick) Basic
+
+		" change cursor on insert mode if we can
+		let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+		let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+		let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
 		" highlight the 80th column
-		" In Vim >= 7.3, also highlight columns 120+
 		if exists('+colorcolumn')
-			let &colorcolumn="80,".join(range(120,500),",")
+			" In Vim >= 7.3, also highlight columns 120+
+			let &colorcolumn="120,".join(range(160,500),",")
 		else
-		" fallback for Vim < v7.3
-			autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg','\%>80v.\+', -1)
+			" fallback for Vim < v7.3
+			autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg','\%>120v.\+', -1)
 		endif
+
 		hi Folded term=bold cterm=bold
-		hi Tab cterm=none gui=none ctermbg=none
-		set fillchars="fold: "                       " remove the dashes from folds
+		set fillchars="fold: "                                  " remove the dashes from folds
 	" }}}End VIM Appearance
+
 	" VIM Behavior {{{
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-	"                               VIM Behavior                              "
-	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                                                   VIM Behavior                                                   "
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 		filetype indent on             " load filetype-specific indent files
 		set wildmenu                   " visual autocomplete for command menu
 		set lazyredraw                 " redraw the screen only when we need to
@@ -368,7 +391,8 @@
 		set modeline                   " turns on modelines
 		set modelines=5                " tell vim to look at a comment on the last line of a file for file specific settings
 		set showcmd                    " show command in bottom bar
-		command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+		command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+		autocmd BufWritePre * :%s/\s\+$//e " clear all trailing whitespace on save
 		" Change color scheme to dark at night but light during the day
 		let hour = strftime("%H")
 		if hour >= 6 && hour < 18
@@ -378,7 +402,11 @@
 		endif
 		colorscheme solarized
 	" }}} End Vim Behavior
+
 	" VIM Functions {{{
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	"                                                  VIM Functions                                                   "
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 		" Return indent (all whitespace at start of a line), converted from
 		" tabs to spaces if what = 1, or from spaces to tabs otherwise.
 		" When converting to tabs, result has no redundant spaces.
@@ -409,4 +437,5 @@
 		command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>''
 	" }}}
 " }}}
+
 " vim:foldmethod=marker:foldlevel=0

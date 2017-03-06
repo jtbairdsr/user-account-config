@@ -136,29 +136,31 @@ function clear_errors {
 #======================================================================================================================#
 
 function create_segments {
+	let temp_file_name
+	temp_file_name="$HOME/blather_1234567890987654321_blather"
 	# -------------------------------------------------------- NVM -----------------------------------------------------
-	nvm_content > temp
-	SEGMENT_NVM=`cat temp`
+	nvm_content > $temp_file_name
+	SEGMENT_NVM=`cat $temp_file_name`
 
 	# ------------------------------------------------------- TIME -----------------------------------------------------
-	time_content > temp
-	SEGMENT_TIME=`cat temp`
+	time_content > $temp_file_name
+	SEGMENT_TIME=`cat $temp_file_name`
 	
 	# ------------------------------------------------------ BATTERY ---------------------------------------------------
 	SEGMENT_BATTERY=$(battery_content)
 
 	# ------------------------------------------------------ MESSAGE ---------------------------------------------------
-	message_content > temp
-	SEGMENT_MESSAGE=`cat temp`
+	message_content > $temp_file_name
+	SEGMENT_MESSAGE=`cat $temp_file_name`
 
 	# ------------------------------------------------------ CONTEXT ---------------------------------------------------
 	SEGMENT_CONTEXT=$(context_content)
 	LENGTH_CONTEXT=${#${SEGMENT_CONTEXT:-}}
 
 	# ------------------------------------------------------- PATH -----------------------------------------------------
-	path_content > temp
-	SEGMENT_PATH=`cat temp`
-	rm temp
+	path_content > $temp_file_name
+	SEGMENT_PATH=`cat $temp_file_name`
+	rm $temp_file_name
 
 	# ------------------------------------------------------ DIVIDER ---------------------------------------------------
 	SEGMENT_DIVIDER=$(divider_content)

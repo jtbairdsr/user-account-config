@@ -2,55 +2,71 @@
 
 # Apps
 apps=(
-    #-------------------------------- Browsers ---------------------------------
-    firefox
+    #---------------------------------------------------- Browsers -----------------------------------------------------
+	firefox              # Firefox browser for testing
+	google-chrome        # Chrome browser for testing
+	google-chrome-canary # Google Chrome Canary has the newest of the new Chrome features. (preferred development browser)
 
-    #---------------------------------- Media ----------------------------------
-    vlc                  # because it can do all media
-    handbrake            # to encode all media
+    #------------------------------------------------------ Fonts ------------------------------------------------------
+	font-fontawesome      # Font Awesome gives you scalable vector icons that can instantly be customized — size, color, drop shadow, and anything that can be done with the power of CSS.
+	font-monoid-nerd-font # Monoid + Powerline, Font Awesome, Octicons, Devicons, and other icon fonts.
+	font-monoisome        # Monoid + Font Awesome
 
+    #---------------------------------------------------- Quicklook ----------------------------------------------------
+	betterzipql         # The BetterZip Quick Look Generator extends OS X's Quick Look functionality to let you inspect the contents of compressed archives.
+	inloop-qlplayground # a QuickLook generator for Xcode Playgrounds. Supports both single and multiple paged playgrounds.
+	provisionql         # Inspired by number of existing alternatives, the goal of this project is to provide clean, reliable, current and open-source Quick Look plugin for iOS & OSX developers.
+	qlcolorcode         # Quick Look plugin for source code with syntax highlighting
+	qldds               # This package allows OSX Finder to display thumbnails, QuickLook previews and metadata for "DirectDraw Surface" (DDS) texture files.
+	qlimagesize         # QuickLook plugin to display the dimensions and size of an image in the title bar instead of the filename. Also preview some unsupported formats like WebP & bpg.
+	qlmarkdown          # a simple QuickLook generator for Markdown files.
+	qlprettypatch       # QLPrettyPatch is a QuickLook generator for patch files.
+	qlrest              # QLRest is a simple QuickLook generator for reStructuredText files. It renders a preview of the selected ReST file using Python, Docutils and Pygments.
+	qlstephen           # A QuickLook plugin that lets you view plain text files without a file extension
+	qlswift             # A Quick Look plugin for Swift files
+	qlvideo             # This package allows macOS Finder to display thumbnails, static previews, cover art and metadata for most types of video files.
+	scriptql            # AppleScript Quick Look plugin
+	suspicious-package  # An Application for Inspecting OS X Installer Packages
 
-    #-------------------------- Workflow improvements --------------------------
-    alfred               # much better than spotlight (checkout the workflows)
-    iterm2-beta          # the latest release of iterm2 on the beta branch
-    bettertouchtool
-
-    #------------------------------- Development -------------------------------
-    application-loader   # for ios app development
-    dockertoolbox        # for managing docker
-    gitx                 # my personal preference on gui git client
-    java                 # make sure it is up to date
-    macdown              # intense markdown editor
-    macvim               # the gui vim for mac
-    p4merge              # this rocks merging in git
-    slack
-    sublime-text3
-    virtualbox
-    vagrant
-
-    #------------------------------ General/Misc -------------------------------
-    appcleaner           # for tracking down app files when uninstalling
-    disk-inventory-x     # for managing full disks
-    dropbox-experimental # get my data everywhere
-    flux-beta            # manage the color and brightness of your monitors to fight insomnia
-    netgeargenie         # for managing netgear routers
-    nvalt                # quick note taking
-    yujitach-menumeters  # activity monitor for the menubar
-    xquartz
-
-    #--------------------- upgrades for finders quicklook ----------------------
-    qlcolorcode          # syntax highlighting
-    suspicious-package   # see details of installation packages
-    qlmarkdown           # preview markdown files
-    qlstephen            # preview files without a file extension (i.e. INSTALL, MAKEFILE)
-    #-------------------- would like it but it costs money ---------------------
-    bartender            # clean up the menubar
-    harvest              # timeclock app
-    superduper           # for backingup a backup
-    # transmit # the #1 Mac OS X FTP client.
-    # cleanmymac
-    # glyphs
-
+    #------------------------------------------------------ Misc -------------------------------------------------------
+	1password              # Snappworks team password manager
+	adobe-reader           # More powerful than other PDF software, Adobe Acrobat Reader DC is the free, trusted standard for viewing, printing and annotating PDFs.
+	appcleaner             # A small application which allows you to thoroughly uninstall unwanted apps.
+	atom                   # a text editor that's modern, approachable, yet hackable to the core—a tool you can customize to do anything but also use productively without ever touching a config file.
+	bettertouchtool        # a great, feature packed app that allows you to configure many gestures for your Magic Mouse (1 & 2), Macbook Trackpad and Magic Trackpad (1 & 2) and also Mouse Gestures for normal mice.
+	betterzip              # the next generation of archiving
+	cheatsheet             # Just hold the ⌘-Key a bit longer to get a list of all active short cuts of the current application. It's as simple as that.
+	colorpicker-skalacolor # An extraordinary color picker for designers and developers - gives hex of selected color
+	dash                   # Dash is an API Documentation Browser and Code Snippet Manager.
+	dashlane               # My perferred password manager
+	duet                   # Ex-Apple Engineers turn your iPad into an extra display.
+	fontforge              # FontForge is a free and open source font editor brought to you by a community of fellow type lovers. You can donate to support the project financially.
+	google-drive           # Google drive app
+	harvest                # Lightning fast time tracking right from your desktop.
+	insomnia               # Finally, a REST client you'll love! Debug APIs like a human, not a robot
+	iterm2-nightly         # the nightly release of iterm2. iTerm2 brings the terminal into the modern age with features you never knew you always wanted.
+	joinme                 # FREE - Robust remote screen sharing/confrencing
+	keybase                # A free, open source security app. It's also a public directory of people.
+	macvim                 # the macOS port of vim
+	mysqlworkbench         # MySQL Workbench is a unified visual tool for database architects, developers, and DBAs.
+	netgeargenie           # App for managing my router
+	robomongo              # Native and cross-platform MongoDB manager
+	rowanj-gitx            # my personal preference on gui git client
+	slack                  # Work Instant Messanger. Whatever work means for you, Slack brings all the pieces and people you need together so you can actually get things done.
+	teamviewer             # Tech support for the Lloyds and sometimes the Climers
+	vagrant                # Create and configure lightweight, reproducible, and portable development environments.
+	virtualbox             # VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use. 
+	xquartz                # The XQuartz project is an open-source effort to develop a version of the X.Org X Window System that runs on OS X.
+	zeplin                 # Design hand-off has never been easier. Generate styleguides and resources, automatically.
+    alfred                 # much better than spotlight (checkout the workflows). Alfred is an award-winning app for Mac OS X which boosts your efficiency with hotkeys, keywords, text expansion and more. 
+    disk-inventory-x       # for managing full disks
+    dropbox-experimental   # Get to all your files from anywhere, on any device, and share them with anyone.
+    handbrake              # to encode all media
+    java                   # make sure it is up to date
+    netgeargenie           # for managing netgear routers
+    p4merge                # this rocks merging in git
+    vlc                    # because it can do all media
+    yujitach-menumeters    # activity monitor for the menubar
 )
 
 #-------------------------------- Install apps ---------------------------------

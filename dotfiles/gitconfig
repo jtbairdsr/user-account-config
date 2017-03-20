@@ -4,7 +4,7 @@
 	smudge = git media smudge %f
 [user]
 	name = Jonathan Baird
-	email = jtbairdj@gmail.com
+	email = jonathan@snappworks.com
 [credential]
 	helper = osxkeychain
 
@@ -48,9 +48,18 @@
 	clean = git-lfs clean %f
 [core]
 	editor = vim
+	excludesfile = /Users/jonathan/.gitignore_global
 [difftool]
 	prompt = false
 	prompt = false
 	prompt = false
 [status]
 	submodulesummary = 1
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree-Beta.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/jonathan/.stCommitMsg

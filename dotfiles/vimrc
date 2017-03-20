@@ -185,7 +185,7 @@
 			let g:indentLine_leadingSpaceEnabled = 1   " mark leading spaces
 			let g:indentLine_leadingSpaceChar    = ' ' " char to mark leading spaces
 			let g:indentLine_char                = ' ' " char to mark leading spaces
-			set list lcs=tab:\\                       " show tabs
+			set list lcs=tab:\\                       " show tabs
 		" }}}End IndentLine
 
 		" JavaScript {{{

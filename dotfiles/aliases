@@ -16,60 +16,61 @@ alias gm="git mergetool"                    # create a simple git mergetool alia
 alias grc="git rebase --continue"           # create a simple alias to continue a git rebase
 alias gxa="gitx --all"                      # create a simple alias to open gitx on all branches
 alias h=history                             # shorthand for history
-alias vi=vim                                # redirect vi to vim.
-alias vim='mvim -v'                         # use macvim in the terminal
+alias vi='mvim -v'                          # redirect vi to mvim.
+alias vim=nvim                              # use macvim in the terminal
 alias showenv='env | grep -i'               # grep env variables for a specific value
-alias pidport=pidportfunction               # find process that is attached to a specific port
-alias showpid=showpidfunction               # find a process that matches a search string
-alias whatport=whatportfunction             # find a process that matches a search string
-alias build='buildfunction'                 # run mircorservice build process
+
+# ----------------------------------------------------- VirtualBox -----------------------------------------------------
+alias vblist='VBoxManage list runningvms' #  show running vms
 
 # ----------------------------------------------------- docker --------------------------------------------------------
 alias dockerimgsrm='docker rmi -f `docker images -q`'
 alias dockercontsrm='docker rm `docker ps -aq --no-trunc`'
 
-# ----------------------------------------------------- gitlab --------------------------------------------------------
-alias testCI='testCIfunction'
-
-# ------------------------------------------------------ Misc ---------------------------------------------------------
-# shellcheck disable=SC2139
-alias Ping="$(which ping)"                  # an alias to a ping that won't end
-alias safari='~/bin/new_safari_window'      # open urls in a new safari window
-alias zshconfig="atom ~/.zshrc"             # open .zshrc in atom
-alias zshconflocal="atom ~/.zprofile.local" # open .zprofile.local in atom
-alias edconfig="atom \$config"              # open the config directory in atom
-alias edwork="atom \$work"                  # open the currently assigned work directory in atom
-alias emptyTrash="rm -rf ~/.Trash/*"        # empty the trash
-alias copy=copyfunction                     # shorthand for `cat $1 | pbcopy`
+# -------------------------------------------------------- Misc --------------------------------------------------------
+#  shellcheck disable=SC2139,SC2154
+alias Ping="$(which ping)"                                          # an alias to a ping that won't end
+alias rzsh='echo relaunching zsh.......;exec zsh -ls'               # an alias for relaunching zsh
+alias clr='colorize'                                                # a shortened version of the colorize alias
+alias lncustom='ln -fhs $config/custom ~/.oh-my-zsh/custom && rzsh' # ln $config/custom into .oh-my-zsh
+alias safari='~/bin/new_safari_window'                              # open urls in a new safari window
+alias emptyTrash='rm -rf ~/.Trash/*'                                # empty the trash
+alias zshconfig='$MAIN_EDITOR ~/.zshrc'                             # open .zshrc in atom
+alias zshconfiglocal='$MAIN_EDITOR ~/.zprofile.local'               # open .zprofile.local in atom
+alias edconfig='$MAIN_EDITOR $config'                               # open the $config directory in atom
+alias edwork='$MAIN_EDITOR $work'                                   # open the current $work directory in atom
 
 alias fixLicenses="INJECT_LICENSES=1 git commit --allow-empty -m 'Add/update licenses for all maintained files' --edit"
 
-# ------------------------------------------------ Alias functions ----------------------------------------------------
-pidportfunction() {
+# ----------------------------------------------------- functions ------------------------------------------------------
+# find process that is attached to a specific port
+pidport () {
 	lsof -n -i4TCP:"$1" | grep LISTEN
 }
 
-showpidfunction () {
-	# shellcheck disable=SC2009
-	ps "${SHOWPIDFLAGS:--auxl}" | head -1 >&2; ps "${SHOWPIDFLAGS:--auxl}" | grep -v grep | grep -i "$1"
+# shortcut to search processes for a keyword
+showpid () {
+	ps ${SHOWPIDFLAGS:--auxl} | head -1 >&2; ps ${SHOWPIDFLAGS:--auxl} | grep -v grep | grep -i "$1"
 }
 
-whatportfunction () {
+# find a process that matches a search string and show the port to which it is bound
+whatport () {
 	lsof -i -P -n | grep LISTEN | grep "$1"
 }
 
-buildfunction () {
+# run microservice build process
+build () {
 	CWD=$(pwd)
 	service=$(jq -r ".name" package.json)
-	# shellcheck disable=SC2154
-	cd "$work" || exit 1
+	cd /src/ewb || exit 1
 	npm run build "$service"
 	trap 'cd "$CWD"' EXIT
 }
 
-testCIfunction() {
-	cp .gitlab-ci.yml temp.gitlab-ci.yml
-	# shellcheck disable=SC1004,SC2016
+# run local instance of gitlab ci to test configuration...
+testCI () {
+	cp .gitlabci.yml temp.gitlab-ci.yml
+
 	sed '/docker login.*/c\
 		\ \ \ \ - docker login -u jtbairdsr@me.com -p QvD-FCZ-66m-F2k registry.gitlab.com\
 		' .gitlab-ci.yml | sed 's/$CI_BUILD_REF_NAME/test/g' > deleteme.yml
@@ -79,6 +80,7 @@ testCIfunction() {
 	trap 'mv temp.gitlab-ci.yml .gitlab-ci.yml' EXIT
 }
 
-copyfunction() {
+# copy file contents to the global clipboard...
+copy () {
 	pbcopy < "$1"
 }

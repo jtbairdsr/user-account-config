@@ -1,14 +1,16 @@
 
 # added by GitSavvy
 /temp/
-
-# added by GitSavvy
-/.DS_Store
-
-# added by GitSavvy
+**/.DS_Store
+**/*.swp
+**/Session.vim
 /safety/
+
+nvim/plugged
+nvim/swap
+nvim/shada
+nvim/rplugin.vim
 
 vim/plugged/
 vim/.netrwhist
 
-**/*.swp

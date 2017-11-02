@@ -4,47 +4,27 @@
 #                      INSTALL NODE AND ALL GLOBAL PACKAGES                    #
 #==============================================================================#
 
+echo "Installing NVM..........................................................."
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+command -v nvm
+
 echo "Installing Node.........................................................."
-brew install node
-
-echo "Installing bower..."
-npm install -g bower
-
-echo "Grunting it up..."
-npm install -g grunt
-npm install -g grunt-cli
-npm install -g grunt-init
-
-echo "Installing Gulp..."
-npm install -g gulp
+nvm install node
 
 echo "Installing Ionic..."
 npm insatll -g ionic
 
 echo "Installing linters..."
-npm install -g bootlint
-npm install -g coffeelint
-npm install -g csslint
-npm install -g htmllint
-npm install -g jscs
-npm install -g jshint
-npm install -g standard
-npm install -g standard-format
-npm install -g write-good
-
-echo "Installing mongodb..."
-npm install -g mongo
-npm install -g mongod
-npm install -g mongodb
-
+npm install -g stylelint htmllint eslint tslint swaglint write-good csscomb tern
 
 echo "Installing precompilers..."
-npm install -g coffie-script
-npm install -g less
-npm install -g markdown-preview
-npm install -g sass
-npm install -g stylus
+npm install -g instant-markdown sass
 
-echo "Installing Yeoman..."
-npm install -g yo
-npm install -g generator-meanjs
+echo "Installing Typescript..."
+npm install -g typescript tslint
+
+echo "Installing Misc CLIs..."
+npm install -g @angular/cli yo
+
+echo "Installing Servers..."
+npm install -g light-server http-server

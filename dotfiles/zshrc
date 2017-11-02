@@ -1,6 +1,13 @@
 #!/bin/bash
+
+# powerlevel9k prompt theme
+export POWERLEVEL9K_MODE="nerdfont-complete"
+
+# zsh tmux settings
+export ZSH_TMUX_AUTOSTART=true
+
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 autoload -Uz promptinit
 promptinit
 prompt walters
@@ -12,7 +19,7 @@ prompt walters
 if [[ -n "$SSH_CLIENT" ]]; then
 	[[ -n "$ZSH_THEME" ]] || export ZSH_THEME="haven-remote"
 else
-	export ZSH_THEME="haven-box"
+	export ZSH_THEME="powerlevel9k/powerlevel9k"
 fi
 
 # Set to this to use case-sensitive completion
@@ -22,7 +29,7 @@ fi
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
-DISABLE_LS_COLORS="true"
+export DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 # DISABLE_AUTO_TITLE="true"
@@ -35,10 +42,9 @@ DISABLE_LS_COLORS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
 	vi-mode                  # This plugin increase vi-like zsh functionality.
-	aws
-	battery                  # allows see battery status in PS
+	autojump
+	aws                      # Activates the ZSH completion plugin shipped together with the aws command-line tool
 	boot2docker              # Adds autocomplete options for all boot2docker commands
-	bower                    # Front-end package manager https://github.com/bower/bower
 	brew                     # package manger http://brew.sh/
 	colored-man-pages        # Adds colors to manpages
 	colorize                 # cat with syntax highlighting support
@@ -46,36 +52,30 @@ plugins=(
 	copydir                  # Copies current dir full path to clipboard
 	copyfile                 # copies selected file content to clipboard
 	cp                       # cp with progress bar (rsync)
-	dircycle
+	dircycle                 # enables cycling through the directory stack using Ctrl+Shift+Left/Right
 	docker-compose           # A copy of the completion script from the docker-compose git repo.
 	docker                   # application shipment tool https://github.com/dotbutt/docker
-	emoji-clock              # fancy shell clocks
 	extract                  # 'x' alias - swiss knife for archive extracting
 	gas                      # small utility used to manage Git authors.
 	git                      # The git plugin provides many aliases and a few useful functions.
-	git-extras               # This plugin provides completion definitions for some of the commands defined by git-extras.
 	git-flow                 # autocompletion for git-flow
 	github                   # cli access, url shortener
-	grunt                    # autocompletion for grunt
-	gulp                     # autocompletion for gulp
 	jump                     # Easily jump around the file system by manually adding marks
-	mosh                     # mobile shell with roaming (wifi, mobile networks) and local echo http://mosh.mit.edu/
 	mysql-colorize           # Colorization for mysql
 	node                     # NodeJS docs easy access via CLI
 	npm                      # package manager for NodeJS
 	nvm                      # NodeJS version manager
 	osx                      # MacOS completions and iTunes control
 	pip                      # Python package manager http://www.pip-installer.org/en/latest/
-	pod                      # http://cocoapods.org library dependency manager for Xcode
-	sublime                  # aliases for SublimeText Editor
 	sudo                     # toggle sudo with esc esc
 	taskwarrior              # autocompletion for http://taskwarrior.org
+	tmux
+	tmuxinator
 	tugboat                  # Digital Ocean droplet manager
-	vagrant                  # autocompletion for Vagrant commands, task names, box names and built-in handy documentation. All in one place.
 	yeoman                   # autocompletion for yeoman
 	zsh-autosuggestions      # Fish-like fast/unobtrusive autosuggestions for zsh
 	zsh-better-npm-completeion # Better completion for npm
-	zsh-completions          # this is simply a clone of zsh-users/zsh-completions repo https://github.com/zsh-users/zsh-completions
+	zsh-completions          # this is simply a clone of zsh-users/zsh-completions repo
 	zsh-nvm                  # manages my nvm installation
 	zsh-syntax-highlighting  # commandline syntax highlighting
 	history-substring-search # This is a clean-room implementation of the Fish shell's history search
@@ -87,17 +87,17 @@ plugins=(
 
 # Customize to your needs...
 
-#=======================================================================================================================
-#                                                   MY CUSTOMIZATIONS
-#=======================================================================================================================
+#======================================================================================================================#
+#                                                  MY CUSTOMIZATIONS                                                   #
+#======================================================================================================================#
 
 # ****************************************************** BINDKEY *******************************************************
 
-# ------------------------------- hack to fix the broken history-substring-search plugin -------------------------------
+# ------------------------------ hack to fix the broken history-substring-search plugin --------------------------------
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-# ******************************************************** MISC ********************************************************
+# ******************************************************* MISC *********************************************************
 zmodload zsh/stat
 alias size='stat +size'
 
@@ -111,7 +111,7 @@ zmodload zsh/files
 
 # shellcheck disable=SC1091
 # shellcheck source=$HOME/.zshrc.local
-[ -f ~/.zshrc.local ] && . ~/.zshrc.local
+[ -f ~/.zprofile.local ] && . ~/.zprofile.local
 
 # shellcheck disable=SC1091
 # shellcheck source=$HOME/.iterm2_shell_integration.zsh
@@ -119,3 +119,77 @@ zmodload zsh/files
 
 # enables zsh-completions plugin
 autoload -U compinit && compinit
+
+# ================================================= (os_icon) Config ===================================================
+# POWERLEVEL9K_OS_ICON_BACKGROUND="black"
+# POWERLEVEL9K_OS_ICON_FOREGROUND="white"
+
+# =================================================== (host) Config ====================================================
+POWERLEVEL9K_HOST_LOCAL_BACKGROUND=black
+POWERLEVEL9K_HOST_LOCAL_FOREGROUND=white
+POWERLEVEL9K_HOST_REMOTE_BACKGROUND=black
+POWERLEVEL9K_HOST_REMOTE_FOREGROUND=white
+POWERLEVEL9K_HOST_ICON="\uF109" # 
+POWERLEVEL9K_HOST_TEMPLATE=""   # only show icon
+
+# ================================================= (context) Config ===================================================
+POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND=black
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND=white
+POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=white
+POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=red
+
+
+# =================================================== (dir) Config =====================================================
+POWERLEVEL9K_HOME_FOLDER_ABBREVIATION="$(print_icon '')" # hide home directory icon
+POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=false
+POWERLEVEL9K_DIR_PATH_SEPARATOR="  "
+POWERLEVEL9K_DIR_HOME_BACKGROUND=blue
+POWERLEVEL9K_DIR_HOME_FOREGROUND=white
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=blue
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=white
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=blue
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=white
+# Tuncate Rules -------------------------------------------------------------------------------------------------------
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_STRATEGY=truncate_with_package_name
+
+
+# =============================================== (dir_writable) Config ================================================
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND=yellow
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=white
+
+# =================================================== (vcs) Config =====================================================
+# POWERLEVEL9K_VCS_CLEAN_BACKGROUND="green"
+# POWERLEVEL9K_VCS_CLEAN_FOREGROUND="black"
+# POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="yellow"
+# POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="black"
+# POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="yellow"
+# POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="black"
+
+# ================================================== (status) Config ===================================================
+POWERLEVEL9K_STATUS_CROSS=true    #  show cross instead of return status code
+# POWERLEVEL9K_STATUS_VERBOSE=false #  hide segment unless ther is an error
+
+# ========================================== (command_execution_time) Config ===========================================
+# POWERLEVEL9K_COMMAND_EXECUTION_TIME_ICON="\u231A"
+
+# =================================================== (nvm) Config =====================================================
+POWERLEVEL9K_NODE_ICON="\ue718" # 
+POWERLEVEL9K_NVM_BACKGROUND=green
+POWERLEVEL9K_NVM_FOREGROUND=white
+
+# =================================================== (time) Config ====================================================
+# POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %T}" #  15:29:33
+POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M \uf073 %d-%b-%y}"
+POWERLEVEL9K_TIME_FOREGROUND="white"
+POWERLEVEL9K_TIME_BACKGROUND="black"
+
+# ================================================= (vi-mode) Config ===================================================
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=blue
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=white
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND=green
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND=white
+
+# ================================================ Initialize Prompts ==================================================
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( os_icon host context_joined dir dir_writable )
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( status command_execution_time nvm vcs time vi_mode )

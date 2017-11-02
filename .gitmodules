@@ -1,3 +1,39 @@
+[submodule "grunt-plugin"]
+	path = custom/plugins/grunt
+	url = git@github.com:yonchu/grunt-zsh-completion.git
+	branch = master
+[submodule "zsh-autosuggestions-plugin"]
+	path = custom/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+	branch = master
+[submodule "mysql-colorize-plugin"]
+	path = custom/plugins/mysql-colorize
+	url = git@github.com:zpm-zsh/mysql-colorize.git
+	branch = master
+[submodule "yeoman-plugin"]
+	path = custom/plugins/yeoman-zsh-plugin
+	url = git@github.com:edouard-lopez/yeoman-zsh-plugin.git
+	branch = master
+[submodule "zsh-better-npm-completion-plugin"]
+	path = custom/plugins/zsh-better-npm-completion
+	url = git@github.com:lukechilds/zsh-better-npm-completion
+	branch = master
+[submodule "zsh-completions-plugin"]
+	path = custom/plugins/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
+	branch = master
+[submodule "zsh-nvm-plugin"]
+	path = custom/plugins/zsh-nvm
+	url = git@github.com:lukechilds/zsh-nvm
+	branch = master
+[submodule "zsh-syntax-highlighting-plugin"]
+	path = custom/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+	branch = master
+[submodule "powerlevel9k"]
+	path = custom/themes/powerlevel9k
+	url = git@github.com:bhilburn/powerlevel9k.git
+	branch = master
 [submodule "docker_registry_cli"]
 	path = bin/docker_registry_cli
 	url = git@github.com:vivekjuneja/docker_registry_cli.git

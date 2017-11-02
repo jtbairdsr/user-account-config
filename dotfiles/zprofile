@@ -1,40 +1,27 @@
-# @(#)local.profile 1.8	99/03/26 SMI
-export SHELL=`type zsh | (read zsh is here; echo $here)`
-export file ENV
-export PATH CDPATH path
-export WATCH=notme
-export WATCHFMT="%n has %a %l from %m %@ %W"
-export CLICOLOR=xterm-color
+#!/bin/bash
+SHELL=`type zsh`
+WATCH=notme
+WATCHFMT="%n has %a %l from %m %@ %W"
+CLICOLOR=xterm-color
+SAVEHIST=100000
 
 stty istrip erase '^H' 2>/dev/null
 
-
-
-export SAVEHIST=100000
-HISTSIZE=$SAVEHIST export HISTSIZE
-HISTFILE=~/.sh.history export HISTFILE
-EDITOR='/usr/local/bin/mvim -v' export EDITOR
-PAGER=less export PAGER
-ZSHEDIT=vim export ZSHEDIT
-
-PATH=$PATH:~/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:
-
+HISTSIZE=$SAVEHIST
+HISTFILE=~/.sh.history
+EDITOR='/usr/local/bin/mvim -v'
+PAGER=less
+ZSHEDIT=vim
+PATH=/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH:~/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin
 CDPATH=:..:~:/home
-
 MANPATH=:man:/usr/man:/usr/local/man:/usr/share/man
-export MANPATH
-
-#RPROMPT="[%T]"	 export RPROMPT
-
-export BLOCKSIZE=M
-export log=/var/log/bf
+BLOCKSIZE=M
+log=/var/log/bf
 SHORTCUTS=(alt work db school)
 
-# Setting PATH for Python 2.7
-# The orginal version is saved in .zprofile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-export PATH
+export SHELL file ENV PATH CDPATH path WATCH WATCHFMT CLICOLOR SAVEHIST HISTSIZE HISTFILE EDITOR PAGER ZSHEDIT MANPATH BLOCKSIZE log SHORTCUTS
 
+#  shellcheck source=$HOME/.zprofile.local
 [ -f ~/.zprofile.local ] && . ~/.zprofile.local
 
 # shellcheck source=$HOME/.aliases

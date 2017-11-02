@@ -1,0 +1,13 @@
+dircycle
+docker-machine
+example
+grunt
+grunt-zsh-completion
+mysql-colorize
+required
+required-plugins.txt
+yeoman
+zsh-better-npm-completion
+zsh-completions
+zsh-nvm
+zsh-syntax-highlighting

@@ -6,7 +6,7 @@ function clear_errors {
 }
 
 function prompt_segment {
-	echo -n "%{%F{$2}%}[ $1 ]%{%f%}"
+  echo -n "%{%F{$2}%}[ $1 ]%{%f%}"
 }
 
 function get_lengths {
@@ -32,26 +32,26 @@ export MILITARY_TIME=true
 #                             L E F T   P R O M P T                            #
 #==============================================================================#
 
-function prompt_batttery {
-  local pct
-  if [[ -n "$IS_LAPTOP" ]]; then
-    pct="$(battery_pct)"
-    if ! plugged_in; then
-	    if battery_is_charging | [ "$pct" -gt 75 ]; then
-	      prompt_segment "$pct%%" green
-	    elif [[ "$pct" -gt 25 ]]; then
-	      prompt_segment "$pct%%" yellow
-	    else
-	      prompt_segment "$pct%%" red
-	    fi
-	  fi
-  fi
+function prompt_battery {
+	local pct
+	if [[ -n "$IS_LAPTOP" ]]; then
+		pct="$(battery_pct)"
+		# if ! plugged_in; then
+			if battery_is_charging | [ "$pct" -gt 75 ]; then
+				prompt_segment "$pct%%" green
+			elif [[ "$pct" -gt 25 ]]; then
+				prompt_segment "$pct%%" yellow
+			else
+				prompt_segment "$pct%%" red
+			fi
+		# fi
+	fi
 }
 
 function prompt_time {
 	local p_time
 	[[ -n $MILITARY_TIME ]] && p_time="%T" || p_time="%t"
-	prompt_segment "$p_time" blue
+prompt_segment "$p_time" blue
 }
 
 function prompt_context {
@@ -105,7 +105,7 @@ function build_prompt {
 	get_lengths
 
 	# Build the actual prompt
-	prompt_batttery
+	prompt_battery
 	prompt_time
 	prompt_context
 	prompt_message
@@ -194,8 +194,8 @@ function rprompt_vi {
 }
 
 function build_rprompt {
-	rprompt_vi
-	rprompt_git
+  rprompt_vi
+  rprompt_git
 }
 
 RPROMPT='%{%f%b%k%} $(build_rprompt)'

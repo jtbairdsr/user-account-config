@@ -1,0 +1,3 @@
+[submodule "docker_registry_cli"]
+	path = bin/docker_registry_cli
+	url = git@github.com:vivekjuneja/docker_registry_cli.git

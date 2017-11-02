@@ -5,22 +5,18 @@
 	call plug#begin()
 
 	" Plugins ----------------------------------------------------------------------------------------------------------
-	Plug 'airblade/vim-gitgutter'
 	Plug 'airblade/vim-rooter'
-	Plug 'bonsaiben/bootstrap-snippets'
 	Plug 'bronson/vim-visual-star-search'
 	Plug 'bronson/vim-trailing-whitespace'
-	Plug 'burnettk/vim-angular'
-	Plug 'matthewsimo/angular-vim-snippets'
 	Plug 'chrisbra/Colorizer'
 	Plug 'chrisbra/csv.vim'
-	Plug 'claco/jasmine.vim'
 	Plug 'edkolev/promptline.vim'
-	Plug 'edsono/vim-matchit'
+	Plug 'geoffharcourt/vim-matchit'
+	Plug 'freitass/todo.txt-vim'
 	Plug 'godlygeek/tabular'
 	Plug 'honza/vim-snippets'
-	Plug 'jistr/vim-nerdtree-tabs'
-	Plug 'kien/ctrlp.vim'
+	Plug 'junegunn/vim-easy-align'
+	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'leafgarland/typescript-vim'
 	Plug 'Lokaltog/vim-easymotion'
 	Plug 'majutsushi/tagbar'
@@ -33,7 +29,6 @@
 	Plug 'rking/ag.vim'
 	Plug 'scrooloose/syntastic'
 	Plug 'scrooloose/nerdcommenter'
-	Plug 'scrooloose/nerdtree'
 	Plug 'severin-lemaignan/vim-minimap'
 	Plug 'Shougo/vimshell.vim'
 	Plug 'Shougo/vimproc.vim'
@@ -50,7 +45,6 @@
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-speeddating'
 	Plug 'tyru/open-browser.vim'
-	Plug 'Valloric/YouCompleteMe'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'vim-scripts/a.vim'
@@ -59,11 +53,12 @@
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'xolox/vim-misc'
 	Plug 'Yggdroot/indentLine'
-	Plug 'elzr/vim-json'
+	Plug 'leshill/vim-json'
 	Plug 'justinmk/vim-sneak'
 	Plug 'majutsushi/tagbar'
 	Plug 'mhinz/vim-signify'
 	Plug 'plasticboy/vim-markdown'
+	Plug 'ryanoasis/vim-devicons'
 
 
 
@@ -106,21 +101,31 @@
 	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	"                                                 Plugin Helpers                                                   "
 	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+	nnoremap <C-p> :CtrlP<CR>
+	let g:ctrlp_working_path_mode = 'ra'
+	let g:ctrlp_root_markers = ['package.json']
+	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+	let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+	let g:ctrlp_custom_ignore = {
+		\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+		\ 'file': '\v\.(exe|so|dll)$',
+		\ 'link': 'some_bad_symbolic_links',
+		\ }
+	let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
 		" Airline {{{
 			" bundle name: vim-airline ---------------------------------------------------------------------------------
-			let g:airline_powerline_fonts = 1 " Enable fancy powerline fonts
+			" bundle name: vim-airline-thmes ---------------------------------------------------------------------------
+			let g:airline_powerline_fonts = 1
+			let g:airline_theme                                   = 'solarized'
+			let g:airline_solarized_bg                            = 'light'
+			let g:airline#extensions#tabline#enabled              = 1
+			let g:airline#extensions#tabline#left_sep             = ' '
+			let g:airline#extensions#tabline#left_alt_sep         = '|'
+			let g:airline#extensions#whitespace#mixed_indent_algo = 1
 		" }}}End Airline
-
-		" Airline-Themes {{{
-			" bundle name: vim-airline-themes --------------------------------------------------------------------------
-			let g:airline_theme='solarized'
-		" }}}End Airline
-
-		" Bootstrap-Snippets {{{
-			" bundle name: bootstrap-snippets --------------------------------------------------------------------------
-			set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary  " add bootstrap snippets to the dictionary
-			set complete+=k
-		" }}}End Bootstrap-Snippets
 
 		" Colors-Solarized {{{
 			" bundle name: vim-colors-solarized ------------------------------------------------------------------------
@@ -130,54 +135,19 @@
 			map <F2> :set background=dark<CR>  " create a mapping that lets me change from light to dark on the fly
 		" }}}End Colors-Solarized
 
-		" Clevertab (not installed) {{{
-			" bundle name: vim-clevertab -------------------------------------------------------------------------------
-			" inoremap <silent><tab>   <c-r>=CleverTab#Complete('start')<CR>
-			" 						\<c-r>=CleverTab#Complete('tab')<CR>
-			" 						\<c-r>=CleverTab#Complete('keyword')<CR>
-			" 						\<c-r>=CleverTab#Complete('stop')<CR>
-			" inoremap <silent><s-tab> <c-r>=CleverTab#Complete('prev')<CR>
-		" }}}End Clevertab
+		" DevIcons {{{
+			" bundle name: vim-devicons
+			set encoding=utf8
+			set guifont=Monoid\ Nerd\ Font:h12
+		" }}} End DevIcons
 
-		" CtrlP {{{
-			" bundle name: ctrlp ---------------------------------------------------------------------------------------
-			let g:ctrlp_map               = '<c-p>'
-			let g:ctrlp_cmd               = 'CtrlP'
-			let g:ctrlp_working_path_mode = 'ra'                    " set the default start directory
-			set wildignore+=*/tmp/*,*.so,*.swp,*.zip                " Exclude files and directories using Vim's wildignore
-			let g:ctrlp_custom_ignore     = '\v[\/]\.(git|hg|svn)$' " Exclude files and directories using CtrlP's own g:ctrlp_custom_ignore
-			let g:ctrlp_user_command      = 'find %s -type f'       " Use a custom file listing command:
-			let g:ctrlp_working_path_mode = 'ra'                    " When invoked without a starting directory CtrlP will set its local working directory according to this variable:
-		" }}}End CtrlP
-
-		" EasyMotion {{{
-		" bundle name: vim-easymotion ----------------------------------------------------------------------------------
-			map <Space> <Plug>(easymotion-prefix)
-		" }}}End EasyMotion
-
-		" Fugitive {{{
-			" bundle name: vim-fugitive --------------------------------------------------------------------------------
-			noremap \gs :Gstatus<CR>
-			noremap \gc :Gcommit<CR>
-			noremap \gl :Glog<CR>
-			noremap \gd :Gdiff<CR>
-		" }}}End Fugitive
-
-		" GitGutter {{{
-			" bundle name: vim-gitgutter -------------------------------------------------------------------------------
-			let g:gitgutter_realtime        = 1     " make the signs change real time as soon as I stop typing
-			let g:gitgutter_eager           = 1     " make the signs update anytime the tab or window recieves focus
-			let g:gitgutter_highlight_lines = 1     " turn on line highlighting by default
-			nnoremap \gr <Plug>GitGutterRevertHunk  " revert the current change in the file to HEAD
-			nnoremap \gp <Plug>GitGutterPreviewHunk " preview what the current change is
-			nnoremap \gS <Plug>GitGutterStageHunk   " stage current hunk
-			highlight clear SignColumn              " make the sign column match the number column
-		" }}}End GitGutter
-
-		" Gundo {{{
-			" bundle name: gundo ---------------------------------------------------------------------------------------
-			nnoremap <C-F6> :GundoToggle<CR>
-		" }}}End Gundo
+		" EasyAlign {{{
+			" bundle name: vim-devicons
+			" Start intractive EasyAlign in visual mode (e.g vipga)
+			xmap ga <Plug>(EasyAlign)
+			" Start interactive EasyAlign for a motion/text object (e.g gaip)
+			nmap ga <Plug>(EasyAlign)
+		" }}} End EasyAlign
 
 		" IndentLine {{{
 			" bundle name: indentLine ----------------------------------------------------------------------------------
@@ -188,26 +158,6 @@
 			set list lcs=tab:\\                       " show tabs
 		" }}}End IndentLine
 
-		" JavaScript {{{
-			" bundle name: vim-javascript ------------------------------------------------------------------------------
-			"this sets some defaults that conceal js keywords to shorten code
-			" au FileType javascript setl conceallevel=2 concealcursor=nc
-			" let g:javascript_conceal_function  = "ƒ"
-			" let g:javascript_conceal_null      = "ø"
-			" let g:javascript_conceal_this      = "@"
-			" let g:javascript_conceal_return    = "⇚"
-			" let g:javascript_conceal_undefined = "¿"
-			" let g:javascript_conceal_NaN       = "ℕ"
-			" let g:javascript_conceal_prototype = "¶"
-			" let g:javascript_conceal_static    = "•"
-			" let g:javascript_conceal_super     = "Ω"
-		" }}}End JavaScript
-
-		" JavaScript-Libraries-Syntax {{{
-			" bundle name: javascript-libraries-sytax ------------------------------------------------------------------
-			let g:used_javascript_libs = 'angularjs,angularui,jquery,underscore'
-		" }}}End JavaScript-Libraries-Syntax
-
 		" MiniMap {{{
 			" bundle name: vim-minimap ---------------------------------------------------------------------------------
 			let g:mimimap_highlight='Visual'
@@ -217,6 +167,7 @@
 			" bundle name: nerdcommenter url(https://github.com/scrooloose/nerdcommenter) ------------------------------
 			filetype plugin on
 			imap <F4> <Plug>NERDCommenterInsert                                    " map <F4> to start a new comment while in insert mode
+			noremap <D-/> <Plug>NERDComToggleComment
 			let g:NERDSpaceDelims       = 1                                        " Add spaces after comment delimiters by default
 			let g:NERDCompactSexyComs   = 1                                        " Use compact syntax for prettified multi-line comments
 			let g:NERDDefaultAlign      = 'left'                                   " Align line-wise comment delimiters flush left instead of following code indentation
@@ -224,14 +175,6 @@
 			let g:NERDCustomDelimiters  = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
 			let g:NERDCommentEmptyLines = 1                                        " Allow commenting and inverting empty lines (useful when commenting a region)
 		" }}}End NERD-Commenter
-
-		" NERD-Tree and NERD-Tree_Tabs {{{
-			" bundle name: nerdtree ------------------------------------------------------------------------------------
-			" bundle name: vim-nerdtree-tabs ---------------------------------------------------------------------------
-			let NERDTreeWinPos = 'right'
-			noremap \nf  :NERDTreeFind<CR>
-			noremap <F5> :NERDTreeTabsToggle<CR>
-		" }}}End NERD-Tree and NERD-Tree_Tabs"
 
 		" PromptLine {{{
 			" bundle name: promptline ----------------------------------------------------------------------------------
@@ -308,13 +251,7 @@
 			nnoremap <leader>* :call ag#Ag('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
 			vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ag#Ag('grep', '--literal ' . shellescape(@/))<CR>
 		" }}}End Visual-Star-Search
-
-		" YCM {{{
-			" bundle name: Valloric/YouCompleteMe ----------------------------------------------------------------------
-			let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-			let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-		" }}}End YCM
-	" }}}End Plugin Helpers
+	" }}} End Plugin Helpers
 
 	" Key Remapping {{{
 	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -326,7 +263,6 @@
 		nnoremap <Leader>s :mksession<CR>        " save session
 		nnoremap <Leader><Space> :nohlsearch<CR> " turn of search highlight
 		nnoremap gV `[v`]                        " highlight last inserted text
-		nnoremap ; :                             " remove the obnoxious <Shift> from :
 	" }}}End Key Remapping
 
 	" VIM Appearance {{{
@@ -334,16 +270,17 @@
 	"                                                  VIM Appearance                                                  "
 	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 		set encoding=utf-8                                      " declare the encoding
-		set guifont=Source\ Code\ Pro\ for\ Powerline\ Modified " this forces the needed font for some of the fancyness
+		set guifont=Monoid\ Nerd\ Font                          " this forces the needed font for some of the fancyness
 		syntax enable                                           " turn on syntax highlighting
-		au BufNewFile,BufRead *.b,*/*BP*/* setf jbase           " enable syntax highlighting for jBASE (Pick) Basic
+
+		" au BufNewFile,BufRead *.b,*/*BP*/* setf jbase         " enable syntax highlighting for jBASE (Pick) Basic
 
 		" change cursor on insert mode if we can
 		let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 		let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 		let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-		" highlight the 80th column
+		" highlight the 120th column
 		if exists('+colorcolumn')
 			" In Vim >= 7.3, also highlight columns 120+
 			let &colorcolumn="120,".join(range(160,500),",")
@@ -376,7 +313,6 @@
 		set hidden                     " don't unload buffer when switching away
 		set backspace=indent,eol,start " sane backspace
 		set mouse=a                    " enable mouse for all modes settings
-		set nomousehide                " don't hide the mouse cursor while typing
 		set mousemodel=popup           " right-click pops up context menu
 		set ruler                      " show cursor position in status bar
 		set number                     " show absolute line number of the current line
@@ -385,7 +321,6 @@
 		set cursorcolumn               " highlight the current column
 		set printoptions=paper:letter  " user letter as the print output paper format
 		set shell=/bin/zsh             " define the shell to match my system shell
-		set foldenable                 " enable folding
 		set foldlevelstart=10          " open most folds by default
 		set foldmethod=syntax          " fold based on indent level
 		set modeline                   " turns on modelines

@@ -1,43 +1,84 @@
 #!/bin/bash
 
-# ------------------------------------------------- Add Default Flags --------------------------------------------------
-alias df='df -h'          # make `df` human redable by default
-alias ftp='ftp -i'        # turn off interactive prompting by default
-alias grep='grep --color' # Mark up the matching text with the expression stored in GREP_COLOR environment variable.
-alias ls='ls -FA'         # make ls more useful (file type markers, everything but . and .. etc.)
-alias ping="ping -c5"     # make ping stop after 5 requests
-alias scp='scp -C'        # Compression enable. Passes the -C flag to ssh(1) to enable compression.
+# ------------------------------------------------ Add Default Flags --------------------------------------------------
+alias df='df -h'                            # make `df` human redable by default
+alias ftp='ftp -i'                          # turn off interactive prompting by default
+alias grep='grep --color'                   # Mark up the matching text with an expression in GREP_COLOR env variable.
+alias ls='ls -GFA'                          # make ls more useful (file type markers, everything but . and .. etc.)
+alias ping="ping -c5"                       # make ping stop after 5 requests
+alias scp='scp -C'                          # Compression enable. Passes the -C flag to ssh(1) to enable compression.
 
-# ----------------------------------------------------- shorthand ------------------------------------------------------
-alias dnow='sudo shutdown -h now; exit' # shutdown the machine now
-alias fgrep='grep -F'                   # Interpret pattern as a set of fixed strings
-alias gs="git status"                   # create a simple git status alias
-alias gm="git mergetool"                # create a simple git mergetool alias
-alias grc="git rebase --continue"       # create a simple alias to continue a git rebase
-alias gxa="gitx --all"                  # create a simple alias to open gitx on all branches
-alias h=history                         # shorthand for history
-alias vi=vim                            # redirect vi to vim.
-alias showenv='env | grep -i'           # grep env variables for a specific value
-alias pidport=pidportfunction           # find process that is attached to a specific port
-alias showpid=showpidfunction           # find a process that matches a search string
+# --------------------------------------------------- short hand ------------------------------------------------------
+alias dnow='sudo shutdown -h now; exit'     # shutdown the machine now
+alias fgrep='grep -F'                       # Interpret pattern as a set of fixed strings
+alias gs="git status"                       # create a simple git status alias
+alias gm="git mergetool"                    # create a simple git mergetool alias
+alias grc="git rebase --continue"           # create a simple alias to continue a git rebase
+alias gxa="gitx --all"                      # create a simple alias to open gitx on all branches
+alias h=history                             # shorthand for history
+alias vi=vim                                # redirect vi to vim.
+alias vim='mvim -v'                         # use macvim in the terminal
+alias showenv='env | grep -i'               # grep env variables for a specific value
+alias pidport=pidportfunction               # find process that is attached to a specific port
+alias showpid=showpidfunction               # find a process that matches a search string
+alias whatport=whatportfunction             # find a process that matches a search string
+alias build='buildfunction'                 # run mircorservice build process
 
-alias mkPatch='diff -Naur'              # !!!!!! I DON'T KNOW WHAT THIS DOES (inherited from dad) !!!!!!
+# ----------------------------------------------------- docker --------------------------------------------------------
+alias dockerimgsrm='docker rmi -f `docker images -q`'
+alias dockercontsrm='docker rm `docker ps -aq --no-trunc`'
 
-# -------------------------------------------------------- Misc --------------------------------------------------------
+# ----------------------------------------------------- gitlab --------------------------------------------------------
+alias testCI='testCIfunction'
+
+# ------------------------------------------------------ Misc ---------------------------------------------------------
 # shellcheck disable=SC2139
-alias Ping="$(which ping)"                    # an alias to a ping that won't end
-alias safari='~/bin/new_safari_window'        # open urls in a new safari window
-alias vim='mvim -v'                           # use macvim in the terminal
-alias zshconfig="atom ~/.zshrc"               # open .zshrc in atom
-alias zshconfiglocal="atom ~/.zprofile.local" # open .zprofile.local in atom
-alias edconfig="atom \$config"                # open the config directory in atom
-alias edwork="atom \$work"                    # open the currently assigned work directory in atom
+alias Ping="$(which ping)"                  # an alias to a ping that won't end
+alias safari='~/bin/new_safari_window'      # open urls in a new safari window
+alias zshconfig="atom ~/.zshrc"             # open .zshrc in atom
+alias zshconflocal="atom ~/.zprofile.local" # open .zprofile.local in atom
+alias edconfig="atom \$config"              # open the config directory in atom
+alias edwork="atom \$work"                  # open the currently assigned work directory in atom
+alias emptyTrash="rm -rf ~/.Trash/*"        # empty the trash
+alias copy=copyfunction                     # shorthand for `cat $1 | pbcopy`
 
-# -------------------------------------------------- Alias functions ---------------------------------------------------
+alias fixLicenses="INJECT_LICENSES=1 git commit --allow-empty -m 'Add/update licenses for all maintained files' --edit"
+
+# ------------------------------------------------ Alias functions ----------------------------------------------------
 pidportfunction() {
-	lsof -n -i4TCP:$1 | grep LISTEN
+	lsof -n -i4TCP:"$1" | grep LISTEN
 }
 
 showpidfunction () {
-	ps ${SHOWPIDFLAGS:--auxl} | head -1 >&2; ps ${SHOWPIDFLAGS:--auxl} | grep -v grep | grep -i $1
+	# shellcheck disable=SC2009
+	ps "${SHOWPIDFLAGS:--auxl}" | head -1 >&2; ps "${SHOWPIDFLAGS:--auxl}" | grep -v grep | grep -i "$1"
+}
+
+whatportfunction () {
+	lsof -i -P -n | grep LISTEN | grep "$1"
+}
+
+buildfunction () {
+	CWD=$(pwd)
+	service=$(jq -r ".name" package.json)
+	# shellcheck disable=SC2154
+	cd "$work" || exit 1
+	npm run build "$service"
+	trap 'cd "$CWD"' EXIT
+}
+
+testCIfunction() {
+	cp .gitlab-ci.yml temp.gitlab-ci.yml
+	# shellcheck disable=SC1004,SC2016
+	sed '/docker login.*/c\
+		\ \ \ \ - docker login -u jtbairdsr@me.com -p QvD-FCZ-66m-F2k registry.gitlab.com\
+		' .gitlab-ci.yml | sed 's/$CI_BUILD_REF_NAME/test/g' > deleteme.yml
+	mv deleteme.yml .gitlab-ci.yml
+	gitlab-runner exec docker --docker-privileged "$1"
+
+	trap 'mv temp.gitlab-ci.yml .gitlab-ci.yml' EXIT
+}
+
+copyfunction() {
+	pbcopy < "$1"
 }

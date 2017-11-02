@@ -4,7 +4,7 @@
 	smudge = git media smudge %f
 [user]
 	name = Jonathan Baird
-	email = jonathan@snappworks.com
+	email = jtbairdj@gmail.com
 [credential]
 	helper = osxkeychain
 
@@ -63,3 +63,6 @@
 	trustExitCode = true
 [commit]
 	template = /Users/jonathan/.stCommitMsg
+[gitflow "branch"]
+	master = production
+	develop = master

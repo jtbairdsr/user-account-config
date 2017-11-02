@@ -7,3 +7,8 @@
 
 # added by GitSavvy
 /safety/
+
+vim/plugged/
+vim/.netrwhist
+
+**/*.swp

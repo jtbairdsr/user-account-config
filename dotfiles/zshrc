@@ -9,8 +9,11 @@ prompt walters
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-[[ -n "$SSH_CLIENT" ]] && ZSH_THEME="haven-remote" || ZSH_THEME="haven-power"
-export ZSH_THEME
+if [[ -n "$SSH_CLIENT" ]]; then
+	[[ -n "$ZSH_THEME" ]] || export ZSH_THEME="haven-remote"
+else
+	export ZSH_THEME="haven-box"
+fi
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -19,7 +22,7 @@ export ZSH_THEME
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
+DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 # DISABLE_AUTO_TITLE="true"
@@ -32,6 +35,7 @@ export ZSH_THEME
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
 	vi-mode                  # This plugin increase vi-like zsh functionality.
+	aws
 	battery                  # allows see battery status in PS
 	boot2docker              # Adds autocomplete options for all boot2docker commands
 	bower                    # Front-end package manager https://github.com/bower/bower
@@ -56,6 +60,7 @@ plugins=(
 	gulp                     # autocompletion for gulp
 	jump                     # Easily jump around the file system by manually adding marks
 	mosh                     # mobile shell with roaming (wifi, mobile networks) and local echo http://mosh.mit.edu/
+	mysql-colorize           # Colorization for mysql
 	node                     # NodeJS docs easy access via CLI
 	npm                      # package manager for NodeJS
 	nvm                      # NodeJS version manager
@@ -68,7 +73,10 @@ plugins=(
 	tugboat                  # Digital Ocean droplet manager
 	vagrant                  # autocompletion for Vagrant commands, task names, box names and built-in handy documentation. All in one place.
 	yeoman                   # autocompletion for yeoman
-	zsh-completions					 # this is simply a clone of zsh-users/zsh-completions repo https://github.com/zsh-users/zsh-completions
+	zsh-autosuggestions      # Fish-like fast/unobtrusive autosuggestions for zsh
+	zsh-better-npm-completeion # Better completion for npm
+	zsh-completions          # this is simply a clone of zsh-users/zsh-completions repo https://github.com/zsh-users/zsh-completions
+	zsh-nvm                  # manages my nvm installation
 	zsh-syntax-highlighting  # commandline syntax highlighting
 	history-substring-search # This is a clean-room implementation of the Fish shell's history search
 )
@@ -79,17 +87,17 @@ plugins=(
 
 # Customize to your needs...
 
-################################################################################
-#                               MY CUSTOMIZATIONS                              #
-################################################################################
+#=======================================================================================================================
+#                                                   MY CUSTOMIZATIONS
+#=======================================================================================================================
 
-# ********************************** BINDKEY ********************************* #
+# ****************************************************** BINDKEY *******************************************************
 
-# ----------- hack to fix the broken history-substring-search plugin --------- #
+# ------------------------------- hack to fix the broken history-substring-search plugin -------------------------------
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-# ************************************ MISC ********************************** #
+# ******************************************************** MISC ********************************************************
 zmodload zsh/stat
 alias size='stat +size'
 
@@ -102,12 +110,11 @@ setopt NO_NOMATCH # fixes an issue with ^ when using it in git
 zmodload zsh/files
 
 # shellcheck disable=SC1091
-[ -f ~/.aliases ] && . ~/.aliases
-
-# shellcheck disable=SC1091
+# shellcheck source=$HOME/.zshrc.local
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
 
 # shellcheck disable=SC1091
+# shellcheck source=$HOME/.iterm2_shell_integration.zsh
 [ -f ~/.iterm2_shell_integration.zsh ] && . ~/.iterm2_shell_integration.zsh
 
 # enables zsh-completions plugin

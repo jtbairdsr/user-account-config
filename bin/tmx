@@ -1,0 +1,79 @@
+#!/bin/bash
+
+#
+# Tmux launcher
+#
+# See:
+#     http://github.com/brandur/tmux-extra
+#
+# Modified version of a script orginally found at:
+#     http://forums.gentoo.org/viewtopic-t-836006-start-0.html
+#
+
+# Works because bash automatically trims by assigning to variables and by
+# passing arguments
+trim() { echo $1; }
+
+PATH=$PATH:/opt/local/bin
+
+if [[ -z "$1" ]]; then
+  echo "Usage 1:  `basename $0` base-session [new-window-name [command [arg...]]]"
+  echo "Specify session name as the first argument"
+  echo "To start a command in a new window in that session,"
+  echo "pass window name, command and params as the rest of the command line"
+  echo "Usage 2: `basename $0` ls"
+  echo "shows available tmux sessions"
+  exit 1
+fi
+
+# Only because I often issue `ls` to this script by accident
+if [[ "$1" == "ls" ]]; then
+  tmux ls
+  exit
+fi
+
+base_session="$1"
+shift
+# This actually works without the trim() on all systems except OSX
+tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
+if [[ "$tmux_nb" == "0" ]]; then
+  echo "Launching tmux base session $base_session ..."
+  tmux new-session -s $base_session
+else
+  # Make sure we are not already in a tmux session
+  if [[ -z "$TMUX" ]]; then
+    echo "Launching copy of base session $base_session ..."
+    # id of the session copy is is date and time to prevent conflict
+    session_id=`date +%Y%m%d%H%M%S`
+    # Create a new session (without attaching it) and link to base session
+    # to share windows
+    tmux new-session -d -t $base_session -s $session_id
+    # Create a new window in the session if needed
+    if [ $# -gt 0 ]
+    then
+      # save the window name
+      name="$1"
+      # now if there are more parameters...
+      if [ $# -gt 1 ]
+      then
+        # and the first one is not an executable command...
+        if which $2 > /dev/null
+          [ $? -ne 0 ]
+        then
+          # and the window name IS an executable command...
+          if which $1 > /dev/null 
+          then
+            : do NOT shift off the name
+            : so we can use it as the command name, too
+          else
+            shift
+          fi
+        fi
+      fi
+      tmux new-window -n "$name" $*
+    fi
+
+    # Attach to the new session, killing your session when done
+    tmux attach-session -t $session_id \; set-option destroy-unattached
+  fi
+fi

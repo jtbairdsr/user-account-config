@@ -1,0 +1,78 @@
+#!/bin/bash
+
+export POWERLEVEL9K_MODE="nerdfont-complete"
+
+# ================================================= (os_icon) Config ===================================================
+
+# =================================================== (host) Config ====================================================
+export POWERLEVEL9K_HOST_LOCAL_BACKGROUND=black
+export POWERLEVEL9K_HOST_LOCAL_FOREGROUND=white
+export POWERLEVEL9K_HOST_REMOTE_BACKGROUND=black
+export POWERLEVEL9K_HOST_REMOTE_FOREGROUND=white
+export POWERLEVEL9K_HOST_ICON="\uF109" # 
+export POWERLEVEL9K_HOST_TEMPLATE=""   # only show icon
+
+# ================================================= (context) Config ===================================================
+export POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND=black
+export POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND=white
+export POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=white
+export POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=red
+
+
+# =================================================== (dir) Config =====================================================
+export POWERLEVEL9K_HOME_FOLDER_ABBREVIATION="" # hide home directory icon
+export POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=false
+export POWERLEVEL9K_DIR_PATH_SEPARATOR="  "
+export POWERLEVEL9K_DIR_HOME_BACKGROUND=blue
+export POWERLEVEL9K_DIR_HOME_FOREGROUND=white
+export POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=blue
+export POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=white
+export POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=blue
+export POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=white
+# Tuncate Rules -------------------------------------------------------------------------------------------------------
+export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+export POWERLEVEL9K_SHORTEN_STRATEGY=truncate_with_package_name
+
+# ================================================== (status) Config ===================================================
+export POWERLEVEL9K_STATUS_CROSS=true    #  show cross instead of return status code
+export POWERLEVEL9K_STATUS_VERBOSE=false #  hide segment unless ther is an error
+export POWERLEVEL9K_STATUS_ERROR_FOREGROUND=white
+export POWERLEVEL9K_STATUS_ERROR_BACKGROUND=red
+
+# ================================================= (vi-mode) Config ===================================================
+export POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=yellow
+export POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=white
+export POWERLEVEL9K_VI_INSERT_MODE_STRING="%BINSERT%b"
+export POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='011'
+export POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND=white
+export POWERLEVEL9K_VI_COMMAND_MODE_STRING="%BNORMAL%b"
+
+# ================================================= (history) Config ===================================================
+export POWERLEVEL9K_HISTORY_BACKGROUND=014
+export POWERLEVEL9K_HISTORY_FOREGROUND=white
+
+# =============================================== (dir_writable) Config ================================================
+export POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND=yellow
+export POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=white
+
+# =================================================== (vcs) Config =====================================================
+export POWERLEVEL9K_VCS_CLEAN_FOREGROUND="white"
+export POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="white"
+export POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="white"
+
+# ========================================== (command_execution_time) Config ===========================================
+# export POWERLEVEL9K_COMMAND_EXECUTION_TIME_ICON="\u231A"
+
+# =================================================== (nvm) Config =====================================================
+export POWERLEVEL9K_NODE_ICON="\ue718" # 
+export POWERLEVEL9K_NVM_BACKGROUND=green
+export POWERLEVEL9K_NVM_FOREGROUND=white
+
+# =================================================== (time) Config ====================================================
+export POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M \uf073 %d-%b-%y}"
+export POWERLEVEL9K_TIME_FOREGROUND="white"
+export POWERLEVEL9K_TIME_BACKGROUND="black"
+
+# ================================================ Initialize Prompts ==================================================
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( vi_mode os_icon host context_joined dir dir_writable status )
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( command_execution_time nvm vcs time )

@@ -1,3 +1,4 @@
+#!/bin/bash
 #==============================================================================#
 #                              Set Color Variables                             #
 #==============================================================================#
@@ -33,50 +34,50 @@ LINE_SEPARATOR_RIGHT="\ue0b3"  # 
 SOLID_SEPARATOR_LEFT="\ue0b0"  # 
 LINE_SEPARATOR_LEFT="\ue0b1"   # 
 
-PLUG_CHAR=" \ue0b5 "           # 
-BATTERY_EMPTY=" \ue0b7 "       # 
-BATTERY_33=" \ue0b8 "          # 
-BATTERY_66=" \ue0b9 "          # 
-BATTERY_CHARGING=" \ue0ba "    # 
-BATTERY_FULL=" \ue0bb "        # 
+PLUG_CHAR=" \uf1e6"            # 
+BATTERY_0=" \uf244"            # 
+BATTERY_25=" \uf243"           # 
+BATTERY_50=" \uf242 "          # 
+BATTERY_75=" \uf241 "          # 
+BATTERY_100=" \uf240 "         # 
+BATTERY_CHARGING=" \uf0e7"     # 
 
-GIT_CHAR=" \ue0b6 "            # 
-BRANCH_CHAR=" \ue0a0 "         # 
-MERGE_CHAR=" \ue0a2 "          # 
-REBASE_CHAR=" \ue0a3 "         # 
-BISECT_LOG_CHAR=" \ue0a4 "     # 
-BRANCH_2_CHAR=" \ue0a5 "       # 
-DETACHED_CHAR="\u27a6 "        # ➦
-UNTRACKED_CHAR="\u2026 "       # …
-CHANGED_CHAR="\u271a "         # ✚
-CONFLICTS_CHAR="\u2716 "       # ✖
-STAGED_CHAR="\u25cf "          # ●
-CLEAN_CHAR="\u2714 "           # ✔
+GIT_CHAR=" \uf1d3 "            # 
+DETACHED_CHAR=" \uf417 "       # 
+BRANCH_CHAR=" \uf418 "         # 
+MERGE_CHAR=" \uf419 "          # 
+REBASE_CHAR=" \uf47f "         # 
+BISECT_LOG_CHAR=" \uf46f "     # 
+UNTRACKED_CHAR=" \u2026 "      # …
+CHANGED_CHAR=" \u271a "        # ✚
+CONFLICTS_CHAR=" \uf00d "      # 
+STAGED_CHAR=" \u25cf "         # ●
+CLEAN_CHAR=" \uf00c "          # 
 
-SUPERMAN=" \ue0b4"             # 
-CROSS_CHAR=" \u2718"           # ✘
+
+NODE_SYMBOL=" \ue718"          # 
+SUPERMAN=" \uf43b"             # 
+CROSS_CHAR=" \uf00d"           # 
 DIRTY_CHAR="\u00b1"            # ±
-GEAR_CHAR=" \ue0a6 "           # 
-ARROW_UP_CHAR="\ue0be "        # 
-ARROW_DOWN_CHAR="\ue0bf "      # 
-RIGHT_SHIFT=" \ue0bc "         # 
-LEFT_SHIFT=" \ue0bd "          # 
-FOREVER_CHAR=" \ue0a7 "        # 
-ON_CHAR=" \ue0a8 "             # 
-PROMPT_CHAR="\u2192"           # →
+GEAR_CHAR=" \uf013 "           # 
+ARROW_UP_CHAR="\uf062 "        # 
+ARROW_DOWN_CHAR="\uf063 "      # 
+# ON_CHAR=" \ue0a8 "             # 
+ON_CHAR=" \uf418 "             # 
+PROMPT_CHAR="\uf054"           # 
 
 function check_font {
   echo "SEPARATORS"
   echo $SOLID_SEPARATOR_RIGHT$SOLID_SEPARATOR_LEFT$LINE_SEPARATOR_RIGHT$LINE_SEPARATOR_LEFT
   echo
   echo "GIT"
-  echo $GIT_CHAR$BRANCH_CHAR$MERGE_CHAR$REBASE_CHAR$BISECT_LOG_CHAR$BRANCH_2_CHAR$DETACHED_CHAR$UNTRACKED_CHAR$CHANGED_CHAR$CONFLICTS_CHAR$STAGED_CHAR$CLEAN_CHAR
+  echo "$GIT_CHAR$BRANCH_CHAR$MERGE_CHAR$REBASE_CHAR$BISECT_LOG_CHAR$DETACHED_CHAR$UNTRACKED_CHAR$CHANGED_CHAR$CONFLICTS_CHAR$STAGED_CHAR$CLEAN_CHAR"
   echo
   echo "POWER"
-  echo $PLUG_CHAR$BATTERY_EMPTY$BATTER_33$BATTERY_66$BATTERY_CHARGING$BATTERY_FULL$FOREVER_CHAR
+  echo "$PLUG_CHAR$PLUG_CHAR$BATTERY_0$BATTERY_25$BATTERY_50$BATTERY_75$BATTERY_100$BATTERY_CHARGING"
   echo
   echo "MISC"
-  echo $SUPERMAN$CROSS_CHAR$RIGHT_SHIFT$LEFT_SHIFT$DIRTY_CHAR$GEAR_CHAR$ARROW_UP_CHAR$ARROW_DOWN_CHAR$ON_CHAR$PROMPT_CHAR
+  echo "$NODE_SYMBOL$SUPERMAN$CROSS_CHAR$DIRTY_CHAR$GEAR_CHAR$ARROW_UP_CHAR$ARROW_DOWN_CHAR$ON_CHAR$PROMPT_CHAR"
 }
 function clear_errors {
   return 0
@@ -94,32 +95,32 @@ CURRENT_FG="NONE"
 
 #------------------------------- Begin a segment -------------------------------
 function prompt_segment_left {
-  local segment bg fg separator
-  segment=${1:- }
-  bg=${2:-$CURRENT_BG}
-  fg=${3:-$CURRENT_FG}
-  separator=${4:-NONE}
+	local segment bg fg separator
+	segment=${1:- }
+	bg=${2:-$CURRENT_BG}
+	fg=${3:-$CURRENT_FG}
+	separator=${4:-NONE}
 
-  if [[ $separator == "LINE" && $bg == $CURRENT_BG ]]; then
-    echo -n $LINE_SEPARATOR_LEFT$segment
-  elif [[ $separator == "LINE" || $CURRENT_BG == "NONE" ]]; then
-    echo -n "%{%F{$fg}%K{$bg}%}$segment"
-  elif [[ $CURRENT_BG == $bg && $separator == "SOLID" ]]; then
-    echo -n $segment
-  elif [[ $separator == "SOLID" ]]; then
-    echo -n "%{%F{$CURRENT_BG}%K{$bg}%}$SOLID_SEPARATOR_LEFT%{%F{$fg}%}$segment"
-  else
-    echo -n "%{%F{$fg}%K{$bg}%}$segment"
-  fi
-  CURRENT_BG=$bg
-  CURRENT_FG=$fg
+	if [[ $separator == "LINE" && $bg == "$CURRENT_BG" ]]; then
+		echo -n "$LINE_SEPARATOR_LEFT$segment"
+	elif [[ $separator == "LINE" || $CURRENT_BG == "NONE" ]]; then
+		echo -n "%{%F{$fg}%K{$bg}%}$segment"
+	elif [[ $CURRENT_BG == "$bg" && $separator == "SOLID" ]]; then
+		echo -n "$segment"
+	elif [[ $separator == "SOLID" ]]; then
+		echo -n "%{%F{$CURRENT_BG}%K{$bg}%}$SOLID_SEPARATOR_LEFT%{%F{$fg}%}$segment"
+	else
+		echo -n "%{%F{$fg}%K{$bg}%}$segment"
+	fi
+	CURRENT_BG=$bg
+	CURRENT_FG=$fg
 }
 
 function get_lengths {
   # Determine How long the path can be and how long the divider will be
   #----------------------------------------------------------------------------#
    local status_len context_len message_len time_len battery_len user
-  (( termwidth = $COLUMNS - 2 ))
+  (( termwidth = COLUMNS - 2 ))
   user=$(whoami)
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     (( context_len = ${#${(%):-%n@%m}} + 3 ))
@@ -147,7 +148,7 @@ function get_lengths {
   #                            flag in order to get things to happen in the    #
   #                            right order.                                    #
   #............................................................................#
-  (( prompt_len = $context_len + $message_len + $time_len + $battery_len + $status_len ))
+  (( prompt_len = context_len + message_len + time_len + battery_len + status_len ))
   pwd_len=${#${(%):-%~}}
 }
 
@@ -179,9 +180,9 @@ function prompt_path {
   #----------------------------------------------------------------------------#
   local path_len
   if [[ "$prompt_len + $pwd_len" -gt $termwidth ]]; then
-    ((path_len=$termwidth - $prompt_len))
+    ((path_len = termwidth - prompt_len))
   fi
-  prompt_segment_left " %$path_len<...<%~%<<" white blue $1
+  prompt_segment_left " %$path_len<...<%~%<<" white blue "$1"
 }
 
 function prompt_history {
@@ -226,7 +227,8 @@ function prompt_context {
   #                           integer, trailing components of the hostname are #
   #                           shown.                                           #
   #............................................................................#
-  local user=$(whoami)
+  local user
+  user=$(whoami)
   # only populate username@hostname for users that aren't default and local
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment_left " %(!|$user:u|$user)@%m " white blue SOLID
@@ -242,45 +244,36 @@ function prompt_message {
   prompt_segment_left " $message" blue white SOLID
 }
 
-#----------------------------------- Divider -----------------------------------
-  #function prompt_divider {
-  #  local hbar divider_char divider_len divider
-  #  hbar="\u2500" # ─
-  #  (( divider_len = $termwidth - ($prompt_len + $pwd_len) ))
-  #  divider="$hbar$hbar${(l.$divider_len..─.)}$hbar"
-  #  echo -n "%{%k%F{$CURRENT_BG}%}$SOLID_SEPARATOR_LEFT%{%F{blue}%}$divider" # End divider
-  #  CURRENT_BG="default"
-  #}
-#-------------------------------------------------------------------------------
-
 #------------------------------------ Time -------------------------------------
 function prompt_time {
   local p_time
   [[ -n $MILITARY_TIME ]] && p_time="%T" || p_time="%t"
-  prompt_segment_left "$p_time " blue white SOLID
+  prompt_segment_left " $p_time " blue white SOLID
 }
 
 #----------------------------------- Battery -----------------------------------
 function prompt_battery {
-  local pct
-  if [[ -n $IS_LAPTOP ]]; then
-    if battery_is_charging; then
-      prompt_segment_left " $BATTERY_CHARGING" green white SOLID
-    elif plugged_in; then
-      prompt_segment_left "$PLUG_CHAR $FOREVER_CHAR " green white SOLID
-    else
-      pct=$(battery_pct)
-      if [ $pct -gt 75 ]; then
-        prompt_segment_left " $BATTERY_FULL " green white SOLID
-      elif [[ $pct -gt 50 ]]; then
-        prompt_segment_left " $BATTERY_66 " yellow white SOLID
-      elif [[ $pct -gt 25 ]]; then
-        prompt_segment_left " $BATTERY_33 " yellow white SOLID
-      else
-        prompt_segment_left " $BATTERY_EMPTY " red white SOLID
-      fi
-    fi
-  fi
+	local pct
+	if [[ -n $IS_LAPTOP ]]; then
+		if battery_is_charging; then
+			prompt_segment_left "$BATTERY_CHARGING" green white SOLID
+		elif plugged_in; then
+			prompt_segment_left "$PLUG_CHAR" green white SOLID
+		else
+			pct=$(battery_pct)
+			if [[ "$pct" -gt 95 ]]; then
+				prompt_segment_left "$BATTERY_100" green white SOLID
+			elif [[ "$pct" -gt 74 ]]; then
+				prompt_segment_left "$BATTERY_75" yellow white SOLID
+			elif [[ "$pct" -gt 49 ]]; then
+				prompt_segment_left "$BATTERY_50" yellow white SOLID
+			elif [[ "$pct" -gt 24 ]]; then
+				prompt_segment_left "$BATTERY_25" red white SOLID
+			else
+				prompt_segment_left "$BATTERY_0" red white SOLID
+			fi
+		fi
+	fi
 }
 
 
@@ -291,11 +284,12 @@ function prompt_status {
   # - are there background jobs?
   symbols=()
 
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}${CROSS_CHAR}"
-  [[ $UID -eq 0 ]] && symbols+="$RED_BL$SUPERMAN$RESET_COLOR%{%K{black}%F{white}%}"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$GEAR_CHAR"
+  [[ $RETVAL -ne 0 ]] && symbols+=("%{%F{red}%}${CROSS_CHAR}")
+  [[ $UID -eq 0 ]] && symbols+=("$RED_BL$SUPERMAN$RESET_COLOR%{%K{black}%F{white}%}")
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+=("$GEAR_CHAR")
 
   prompt_segment_left $'\n' default default SOLID
+  # shellcheck disable=SC2128
   [[ -n "$symbols" ]] && prompt_segment_left "$symbols " black white LINE
 }
 
@@ -323,6 +317,7 @@ function build_prompt {
   prompt_end
 }
 
+# shellcheck disable=SC2034,SC2016
 PROMPT='%{%f%b%k%}$(build_prompt)'
 
 #==============================================================================#
@@ -330,101 +325,101 @@ PROMPT='%{%f%b%k%}$(build_prompt)'
 #==============================================================================#
 
 function prompt_segment_right {
-  local segment bg fg separator
-  segment=${1:- }
-  bg=${2:-$CURRENT_BG}
-  fg=${3:-$CURRENT_FG}
-  separator=${4:-NONE}
+	local segment bg fg separator
+	segment=${1:- }
+	bg=${2:-$CURRENT_BG}
+	fg=${3:-$CURRENT_FG}
+	separator=${4:-NONE}
 
-  if [[ $separator == "LINE" && $bg == $CURRENT_BG ]]; then
-    echo -n $LINE_SEPARATOR_RIGHT$segment
-  elif [[ $separator == "LINE" || $CURRENT_BG == "NONE" ]]; then
-    echo -n "%{%F{$fg}%K{$bg}%}$segment"
-  elif [[ $CURRENT_BG == $bg && $separator == "SOLID" ]]; then
-    echo -n $segment
-  elif [[ $separator == "SOLID" ]]; then
-    echo -n "%{%F{$bg}%K{$CURRENT_BG}%}$SOLID_SEPARATOR_RIGHT%{%F{$fg}%K{$bg}%}$segment"
-  else
-    echo -n "%{%F{$fg}%K{$bg}%}$segment"
-  fi
-  CURRENT_BG=$bg
-  CURRENT_FG=$fg
+	if [[ $separator == "LINE" && $bg == "$CURRENT_BG" ]]; then
+		echo -n "$LINE_SEPARATOR_RIGHT$segment"
+	elif [[ $separator == "LINE" || $CURRENT_BG == "NONE" ]]; then
+		echo -n "%{%F{$fg}%K{$bg}%}$segment"
+	elif [[ $CURRENT_BG == "$bg" && $separator == "SOLID" ]]; then
+		echo -n "$segment"
+	elif [[ $separator == "SOLID" ]]; then
+		echo -n "%{%F{$bg}%K{$CURRENT_BG}%}$SOLID_SEPARATOR_RIGHT%{%F{$fg}%K{$bg}%}$segment"
+	else
+		echo -n "%{%F{$fg}%K{$bg}%}$segment"
+	fi
+	CURRENT_BG=$bg
+	CURRENT_FG=$fg
 }
 
 #---------------------------- Right prompt Git info ----------------------------
 function prompt_git_dirty_clean {
-    if [[ $GIT_STAGED -gt 0 || $GIT_CHANGED -gt 0 || $GIT_UNTRACKED -gt 0 || $GIT_CONFLICTS -gt 0 ]]; then
-      prompt_segment_right $DIRTY_CHAR yellow black SOLID
-    else
-      prompt_segment_right $CLEAN_CHAR green white SOLID
-    fi
+	if [[ $GIT_STAGED -gt 0 || $GIT_CHANGED -gt 0 || $GIT_UNTRACKED -gt 0 || $GIT_CONFLICTS -gt 0 ]]; then
+		prompt_segment_right "$DIRTY_CHAR" yellow black SOLID
+	else
+		prompt_segment_right "$CLEAN_CHAR" green white SOLID
+	fi
 }
 
 function prompt_git_branch_sha {
-  local ref=$(git symbolic-ref HEAD 2> /dev/null)
-  if [[ -n $ref ]]; then
-    prompt_segment_right " %{%B%}$ON_CHAR%{%b%}" blue red SOLID
-  else
-    prompt_segment_right "$DETACHED_CHAR" blue white SOLID
-  fi
-  prompt_segment_right "$GIT_BRANCH" blue white
+	local ref
+	ref=$(git symbolic-ref HEAD 2> /dev/null)
+	if [[ -n $ref ]]; then
+		prompt_segment_right " %{%B%}$ON_CHAR%{%b%}" blue red SOLID
+	else
+		prompt_segment_right "$DETACHED_CHAR" blue white SOLID
+	fi
+	prompt_segment_right "$GIT_BRANCH" blue white
 }
 
 function prompt_git_ahead_behind {
-  if [[ $GIT_AHEAD -gt 0 ]]; then
-    prompt_segment_right "$ARROW_UP_CHAR$GIT_AHEAD " yellow white SOLID
-  elif [[ $GIT_BEHIND -gt 0 ]]; then
-    prompt_segment_right "$BLACK_BL$ARROW_DOWN_CHAR$GIT_BEHIND $RESET_COLOR" red black SOLID
-  fi
+	if [[ $GIT_AHEAD -gt 0 ]]; then
+			prompt_segment_right "$ARROW_UP_CHAR$GIT_AHEAD " yellow white SOLID
+	elif [[ $GIT_BEHIND -gt 0 ]]; then
+			prompt_segment_right "$BLACK_BL$ARROW_DOWN_CHAR$GIT_BEHIND $RESET_COLOR" red black SOLID
+	fi
 }
 
 function prompt_git_trafic_light {
-  local light_segment
-  if [[ $GIT_CONFLICT -gt 0 ]]; then
-    light_segment="%{%F{red}%}$CONFLICT_CHAR"
-  fi
-  if [[ $GIT_UNTRACKED -gt 0 ]]; then
-    light_segment="$light_segment%{%F{yellow}%}$UNTRACKED_CHAR"
-  fi
-  if [[ $GIT_CHANGED -gt 0 ]]; then
-    light_segment="$light_segment%{%F{yellow}%}$CHANGED_CHAR"
-  fi
-  if [[ $GIT_STAGED -gt 0 ]]; then
-    light_segment="$light_segment%{%F{green}%}$STAGED_CHAR"
-  fi
-  if [[ -n $light_segment ]]; then
-    prompt_segment_right $light_segment white black SOLID
-  fi
+	local light_segment
+	if [[ $GIT_CONFLICTS -gt 0 ]]; then
+		light_segment="%{%F{red}%}$CONFLICTS_CHAR"
+	fi
+	if [[ $GIT_UNTRACKED -gt 0 ]]; then
+		light_segment="$light_segment%{%F{yellow}%}$UNTRACKED_CHAR"
+	fi
+	if [[ $GIT_CHANGED -gt 0 ]]; then
+		light_segment="$light_segment%{%F{yellow}%}$CHANGED_CHAR"
+	fi
+	if [[ $GIT_STAGED -gt 0 ]]; then
+		light_segment="$light_segment%{%F{green}%}$STAGED_CHAR"
+	fi
+	if [[ -n $light_segment ]]; then
+		prompt_segment_right "$light_segment" white black SOLID
+	fi
 }
 function prompt_git_mode {
-  if [[ -e "${repo_path}/BISECT_LOG" ]]; then
-    prompt_segment_right $BISECT_LOG_CHAR red white SOLID
-  elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
-    prompt_segment_right $MERGE_CHAR red white SOLID
-  elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
-    prompt_segment_right $REBASE_CHAR red white SOLID
-  else
-    prompt_segment_right $BRANCH_CHAR black white SOLID
-  fi
+	if [[ -e "${repo_path}/BISECT_LOG" ]]; then
+		prompt_segment_right "$BISECT_LOG_CHAR" red white SOLID
+	elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
+		prompt_segment_right "$MERGE_CHAR" red white SOLID
+	elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
+		prompt_segment_right "$REBASE_CHAR" red white SOLID
+	else
+		prompt_segment_right "$BRANCH_CHAR" black white SOLID
+	fi
 }
 
 function prompt_git {
-  repo_path=$(git rev-parse --git-dir 2>/dev/null)
-  # shellcheck source=/Users/jonathan/.oh-my-zsh/plugins/git-prompt/git-prompt.plugin.zsh
-  source "$HOME/.oh-my-zsh/plugins/git-prompt/git-prompt.plugin.zsh"
-  update_current_git_vars
-  if [[ -n $GIT_BRANCH ]]; then
-    prompt_segment_right "" default default
-    prompt_git_dirty_clean
-    prompt_git_branch_sha
-    prompt_git_ahead_behind
-    prompt_git_trafic_light
-    prompt_git_mode
-  fi
+	repo_path=$(git rev-parse --git-dir 2>/dev/null)
+	# shellcheck source=/Users/jonathan/.oh-my-zsh/plugins/git-prompt/git-prompt.plugin.zsh
+	source "$HOME/.oh-my-zsh/plugins/git-prompt/git-prompt.plugin.zsh"
+	update_current_git_vars
+	if [[ -n $GIT_BRANCH ]]; then
+		prompt_segment_right "" default default
+		prompt_git_dirty_clean
+		prompt_git_branch_sha
+		prompt_git_ahead_behind
+		prompt_git_trafic_light
+		prompt_git_mode
+	fi
 }
 
 function prompt_vi {
-  local MODE_INDICATOR="$(prompt_segment_right $LEFT_SHIFT red white SOLID)"
   echo -n "$(vi_mode_prompt_info)"
 }
 
@@ -437,7 +432,13 @@ function build_rprompt {
 
 RPROMPT='%{%f%b%k%} $(build_rprompt)'
 
-  PS2='$CYAN$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT\
-  $BLUE$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT(\
-    $GREEN%_$BLUE)$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT\
-$CYAN$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT$RESET_COLOR '
+#   PS2='$CYAN$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT\
+#   $BLUE$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT(\
+#     $GREEN%_$BLUE)$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT\
+# $CYAN$CH_SHIFT_IN$CH_HBAR$CH_SHIFT_OUT$RESET_COLOR '
+
+# PS2='$prompt_segment_left(%_)'
+
+PS2='$(prompt_segment_left "%_" blue white)$(prompt_segment_left)'
+
+# vim:tabstop=4:shiftwidth=4

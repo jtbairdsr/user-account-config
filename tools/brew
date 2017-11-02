@@ -5,7 +5,7 @@
 #======================================================================================================================#
 
 #------------------------------------------------- Check for Homebrew --------------------------------------------------
-if test ! "$(which brew)"; then
+if test ! "$(type brew)"; then
     # Install if we don't have it
     echo "Installing Hombrew---------------------------------------------------"
     # Redirect stdin to /dev/null so that it won't ask if you are sure. This is
@@ -18,51 +18,38 @@ fi
 echo "Updating Homebrew--------------------------------------------------------"
 brew update
 
-#----------------------------- Install versioned formulae for the Homebrew package manager -----------------------------
-# These formulae provide other versions of existing packages, or newer versions of packages.
-echo "Installing Hombrew Versions----------------------------------------------"
-brew tap homebrew/versions
+# --------------------------------------------- Taps for certain formulae ----------------------------------------------
 
 #---------------------------------------- Install miscellaneous brew utilities -----------------------------------------
 echo "Installing other brew utilities -----------------------------------------"
 
 apps=(
-	aws-elasticbeanstalk    # Use the EB CLI to create and manage AWS Elastic Beanstalk environments.                                                                      (https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html)
-	awscli                  # A unified tool to manage your AWS services                                                                                                   (https://aws.amazon.com/cli/)
-	carthage                # A simple, decentralized dependency manager for Cocoa                                                                                         (https://github.com/Carthage/Carthage)
-	cmake                   # A family of tools designed to build, test and package software.                                                                              (https://cmake.org)
-	coreutils               # adds color to ls                                                                                                                             (https://www.gnu.org/software/coreutils)
-	fontconfig              # A library for configuring and customizing font access.                                                                                       (https://wiki.freedesktop.org/www/Software/fontconfig/)
-	fontforge               # A free and open source font editor brought to you by a community of fellow type lovers.                                                      (https://fontforge.github.io/en-US/)
-	freetype                # A freely available software library to render fonts.                                                                                         (https://www.freetype.org)
-	git                     # A free, open source dVCS designed to handle everything from small to very large projects with speed and efficiency.                          (https://git-scm.com)
-	git-extras              # GIT utilities -- repo summary, repl, changelog population, author commit percentages and more                                                (https://github.com/tj/git-extras)
-	git-flow                # Git extensions to provide high-level repository operations for Vincent Driessen's branching model.                                           (https://github.com/nvie/gitflow)
-	heroku                  # A tool for creating and managing Heroku apps from the command line / shell of various operating systems.                                     (https://devcenter.heroku.com/articles/heroku-cli)
-	highlight               # Converts sourcecode to HTML, XHTML, RTF, SVG, and terminal escape sequences with coloured syntax highlighting.                               (http://www.andre-simon.de/doku/highlight/en/highlight.php)
-	hub                     # A command-line wrapper for git that makes you better at GitHub                                                                               (https://hub.github.com)
-	imagemagick             # Use to create, edit, compose, or convert bitmap images.                                                                                      (https://www.imagemagick.org/script/index.php)
-	keybase                 # A free, open source security app. It's also a public directory of people.                                                                    (https://keybase.io)
-	libsodium               # A new, easy-to-use software library for encryption, decryption, signatures, password hashing and more.                                       (https://github.com/jedisct1/libsodium/)
-	mobile-shell            # Fault tolerant ssh                                                                                                                           (https://mosh.org)
-	mongodb                 # An open-source document database, and the leading NoSQL database.                                                                            (https://www.mongodb.com)
-	mysql                   # An open-source RDBMS.                                                                                                                        (https://dev.mysql.com/doc/refman/5.7/en/)
-	openssl                 # An open source project that provides a robust, commercial-grade, and full-featured toolkit for the TLS and SSL protocols.                    (https://www.openssl.org)
-	p7zip                   # utility for opening zip64 files.                                                                                                             (https://p7zip.sourceforge.io/)
-	potrace                 # A tool for tracing a bitmap, which means, transforming a bitmap into a smooth, scalable image.                                               (http://potrace.sourceforge.net)
-	python3                 # A programming language that lets you work quickly and integrate systems more effectively.                                                    (https://www.python.org)
-	rabbitmq                # A complete and highly reliable enterprise messaging system based on the emerging AMQP standard                                               (https://www.rabbitmq.com)
-	shellcheck              # A free, online tool that detects problems and suggests improvements to shell scripts.                                                        (https://www.shellcheck.net/)
-	sqlite                  # A software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.                      (https://sqlite.org/)
-	sudolikeaboss           # A simple application that aims to make your life much easier by allowing you to access your 1password passwords on the terminal.             (https://github.com/ravenac95/sudolikeaboss)
-	terminal-notifier       # Send User Notifications on Mac OS X 10.8 from the command-line.                                                                              (https://github.com/julienXX/terminal-notifier)
-	the_silver_searcher     # A code-searching tool similar to ack, but faster.                                                                                            (https://github.com/ggreer/the_silver_searcher)
-	tmux                    # A terminal multiplexer                                                                                                                       (https://tmux.github.io)
-	tree                    # A recursive directory listing command that produces a depth indented listing of files.                                                       (http://mama.indstate.edu/users/ice/tree/)
-	ttf2eot                 # Convert TTF to EOT                                                                                                                           (https://code.google.com/archive/p/ttf2eot/)
-	vifm                    # An ncurses based file manager with vi like keybindings/modes/options/commands/configuration, which also borrows some useful ideas from mutt. (https://vifm.info)
-	wget                    # A free software package for retrieving files using HTTP, HTTPS and FTP, the most widely-used Internet protocols                              (https://www.gnu.org/software/wget/)
-	zsh-syntax-highlighting # Fish shell like syntax highlighting for Zsh.                                                                                                 (https://github.com/zsh-users/zsh-syntax-highlighting)
+	aws-elasticbeanstalk    #  Use the EB CLI to create and manage AWS Elastic Beanstalk environments.
+	awscli                  #  A unified tool to manage your AWS services
+	carthage                #  A simple, decentralized dependency manager for Xcode
+	cmake                   #  A family of tools designed to build, test and package software.
+	coreutils               #  adds color to ls
+	fontconfig              #  A library for configuring and customizing font access.
+	fontforge               #  A free and open source font editor
+	freetype                #  A freely available software library to render fonts.
+	git                     #  the backbone of all version control
+	git-flow                #  Git extensions to provide high-level repository operations.
+	heroku                  #  A tool for creating and managing Heroku apps from the command line.
+	hub                     #  A command-line wrapper for git that makes you better at GitHub
+	imagemagick             #  Use to create, edit, compose, or convert bitmap images.
+	openssl                 #  provides a robust, commercial-grade, and full-featured toolkit for the TLS and SSL protocols.
+	p7zip                   #  utility for opening zip64 files.
+	potrace                 #  A tool for tracing a bitmap.
+	python                  #  better then system python
+	python3                 #  Not icluded with the system.
+	shellcheck              #  linter for shell scripts
+	terminal-notifier       #  Send User Notifications on Mac OS X 10.8 from the command-line.
+	the_silver_searcher     #  A code-searching tool similar to ack, but faster... Much Faster.
+	tmux                    #  A terminal multiplexer
+	tree                    #  A recursive directory listing command that produces a depth indented listing of files.
+	ttf2eot                 #  Convert TTF to EOT
+	wget                    #  A free software package for retrieving files using HTTP, HTTPS and FTP
+	zsh-syntax-highlighting #  Fish shell like syntax highlighting for Zsh.
 )
 
-brew install "${$apps[@]}"
+brew install "${apps[@]}"

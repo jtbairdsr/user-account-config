@@ -22,46 +22,39 @@ RED_BL="%{\033[5;31m%}"
 #======================================================================================================================#
 #                                               Cool Character Variables                                               #
 #======================================================================================================================#
-HBAR="\u2500"                     # ─
-VBAR="\u2502"                     # │
-ULCORNER="\u250c"                 # ┌
-LLCORNER="\u2514"                 # └
-URCORNER="\u2510"                 # ┐
-LRCORNER="\u2518"                 # ┘
+SOLID_SEPARATOR_RIGHT="\ue0b2"     # 
+LINE_SEPARATOR_RIGHT="\ue0b3"      # 
+SOLID_SEPARATOR_LEFT="\ue0b0"      # 
+LINE_SEPARATOR_LEFT="\ue0b1"       # 
 
-SOLID_SEPARATOR_RIGHT="\ue0b2"    # 
-LINE_SEPARATOR_RIGHT="\ue0b3"     # 
-SOLID_SEPARATOR_LEFT="\ue0b0"     # 
-LINE_SEPARATOR_LEFT="\ue0b1"      # 
+PLUG_CHAR=" \uf1e6 "               # 
+BATTERY_0=" \uf244 "               # 
+BATTERY_25=" \uf243 "              # 
+BATTERY_50=" \uf242 "              # 
+BATTERY_75=" \uf241 "              # 
+BATTERY_100=" \uf240 "             # 
+BATTERY_CHARGING=" \u26a1\u26a1 "  # ⚡
 
-PLUG_CHAR=" \uf1e6 "              # 
-BATTERY_0=" \uf244 "              # 
-BATTERY_25=" \uf243 "             # 
-BATTERY_50=" \uf242 "             # 
-BATTERY_75=" \uf241 "             # 
-BATTERY_100=" \uf240 "            # 
-BATTERY_CHARGING=" \u26a1"        # ⚡
+GIT_CHAR=" \uf1d3 "                # 
+DETACHED_CHAR=" \uf417 "           # 
+BRANCH_CHAR=" \uf418 "             # 
+MERGE_CHAR=" \uf419 "              # 
+REBASE_CHAR=" \uf47f "             # 
+BISECT_LOG_CHAR=" \uf46f "         # 
+UNTRACKED_CHAR=" \u2026 "          # …
+CHANGED_CHAR=" \u271a "            # ✚
+CONFLICTS_CHAR=" \uf00d "          # 
+STAGED_CHAR=" \u25cf "             # ●
+CLEAN_CHAR=" \uf00c "              # 
 
-GIT_CHAR=" \uf1d3 "               # 
-DETACHED_CHAR=" \uf417 "          # 
-BRANCH_CHAR=" \uf418 "            # 
-MERGE_CHAR=" \uf419 "             # 
-REBASE_CHAR=" \uf47f "            # 
-BISECT_LOG_CHAR=" \uf46f "        # 
-UNTRACKED_CHAR=" \u2026 "         # …
-CHANGED_CHAR=" \u271a "           # ✚
-CONFLICTS_CHAR=" \uf00d "         # 
-STAGED_CHAR=" \u25cf "            # ●
-CLEAN_CHAR=" \uf00c "             # 
-
-NODE_SYMBOL=" \ue718"             # 
-SUPERMAN=" \uf43b"                # 
-CROSS_CHAR=" \uf00d"              # 
-DIRTY_CHAR=" \u00b1 "             # ±
-GEAR_CHAR=" \uf013 "              # 
-ARROW_UP_CHAR="\uf062 "           # 
-ARROW_DOWN_CHAR="\uf063 "         # 
-PROMPT_CHAR="\uf054"              # 
+NODE_SYMBOL=" \ue718"              # 
+SUPERMAN=" \uf43b"                 # 
+CROSS_CHAR=" \uf00d"               # 
+DIRTY_CHAR=" \u00b1 "              # ±
+GEAR_CHAR=" \uf013 "               # 
+ARROW_UP_CHAR="\uf062 "            # 
+ARROW_DOWN_CHAR="\uf063 "          # 
+PROMPT_CHAR="\uf054"               # 
 
 CURRENT_BG="NONE"
 CURRENT_FG="NONE"
@@ -70,9 +63,6 @@ CURRENT_FG="NONE"
 #                                                       Segments                                                       #
 #======================================================================================================================#
 
-SEGMENT_START=$ULCORNER$HBAR
-SEGMENT_END="$HBAR$PROMPT_CHAR %{%k%f%}"
-
 LENGTH_START=2
 LENGTH_BATTERY=4
 LENGTH_PATH=0
@@ -80,29 +70,28 @@ LENGTH_PATH=0
 
 
 function check_lengths {
-	echo TIME: "$LENGTH_TIME"
-	echo BATTERY: "$LENGTH_BATTERY"
-	echo NVM: "$LENGTH_NVM"
-	echo CONTEXT: "$LENGTH_CONTEXT"
-	echo PATH: "$LENGTH_PATH"
-	echo MESSAGE: "$LENGTH_MESSAGE"
-	echo DIVIDER: "$LENGTH_DIVIDER"
-	echo HISTORY: "$LENGTH_HISTORY"
-	echo STATUS: "$LENGTH_STATUS"
+	echo TIME: $LENGTH_TIME
+	echo BATTERY: $LENGTH_BATTERY
+	echo NVM: $LENGTH_NVM
+	echo CONTEXT: $LENGTH_CONTEXT
+	echo PATH: $LENGTH_PATH
+	echo MESSAGE: $LENGTH_MESSAGE
+	echo HISTORY: $LENGTH_HISTORY
+	echo STATUS: $LENGTH_STATUS
 }
 
 function check_font {
 	echo "SEPARATORS"
-	echo "$SOLID_SEPARATOR_RIGHT$SOLID_SEPARATOR_LEFT$LINE_SEPARATOR_RIGHT$LINE_SEPARATOR_LEFT"
+	echo $SOLID_SEPARATOR_RIGHT$SOLID_SEPARATOR_LEFT$LINE_SEPARATOR_RIGHT$LINE_SEPARATOR_LEFT
 	echo
 	echo "GIT"
-	echo "$GIT_CHAR$MERGE_CHAR$REBASE_CHAR$BISECT_LOG_CHAR$BRANCH_CHAR$DETACHED_CHAR$UNTRACKED_CHAR$CHANGED_CHAR$CONFLICTS_CHAR$STAGED_CHAR$CLEAN_CHAR"
+	echo $GIT_CHAR$MERGE_CHAR$REBASE_CHAR$BISECT_LOG_CHAR$BRANCH_CHAR$DETACHED_CHAR$UNTRACKED_CHAR$CHANGED_CHAR$CONFLICTS_CHAR$STAGED_CHAR$CLEAN_CHAR
 	echo
 	echo "POWER"
-	echo "$PLUG_CHAR$BATTERY_0$BATTERY_25$BATTERY_50$BATTERY_75$BATTERY_CHARGING$BATTERY_100"
+	echo $PLUG_CHAR$BATTERY_0$BATTERY_25$BATTERY_50$BATTERY_75$BATTERY_CHARGING$BATTERY_100
 	echo
 	echo "MISC"
-	echo "$SUPERMAN$CROSS_CHAR$DIRTY_CHAR$GEAR_CHAR$ARROW_UP_CHAR$ARROW_DOWN_CHAR$PROMPT_CHAR"
+	echo $SUPERMAN$CROSS_CHAR$DIRTY_CHAR$GEAR_CHAR$ARROW_UP_CHAR$ARROW_DOWN_CHAR$PROMPT_CHAR
 }
 
 function clear_errors {
@@ -121,31 +110,28 @@ function create_segments {
 	let temp_file_name
 	temp_file_name="$HOME/blather_1234567890987654321_blather"
 	# -------------------------------------------------------- NVM -----------------------------------------------------
-	nvm_content > "$temp_file_name"
-	SEGMENT_NVM=$(cat "$temp_file_name")
+	nvm_content > $temp_file_name
+	SEGMENT_NVM=`cat $temp_file_name`
 
 	# ------------------------------------------------------- TIME -----------------------------------------------------
-	time_content > "$temp_file_name"
-	SEGMENT_TIME=$(cat "$temp_file_name")
-
+	time_content > $temp_file_name
+	SEGMENT_TIME=`cat $temp_file_name`
+	
 	# ------------------------------------------------------ BATTERY ---------------------------------------------------
 	SEGMENT_BATTERY=$(battery_content)
 
 	# ------------------------------------------------------ MESSAGE ---------------------------------------------------
-	message_content > "$temp_file_name"
-	SEGMENT_MESSAGE=$(cat "$temp_file_name")
+	message_content > $temp_file_name
+	SEGMENT_MESSAGE=`cat $temp_file_name`
 
 	# ------------------------------------------------------ CONTEXT ---------------------------------------------------
 	SEGMENT_CONTEXT=$(context_content)
 	LENGTH_CONTEXT=${#${SEGMENT_CONTEXT:-}}
 
 	# ------------------------------------------------------- PATH -----------------------------------------------------
-	path_content > "$temp_file_name"
-	SEGMENT_PATH=$(cat "$temp_file_name")
-	rm "$temp_file_name"
-
-	# ------------------------------------------------------ DIVIDER ---------------------------------------------------
-	SEGMENT_DIVIDER=$(divider_content)
+	path_content > $temp_file_name
+	SEGMENT_PATH=`cat $temp_file_name`
+	rm $temp_file_name
 
 	# ------------------------------------------------------ HISOTRY ---------------------------------------------------
 	SEGMENT_HISTORY=$(history_content)
@@ -155,27 +141,49 @@ function create_segments {
 }
 
 function prompt_segment {
-	local segment bg fg
+  local segment bg fg separator
+  segment=${1:- }
+  bg=${2:-$CURRENT_BG}
+  fg=${3:-$CURRENT_FG}
+  separator=${4:-NONE}
 
-	segment=${1:- }
-	bg=${2:-$CURRENT_BG}
-	fg=${3:-$CURRENT_FG}
-
-	if [[ $bg == "$CURRENT_BG" ]]; then
-		echo -n "$segment"
-	else
-		echo -n "%{%F{$fg}%K{$bg}%}$segment"
-	fi
-
-	CURRENT_BG=$bg
-	CURRENT_FG=$fg
+  if [[ $separator == "LINE" && $bg == "$CURRENT_BG" ]]; then
+    echo -n $LINE_SEPARATOR_LEFT$segment
+  elif [[ $separator == "LINE" || $CURRENT_BG == "NONE" ]]; then
+    echo -n "%{%F{$fg}%K{$bg}%}$segment"
+  elif [[ $CURRENT_BG == "$bg" && $separator == "SOLID" ]]; then
+    echo -n $segment
+  elif [[ $separator == "SOLID" ]]; then
+    echo -n "%{%F{$CURRENT_BG}%K{$bg}%}$SOLID_SEPARATOR_LEFT%{%F{$fg}%}$segment"
+  else
+    echo -n "%{%F{$fg}%K{$bg}%}$segment"
+  fi
+  CURRENT_BG=$bg
+  CURRENT_FG=$fg
 }
+
+# function prompt_segment {
+# 	local segment bg fg
+# 
+# 	segment=${1:- }
+# 	bg=${2:-$CURRENT_BG}
+# 	fg=${3:-$CURRENT_FG}
+# 
+# 	if [[ $bg == "$CURRENT_BG" ]]; then
+# 		echo -n $segment
+# 	else
+# 		echo -n "%{%F{$fg}%K{$bg}%}$segment"
+# 	fi
+# 
+# 	CURRENT_BG=$bg
+# 	CURRENT_FG=$fg
+# }
 
 function get_lengths {
 	# Determine How long the path can be and how long the divider will be
 	#------------------------------------------------------------------------------------------------------------------#
 	local user
-	(( termwidth = COLUMNS - 2 ))
+	(( termwidth = $COLUMNS - 2 ))
 	#------------------------------------------------------------------------------------------------------------------#
 	#...................................................Explanation!...................................................#
 	# ${[varname]:-[string]} - Returns the value of [varname] normally, but uses [string] instead if ${[varname]}      #
@@ -192,7 +200,7 @@ function get_lengths {
 }
 
 function get_prompt_len {
-	echo -n $(( LENGTH_START + LENGTH_TIME + LENGTH_BATTERY + LENGTH_NVM + LENGTH_CONTEXT + LENGTH_MESSAGE + LENGTH_PATH ))
+	echo -n $(( $LENGTH_START + $LENGTH_TIME + $LENGTH_BATTERY + $LENGTH_NVM + $LENGTH_CONTEXT + $LENGTH_MESSAGE + $LENGTH_PATH ))
 }
 
 #======================================================================================================================#
@@ -208,9 +216,9 @@ function battery_content {
 			battery_segment="$GREEN_FG$PLUG_CHAR"
 		else
 			pct=$(battery_pct)
-			if [ "$pct" -gt 95 ]; then
+			if [ $pct -gt 95 ]; then
 				battery_segment="$GREEN_FG$BATTERY_100"
-			elif [ "$pct" -gt 74 ]; then
+			elif [ $pct -gt 74 ]; then
 				battery_segment="$GREEN_FG$BATTERY_75"
 			elif [[ $pct -gt 49 ]]; then
 				battery_segment="$YELLOW_FG$BATTERY_50"
@@ -222,7 +230,7 @@ function battery_content {
 		fi
 	fi
 	battery_segment+=$BLUE_FG
-	echo -n "$battery_segment"
+	echo -n $battery_segment
 }
 
 function time_content {
@@ -269,7 +277,7 @@ function context_content {
 	if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
 		echo -n " %(!|$user:u|$user)@%m "
 	fi
-
+	
 }
 
 function path_content {
@@ -293,10 +301,10 @@ function path_content {
 	prompt_len=$(get_prompt_len)
 
 	if [[ "$prompt_len + $pwd_len" -gt $termwidth ]]; then
-		max_path_len=$((termwidth - prompt_len))
+		max_path_len=$(($termwidth - $prompt_len))
 	fi
 
-	[[ -n $max_path_len ]] && LENGTH_PATH=$(( max_path_len - 2 )) || LENGTH_PATH=$(( pwd_len + 2 ))
+	[[ -n $max_path_len ]] && LENGTH_PATH=$(( $max_path_len - 2 )) || LENGTH_PATH=$(( $pwd_len + 2 ))
 
 	echo -n " %$max_path_len<...<%~%<< "
 }
@@ -304,7 +312,7 @@ function path_content {
 function nvm_content {
 	# shellcheck disable=SC2091
 	$(type nvm >/dev/null 2>&1) || return
-
+	
 	local nvm_status
 
 	nvm_status=$(nvm current 2>/dev/null)
@@ -313,32 +321,17 @@ function nvm_content {
 
 	LENGTH_NVM=$(( ${#${nvm_status:-}} + 4 ))
 	nvm_status="${NODE_SYMBOL} ${nvm_status} "
-
-	echo -n "$nvm_status"
+	
+	echo -n $nvm_status
 }
 
 function message_content {
 	local message
 	[[ -n $ENV_MESSAGE ]] && message=$ENV_MESSAGE || message=" Smile! "
 	LENGTH_MESSAGE=$(( ${#${message:-}} + 1 ))
-
-	echo -n "$message$RESET_COLOR$BLUE_FG$SOLID_SEPARATOR_LEFT"
-
-}
-
-function divider_content {
-	local divider_len divider divider_center second_line
-
-	divider_len=$(( termwidth - ($(get_prompt_len) + 3) ))
-	divider_center="\${(l.$divider_len..$(perl -C -e 'print chr 0x2500').)}"
-	second_line="\${(l.(($termwidth - 1)).. .)}"
-
-	# shellcheck disable=SC2034
-	divider="$HBAR$HBAR$divider_center$HBAR$URCORNER\n$VBAR$second_line$VBAR"
-
-	# shellcheck disable=SC2154
-	echo -n "${(e)divider}"
-	echo -n $'\n'$LLCORNER$HBAR
+	
+	echo -n $message$RESET_COLOR$BLUE_FG # $SOLID_SEPARATOR_LEFT
+	
 }
 
 function history_content {
@@ -356,7 +349,7 @@ function status_content {
 	[[ $UID -eq 0 ]] && symbols+=("$RED_BL$SUPERMAN$RESET_COLOR%{%K{black}%F{white}%}")
 	[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+=("$GEAR_CHAR")
 
-
+	
 	# shellcheck disable=SC2128
 	if [[ -n "$symbols" ]]; then
 		echo -n "$symbols "
@@ -370,23 +363,21 @@ function build_prompt {
 	local termwidth pwd_len
 	get_lengths
 	create_segments
-
+  
 	# Build the actual prompt
-	prompt_segment "$SEGMENT_START" none blue
-	prompt_segment "$SEGMENT_TIME" blue white
-	prompt_segment "$SEGMENT_BATTERY" white
-	[[ -n $SEGMENT_NVM ]] && prompt_segment "$SEGMENT_NVM" magenta white
-	[[ -n $SEGMENT_CONTEXT ]] && prompt_segment "$SEGMENT_CONTEXT" green white
-	prompt_segment "$SEGMENT_PATH" cyan white
-	prompt_segment "$SEGMENT_MESSAGE" blue white
-	prompt_segment "$SEGMENT_DIVIDER" none blue
-	prompt_segment "$SEGMENT_HISTORY" blue white
-	[[ -n $SEGMENT_STATUS ]] && prompt_segment "$SEGMENT_STATUS" none none
-	prompt_segment "$SEGMENT_END" none none
+	prompt_segment $SEGMENT_HISTORY green white SOLID
+	prompt_segment $SEGMENT_TIME blue white SOLID
+	prompt_segment $SEGMENT_BATTERY white none SOLID
+	[[ -n $SEGMENT_NVM ]] && prompt_segment $SEGMENT_NVM magenta white SOLID
+	[[ -n $SEGMENT_CONTEXT ]] && prompt_segment $SEGMENT_CONTEXT green white SOLID
+	prompt_segment $SEGMENT_PATH cyan white SOLID
+	prompt_segment $SEGMENT_MESSAGE blue white SOLID
+	[[ -n $SEGMENT_STATUS ]] && prompt_segment $SEGMENT_STATUS white none SOLID
+	prompt_segment ' ' none none SOLID
 }
 
 #-------------------------------------------------- assign the prompt --------------------------------------------------
-# shellcheck disable=SC2034,SC2016
+# shellcheck disable=SC2034
 PROMPT='%{%f%b%k%}$(build_prompt)'
 
 #======================================================================================================================#
@@ -401,11 +392,11 @@ function prompt_segment_right {
   separator=${4:-NONE}
 
   if [[ $separator == "LINE" && $bg == "$CURRENT_BG" ]]; then
-    echo -n "$LINE_SEPARATOR_RIGHT$segment"
+    echo -n $LINE_SEPARATOR_RIGHT$segment
   elif [[ $separator == "LINE" || $CURRENT_BG == "NONE" ]]; then
     echo -n "%{%F{$fg}%K{$bg}%}$segment"
 elif [[ $CURRENT_BG == "$bg" && $separator == "SOLID" ]]; then
-    echo -n "$segment"
+    echo -n $segment
   elif [[ $separator == "SOLID" ]]; then
     echo -n "%{%F{$bg}%K{$CURRENT_BG}%}%{%F{$fg}%K{$bg}%}$segment"
   else
@@ -418,9 +409,9 @@ elif [[ $CURRENT_BG == "$bg" && $separator == "SOLID" ]]; then
 #------------------------------------------------ Right prompt Git info ------------------------------------------------
 function prompt_git_dirty_clean {
     if [[ $GIT_STAGED -gt 0 || $GIT_CHANGED -gt 0 || $GIT_UNTRACKED -gt 0 || $GIT_CONFLICTS -gt 0 ]]; then
-      prompt_segment_right "$DIRTY_CHAR" yellow black SOLID
+      prompt_segment_right $DIRTY_CHAR yellow black SOLID
     else
-      prompt_segment_right "$CLEAN_CHAR" green white SOLID
+      prompt_segment_right $CLEAN_CHAR green white SOLID
     fi
 }
 
@@ -458,19 +449,19 @@ function prompt_git_trafic_light {
     light_segment="$light_segment%{%F{green}%}$STAGED_CHAR"
   fi
   if [[ -n $light_segment ]]; then
-    prompt_segment_right "$light_segment" white black SOLID
+    prompt_segment_right $light_segment white black SOLID
   fi
 }
 
 function prompt_git_mode {
   if [[ -e "${repo_path}/BISECT_LOG" ]]; then
-    prompt_segment_right "$BISECT_LOG_CHAR" red white SOLID
+    prompt_segment_right $BISECT_LOG_CHAR red white SOLID
   elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
-    prompt_segment_right "$MERGE_CHAR" red white SOLID
+    prompt_segment_right $MERGE_CHAR red white SOLID
   elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
-    prompt_segment_right "$REBASE_CHAR" red white SOLID
+    prompt_segment_right $REBASE_CHAR red white SOLID
   else
-    prompt_segment_right "$GIT_CHAR" black white SOLID
+    prompt_segment_right $GIT_CHAR black white SOLID
   fi
 }
 
@@ -498,16 +489,12 @@ function build_rprompt {
 	CURRENT_FG="NONE"
 	prompt_vi
 	prompt_git
-	prompt_segment_right $HBAR$LRCORNER none blue NONE
+	# prompt_segment_right ' ' none blue NONE
 }
 
-# shellcheck disable=SC2034,SC2016
+# shellcheck disable=SC2034
 RPROMPT='%{%f%b%k%} $(build_rprompt)'
 
-# shellcheck disable=SC1004
 PS2='$(echo -n $BLUE_FG$HBAR$HBAR)\
 ( $(echo -n $GREEN_FG%_$BLUE_FG) )\
 $(echo -n $HBAR$HBAR$RESET_COLOR) '
-
-
-# vim:tabstop=4:shiftwidth=4

@@ -13,25 +13,27 @@ echo "Setting some Mac settings..."
 #==============================================================================#
 
 #------------------------- Get computer name from user ------------------------#
-# default=Yes
-set name="haven"
-# while true; do
-#     read -rp "Enter computer's name: " name
-#     while true; do
-#         read -rp "Are you happy with a computer named $name\? (Y/n) " yn
-#         yn=${yn:-$default}
-#         case "$yn" in
-#             [Yy]* )
-#                 echo "Your computer's name is $name "
-#                 echo "It will show up on your LAN as $name .local"
-#                 exit
-#                 ;;
-#             * )
-#                 break
-#                 ;;
-#         esac
-#     done
-# done
+RED='\033[0;31m'
+NC='\033[0m'
+default=Yes
+
+while true; do
+	read -rp "Enter computer's name: " name
+	while true; do
+		read -p "Are you happy with a computer named "$'\033[0;31m'"$name"$'\033[0m'"? (Y/n) " yn
+		yn=${yn:-$default}
+		case "$yn" in
+			[Yy]* )
+				echo "Your computer's name is ${RED}$name${NC}"
+				echo "It will show up on your LAN as ${RED}$name.local${NC}"
+				break 2
+				;;
+			* )
+				break
+				;;
+		esac
+	done
+done
 
 # Set computer name (as done via Systm Preferences → Sharing)
 sudo scutil --set ComputerName "$name"
@@ -73,8 +75,6 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Remap the Caps Lock key as Control Key
-echo $(pwd)
-echo $(ls)
 source tools/functions
 remap_caps_lock
 
@@ -117,6 +117,7 @@ defaults write NSGlobalDomain KeyRepeat -int 0
 
 # Disabling press-and-hold for keys in favor of a key repeat for Sublime Text 3
 defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false
+defaults write com.github.atom ApplePressAndHoldEnabled -bool false
 # defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 #------------------------------ General Bluetooth -----------------------------#

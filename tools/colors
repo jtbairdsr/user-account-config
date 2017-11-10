@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+NC='\033[0;0m'
+
+function format() {
+	local color=$1 style=$2 b=0
+
+	shift
+
+	case $style in
+		bold|b)      b=1; shift ;;
+		italic|i)    b=2; shift ;;
+		underline|u) b=3; shift ;;
+		inverse|in)  b=4; shift ;;
+		strikethrough|s)  b=5; shift ;;
+	esac
+
+	case $color in
+		black|b)   echo -e "\033[${b};30m${@}${NC}" ;;
+		red|r)     echo -e "\033[${b};31m${@}${NC}" ;;
+		green|g)   echo -e "\033[${b};32m${@}${NC}" ;;
+		yellow|y)  echo -e "\033[${b};33m${@}${NC}" ;;
+		blue|bl)   echo -e "\033[${b};34m${@}${NC}" ;;
+		magenta|m) echo -e "\033[${b};35m${@}${NC}" ;;
+		cyan|c)    echo -e "\033[${b};36m${@}${NC}" ;;
+		white|w)   echo -e "\033[${b};37m${@}${NC}" ;;
+		*)         echo -e "\033[${b};38;5;$(( ${color} ))m${@}${NC}" ;;
+	esac
+}

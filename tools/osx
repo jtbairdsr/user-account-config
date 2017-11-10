@@ -1,31 +1,43 @@
 #!/bin/bash
 
-#==============================================================================#
-#                                                                              #
-#                   Tweak Mac settings to be the way I like it                 #
-#                                                                              #
-#==============================================================================#
+SWD=$(pwd) # cash the staring working directory
+cd ${BASH_SOURCE%/*} || exit
+cwd=$(pwd)
 
-echo "Setting some Mac settings..."
+. colors
+. functions
 
-#==============================================================================#
-#                                 GENERAL UI/UX                                #
-#==============================================================================#
+# Get Xcode installed
+if ! xcode-select -p > /dev/null; then
+	format green "Installing Xcode-stuff-------------------------------------------------------------------------------"
+	xcode-select --install
+fi
 
-#------------------------- Get computer name from user ------------------------#
-RED='\033[0;31m'
-NC='\033[0m'
-default=Yes
+cd $cwd && ./brew || exit
 
+cd $cwd && ./cask-apps || exit
+
+# ==================================================================================================================== #
+#                                      Tweak Mac settings to be the way I like it                                      #
+# ==================================================================================================================== #
+
+format green "Setting some Mac settings--------------------------------------------------------------------------------"
+
+# ==================================================================================================================== #
+#                                                     GENERAL UI/UX                                                    #
+# ==================================================================================================================== #
+
+# -------------------------------------------- Get computer name from user ------------------------------------------- #
 while true; do
-	read -rp "Enter computer's name: " name
+	read -rp "Enter computer's name: ($(hostname))" name
+	name=${name:-$(hostname)}
 	while true; do
 		read -p "Are you happy with a computer named "$'\033[0;31m'"$name"$'\033[0m'"? (Y/n) " yn
-		yn=${yn:-$default}
+		yn=${yn:-"Yes"}
 		case "$yn" in
 			[Yy]* )
-				echo "Your computer's name is ${RED}$name${NC}"
-				echo "It will show up on your LAN as ${RED}$name.local${NC}"
+				echo -e "Your computer's name is $(format red $name)"
+				echo -e "It will show up on your LAN as $(format red $name.local)"
 				break 2
 				;;
 			* )
@@ -75,22 +87,21 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Remap the Caps Lock key as Control Key
-source tools/functions
 remap_caps_lock
 
 
-#==============================================================================#
-#                              SSD-SPECIFIC TWEAKS                             #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                  SSD-SPECIFIC TWEAKS                                                 #
+# ==================================================================================================================== #
 
 # Disable the sudden motion sensor as its not useful for SSDs
 sudo pmset -a sms 0
 
-#==============================================================================#
-#           TRACKPAD, MOUSE, KEYBOARD, BLUETOOTH ACCESSORIES, & INPUT          #
-#==============================================================================#
+# ==================================================================================================================== #
+#                               TRACKPAD, MOUSE, KEYBOARD, BLUETOOTH ACCESSORIES, & INPUT                              #
+# ==================================================================================================================== #
 
-#---------------------------------- Trackpad ----------------------------------#
+# ----------------------------------------------------- Trackpad ----------------------------------------------------- #
 # Enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -106,27 +117,28 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write -g com.apple.trackpad.scaling 5
 defaults write -g com.apple.mouse.scaling 5
 
-#---------------------------------- Keyboard ----------------------------------#
+# ----------------------------------------------------- Keyboard ----------------------------------------------------- #
 
 # Enabling full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 0
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # Disabling press-and-hold for keys in favor of a key repeat for Sublime Text 3
 defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false
 defaults write com.github.atom ApplePressAndHoldEnabled -bool false
 # defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-#------------------------------ General Bluetooth -----------------------------#
+# ------------------------------------------------- General Bluetooth ------------------------------------------------ #
 # Increase sound quality for headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
-#==============================================================================#
-#                                     SCREEN                                   #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                        SCREEN                                                        #
+# ==================================================================================================================== #
 
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
@@ -145,9 +157,9 @@ defaults write com.apple.screencapture location -string "$HOME/screenshots"
 # Setting screenshot format to PNG
 defaults write com.apple.screencapture type -string "png"
 
-#==============================================================================#
-#                                     FINDER                                   #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                        FINDER                                                        #
+# ==================================================================================================================== #
 
 # Allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool TRUE
@@ -199,11 +211,11 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 # Show the ~/Library folder
 chflags nohidden ~/Library
 
-#==============================================================================#
-#                        DOCK, MISSION CONTROL, & SPACES                       #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                            DOCK, MISSION CONTROL, & SPACES                                           #
+# ==================================================================================================================== #
 
-#------------------------------------ Dock ------------------------------------#
+# ------------------------------------------------------- Dock ------------------------------------------------------- #
 # Enable highlight hover effect for the grid view of a stack
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
@@ -239,7 +251,7 @@ defaults write com.apple.dock showhidden -bool true
 # the Dock to launch apps.
 defaults write com.apple.dock persistent-apps -array
 
-#------------------------- Mission Control and Spaces -------------------------#
+# -------------------------------------------- Mission Control and Spaces -------------------------------------------- #
 
 # Speeding up Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
@@ -254,9 +266,9 @@ defaults write com.apple.dashboard mcx-disabled -bool true
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 
-#==============================================================================#
-#                                SAFARI & WEBKIT                               #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                    SAFARI & WEBKIT                                                   #
+# ==================================================================================================================== #
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
@@ -305,9 +317,9 @@ defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Do
 # Don't prompt for confirmation before downloading
 defaults write org.m0k.transmission DownloadAsk -bool false
 
-#==============================================================================#
-#                                      MAIL                                    #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                         MAIL                                                         #
+# ==================================================================================================================== #
 
 # Copy email addresses as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
@@ -320,9 +332,9 @@ defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreade
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
 
-#==============================================================================#
-#                               TERMINAL & iTERM 2                             #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                  TERMINAL & iTERM 2                                                  #
+# ==================================================================================================================== #
 
 # Enabling UTF-8 ONLY in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
@@ -330,9 +342,9 @@ defaults write com.apple.terminal StringEncodings -array 4
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
-#==============================================================================#
-#                                ACTIVITY MONITOR                              #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                                   ACTIVITY MONITOR                                                   #
+# ==================================================================================================================== #
 
 # Show the main window when launching Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
@@ -347,9 +359,9 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
-#==============================================================================#
-#                      GOOGLE CHROME & GOOGLE CHROME CANARY                    #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                         GOOGLE CHROME & GOOGLE CHROME CANARY                                         #
+# ==================================================================================================================== #
 
 # Allow installing user scripts via GitHub Gist or Userscripts.org
 defaults write com.google.Chrome ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
@@ -371,13 +383,19 @@ defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
-#==============================================================================#
-#                           KILL AFFECTED APPLICATIONS                         #
-#==============================================================================#
+# ==================================================================================================================== #
+#                                              KILL AFFECTED APPLICATIONS                                              #
+# ==================================================================================================================== #
 
-for app in "Activity Monitor" "cfprefsd" "Dock" "Finder" "Google Chrome" \
-           "Google Chrome Canary" "Mail" "Safari" "SystemUIServer" "Terminal"; do
-    killall "${app}" &> /dev/null
+for app in "Activity Monitor" "cfprefsd" "Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Safari" \
+		"SystemUIServer" "Terminal"; do
+	killall "${app}" &> /dev/null
 done
 
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+format green "
+------------------- Done. Note that some of these changes require a logout/restart to take effect. ---------------------
+"
+
+trap 'cd $SWD' EXIT
+
+# vim:tabstop=4:shiftwidth=4

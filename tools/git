@@ -1,10 +1,15 @@
-echo "Installing Git..........................................................."
-brew install git
+#!/bin/bash
 
-echo "Git config..."
+SWD=$(pwd) # cash the staring working directory
+cd ${BASH_SOURCE%/*} || exit
+cwd=$(pwd)
+
+. colors
+
+format green "Git global config ---------------------------------------------------------------------------------------"
 git config --global user.name "Jonathan Baird"
 git config --global user.email "jtbairdj@gmail.com"
 
-echo "Installing brew git utilities..."
-brew install git-extras
-brew install git-flow
+trap 'cd $SWD' EXIT
+
+# vim:tabstop=4:shiftwidth=4

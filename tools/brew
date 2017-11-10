@@ -1,27 +1,34 @@
-#!/bin/zsh
-#======================================================================================================================#
+#!/bin/bash
+
+SWD=$(pwd) # cash the staring working directory
+cd ${BASH_SOURCE%/*} || exit
+
+. colors
+
+# ==================================================================================================================== #
 #                                                   Install Homebrew                                                   #
+# -------------------------------------------------------------------------------------------------------------------- #
 #                                         The missing package manager for OS X                                         #
-#======================================================================================================================#
+# ==================================================================================================================== #
 
 #------------------------------------------------- Check for Homebrew --------------------------------------------------
 if test ! "$(type brew)"; then
-    # Install if we don't have it
-    echo "Installing Hombrew---------------------------------------------------"
-    # Redirect stdin to /dev/null so that it won't ask if you are sure. This is
-    # a hack and based on undocumented digging into the source so it may break
-    # and need to be updated
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
+	# Install if we don't have it
+	format green "Installing Hombrew---------------------------------------------------------------------------------------"
+	# Redirect stdin to /dev/null so that it won't ask if you are sure. This is
+	# a hack and based on undocumented digging into the source so it may break
+	# and need to be updated
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
 fi
 
 #----------------------------------------------- Update Homebrew recipes -----------------------------------------------
-echo "Updating Homebrew--------------------------------------------------------"
+format green "Updating Homebrew----------------------------------------------------------------------------------------"
 brew update
 
 # --------------------------------------------- Taps for certain formulae ----------------------------------------------
 
 #---------------------------------------- Install miscellaneous brew utilities -----------------------------------------
-echo "Installing other brew utilities -----------------------------------------"
+format green "Installing other brew utilities -------------------------------------------------------------------------"
 
 apps=(
 	aws-elasticbeanstalk    #  Use the EB CLI to create and manage AWS Elastic Beanstalk environments.
@@ -29,6 +36,8 @@ apps=(
 	carthage                #  A simple, decentralized dependency manager for Xcode
 	cmake                   #  A family of tools designed to build, test and package software.
 	coreutils               #  adds color to ls
+	docker
+	docker-compose
 	fontconfig              #  A library for configuring and customizing font access.
 	fontforge               #  A free and open source font editor
 	freetype                #  A freely available software library to render fonts.
@@ -53,3 +62,8 @@ apps=(
 )
 
 brew install "${apps[@]}"
+brew cleanup
+
+trap 'cd $SWD' EXIT
+
+# vim:tabstop=4:shiftwidth=4

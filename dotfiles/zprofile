@@ -1,28 +1,38 @@
 #!/bin/bash
-SHELL=`type zsh`
-WATCH=notme
-WATCHFMT="%n has %a %l from %m %@ %W"
-CLICOLOR=xterm-color
-SAVEHIST=100000
+
+export SHELL=`type zsh`
+export WATCH=notme
+export WATCHFMT="%n has %a %l from %m %@ %W"
+export CLICOLOR=xterm-color
+export SAVEHIST=100000
 
 stty istrip erase '^H' 2>/dev/null
 
-HISTSIZE=$SAVEHIST
-HISTFILE=~/.sh.history
-EDITOR='/usr/local/bin/mvim -v'
-PAGER=less
-ZSHEDIT=vim
-PATH=/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH:~/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin
-CDPATH=:..:~:/home
-MANPATH=:man:/usr/man:/usr/local/man:/usr/share/man
-BLOCKSIZE=M
-log=/var/log/bf
-SHORTCUTS=(alt work db school)
+export HISTSIZE=$SAVEHIST
+export HISTFILE=~/.sh.history
+export EDITOR=nvim
+export PAGER=less
+export ZSHEDIT=nvim
+export PATH=/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH:~/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin
+export CDPATH=:..:~:/home
+export MANPATH=:man:/usr/man:/usr/local/man:/usr/share/man
+export BLOCKSIZE=M
+export SHORTCUTS=($SHORTCUTS fin )
 
-export SHELL file ENV PATH CDPATH path WATCH WATCHFMT CLICOLOR SAVEHIST HISTSIZE HISTFILE EDITOR PAGER ZSHEDIT MANPATH BLOCKSIZE log SHORTCUTS
+if [ `uname` = Darwin ]
+then
+	export SHOWPIDFLAGS="-awwwwxo user,pid,ppid,%cpu,%mem,lstart,tty,command"
+fi
+
+#----------------------------------------------------------------------------------------------------------------------#
+#                                                     Miscellaneous                                                    #
+#----------------------------------------------------------------------------------------------------------------------#
+
+# ------------------------------------------- this enables bash completions --------------------------------------------
+autoload bashcompinit compinit
+bashcompinit
+compinit
+
 
 #  shellcheck source=$HOME/.zprofile.local
 [ -f ~/.zprofile.local ] && . ~/.zprofile.local
-
-# shellcheck source=$HOME/.aliases
-source ~/.aliases

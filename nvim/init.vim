@@ -61,9 +61,12 @@ set shell=bash\ -i
 	Plug 'svermeulen/vim-easyclip'                                            " Simplified clipboard functionality for Vim
 	Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                       " enables tern completions
 	Plug 'terryma/vim-multiple-cursors'                                       " attempt at Sublime Text's multiple selection feature
+	Plug 'tmux-plugins/vim-tmux-focus-events'                                 " restores FocusGained/FocusLost autocommand events when inside Tmux.
+	Plug 'tmux-plugins/vim-tmux'                                              " proper syntax highlighting etc.
 	Plug 'tpope/vim-abolish'                                                  " find, substitute, and abbreviate multiple variants of a word
 	Plug 'tpope/vim-dispatch'                                                 " asynchronous build and test dispatcher
 	Plug 'tpope/vim-fugitive'                                                 " git of the gods plugin
+	Plug 'tpope/vim-obsession'                                                " continuously updated session files
 	Plug 'tpope/vim-repeat'                                                   " enable repeating supported plugin maps with '.'
 	Plug 'tpope/vim-sleuth'                                                   " automatically adjusts 'shiftwidth' and 'expandtab'
 	Plug 'tpope/vim-speeddating'                                              " use CTRL-A/CTRL-X to increment dates, times, and more
@@ -153,7 +156,7 @@ set shell=bash\ -i
 		let g:ale_sign_error                 = '' " change the error sign
 		let g:ale_sign_warning               = '' " change the warning sign
 		let g:airline#extensions#ale#enabled = 1   " add to status line...
-		let g:ale_open_list                  = 1   " open quickfix window when there are errors
+		" let g:ale_open_list                  = 1   " open quickfix window when there are errors
 
 		" After this is configured, :ALEFix will try and fix your JS code with ESLint.
 		let g:ale_fixers = {
@@ -442,7 +445,7 @@ set shell=bash\ -i
 	nnoremap <Leader>s :mksession<CR>        " save session
 	nnoremap <Leader><Space> :nohlsearch<CR> " turn of search highlight
 	nnoremap gV `[v`]                        " highlight last inserted text
-	nnoremap pb :b#<CR>
+	nnoremap <Leader>zp :tabnew %<CR>        " zoom current pane
 " }}} END KEY REMAPPING
 
 " VIM APPEARANCE {{{ ===========================================================================================

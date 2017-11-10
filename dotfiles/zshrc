@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# zsh tmux settings
-export ZSH_TMUX_AUTOSTART=true
+if [[ ! -n "$SSH_CLIENT" ]]; then
+	# zsh tmux settings
+	export ZSH_TMUX_AUTOSTART=true
+fi
 
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
@@ -9,8 +11,8 @@ autoload -Uz promptinit
 promptinit
 prompt walters
 
-# shellcheck source=$HOME/.powerlevel9k
-. ~/.powerlevel9k
+# shellcheck source=$HOME/.zpowerlevel9k
+. ~/.zpowerlevel9k
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -89,18 +91,15 @@ bindkey "^[[B" history-substring-search-down
 
 # ******************************************************* MISC *********************************************************
 zmodload zsh/stat
-alias size='stat +size'
 
 export DEFAULT_USER='jonathan' # used to determine wether or not to show user@host in the prompt
 
 setopt NO_NOMATCH # fixes an issue with ^ when using it in git
 
+zmodload zsh/files # this command makes most file operations faster: rm/ln/mv/chmod/chgrp/mkdir/rmdir
 
-# this command makes most file operations faster: rm/ln/mv/chmod/chgrp/mkdir/rmdir
-zmodload zsh/files
-
-# shellcheck source=$HOME/.zprofile.local
-[ -f ~/.zprofile.local ] && . ~/.zprofile.local
+# shellcheck source=$HOME/.aliases
+source ~/.zaliases
 
 # shellcheck source=$HOME/.iterm2_shell_integration.zsh
 [ -f ~/.iterm2_shell_integration.zsh ] && . ~/.iterm2_shell_integration.zsh
@@ -108,3 +107,8 @@ zmodload zsh/files
 # enables zsh-completions plugin
 autoload -U compinit && compinit
 
+export NVM_DIR="$HOME/.nvm"
+# shellcheck source=$HOME/.nvm/nvm.sh
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# shellcheck source=$HOME/.nvm/bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

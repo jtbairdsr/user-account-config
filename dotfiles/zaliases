@@ -39,6 +39,8 @@ alias zshconfig='$MAIN_EDITOR ~/.zshrc'                             # open .zshr
 alias zshconfiglocal='$MAIN_EDITOR ~/.zprofile.local'               # open .zprofile.local in atom
 alias edconfig='$MAIN_EDITOR $config'                               # open the $config directory in atom
 alias edwork='$MAIN_EDITOR $work'                                   # open the current $work directory in atom
+alias size='stat +size'
+alias mux='tmuxinator'
 
 alias fixLicenses="INJECT_LICENSES=1 git commit --allow-empty -m 'Add/update licenses for all maintained files' --edit"
 
@@ -84,3 +86,33 @@ testCI () {
 copy () {
 	pbcopy < "$1"
 }
+
+# docker-compose -------------------------------------------------------------------------------------------------------
+
+dc-start () {
+	if [ -z $1 ]; then
+		echo 'requrires a process name...'
+		echo -e "\nUsage:\t$0 <process_name>"
+		return 1
+	fi
+	docker-compose -f ${DOCKER_COMPOSE_FILE:-docker-compose.yml} up -d $1
+}
+
+dc-build () {
+	if [ -z $1 ]; then
+		echo 'requrires a process name...'
+		echo -e "\nUsage:\t$0 <process_name>"
+		return 1
+	fi
+	docker-compose -f ${DOCKER_COMPOSE_FILE:-docker-compose.yml} build $1
+}
+
+dc-stop () {
+	if [ -z $1 ]; then
+		echo 'requrires a process name...'
+		echo -e "\nUsage:\t$0 <process_name>"
+		return 1
+	fi
+	docker-compose -f ${DOCKER_COMPOSE_FILE:-docker-compose.yml} stop $1
+}
+

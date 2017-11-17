@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SWD=$(pwd) # cash the staring working directory
-cd ${BASH_SOURCE%/*} || exit
+cd "${BASH_SOURCE%/*}" || exit
 
 # load in extra functions
 . tools/functions
@@ -18,7 +18,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Create SSH key
-if [[ ! -e /Users/jonathan/.ssh/id_rsa ]]; then
+if [[ ! -e "$HOME/.ssh/id_rsa" ]]; then
 	format green "Creating an SSH key for you------------------------------------------------------------------------------"
 	ssh-keygen -t rsa
 fi
@@ -27,8 +27,8 @@ fi
 #                              Tweak OS X Settings                             #
 #==============================================================================#
 
-cd $cwd || exit
-case $OSTYPE in
+cd "$cwd" || exit
+case "$OSTYPE" in
 	darwin* ) . tools/osx     ;;
 	linux* )  . tools/linux   ;;
 	* )       . tools/freebsd ;;
@@ -37,10 +37,18 @@ exit
 
 format green "Setting up for development-------------------------------------------------------------------------------"
 # GIT
-cd $cwd && . tools/git || exit
+cd "$cwd" && . tools/git || exit
 
 # NODE
-cd $cwd && . tools/node || exit
+cd "$cwd" && . tools/node || exit
+
+
+
+sudo -H pip  install setuptools
+sudo -H pip  install --upgrade neovim
+sudo -H pip2 install --upgrade neovim
+sudo -H pip3 install --upgrade neovim
+
 
 format green "Linking dot files----------------------------------------------------------------------------------------"
 link_dotfiles

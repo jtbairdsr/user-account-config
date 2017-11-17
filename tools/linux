@@ -1,38 +1,41 @@
 #!/bin/bash
 
 SWD=$(pwd) # cash the staring working directory
-cd ${BASH_SOURCE%/*} || exit
+cd "${BASH_SOURCE%/*}" || exit
 
 . colors
 
 
 apps=(
-	aws-elasticbeanstalk    #  Use the EB CLI to create and manage AWS Elastic Beanstalk environments.
-	awscli                  #  A unified tool to manage your AWS services
 	cmake                   #  A family of tools designed to build, test and package software.
 	coreutils               #  adds color to ls
 	docker
 	docker-compose
-	freetype                #  A freely available software library to render fonts.
 	git                     #  the backbone of all version control
 	git-flow                #  Git extensions to provide high-level repository operations.
+	neovim
 	openssl                 #  provides a robust, commercial-grade, and full-featured toolkit for the TLS and SSL protocols.
 	p7zip                   #  utility for opening zip64 files.
-	python                  #  better then system python
-	python3                 #  Not icluded with the system.
+	python-dev
+	python-pip
+	python3-dev
+	python3-pip
 	shellcheck              #  linter for shell scripts
 	tmux                    #  A terminal multiplexer
 	tree                    #  A recursive directory listing command that produces a depth indented listing of files.
 	wget                    #  A free software package for retrieving files using HTTP, HTTPS and FTP
+	zsh
 	zsh-syntax-highlighting #  Fish shell like syntax highlighting for Zsh.
 )
 
 
 # ------------------------------------------------------ DEBIAN --------------------------------------------------------
 if [ -f /etc/debian_version ]; then
+	format green "Add needed APT-GET repositories--------------------------------------------------------------------------"
+	sudo add-apt-repository ppa:neovim-ppa/stable
+
 	format green "Updating APT-GET-----------------------------------------------------------------------------------------"
 	sudo apt-get update
-
 
 	format green "Installing APT-GET utilities ----------------------------------------------------------------------------"
 	sudo apt-get install silversearcher-ag "${apps[@]}"

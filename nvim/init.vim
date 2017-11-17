@@ -20,11 +20,12 @@ set shell=bash\ -i
 
 	" General {{{ -------------------------------------------------------------------------------------------------
 	Plug 'airblade/vim-rooter'                                                " Changes Vim working directory to project root
-	Plug 'bdauria/angular-cli.vim' " support for angular-cli, directly inside Vim
-	Plug 'bronson/vim-visual-star-search'                                     " Start a * or # search from a visual block
 	Plug 'alvan/vim-closetag'                                                 " Auto close (X)HTML tags
+	Plug 'bdauria/angular-cli.vim'                                            " support for angular-cli, directly inside Vim
+	Plug 'bronson/vim-visual-star-search'                                     " Start a * or # search from a visual block
 	Plug 'cakebaker/scss-syntax.vim'                                          " syntax file for scss
-	Plug 'Chiel92/vim-autoformat'                                             " Format code with one button press
+	Plug 'chiel92/vim-autoformat'                                             " Format code with one button press
+	Plug 'chr4/nginx.vim'                                                     " Improved nginx vim plugin (incl. syntax highlighting)
 	Plug 'chrisbra/Colorizer'                                                 " color hex codes and color names
 	Plug 'chrisbra/csv.vim'                                                   " A Filetype plugin for csv files
 	Plug 'christoomey/vim-tmux-navigator'                                     " Seamless navigation between tmux panes and vim splits
@@ -40,6 +41,7 @@ set shell=bash\ -i
 	Plug 'honza/vim-snippets'                                                 " contains snippets files for various programming languages
 	Plug 'jiangmiao/auto-pairs'                                               " insert or delete brackets, parens, quotes in pairs
 	Plug 'jtbairdsr/vim-center-comment'                                       " for formatting comments to center
+	Plug 'kshenoy/vim-signature'                                              " Plugin to toggle, display and navigate marks
 	Plug 'leafgarland/typescript-vim'                                         " Typescript syntax files for Vim
 	Plug 'leshill/vim-json'                                                   " Syntax highlighting for JSON
 	Plug 'mhinz/vim-signify'                                                  " shows a VCS diff in the sign column
@@ -55,14 +57,15 @@ set shell=bash\ -i
 	Plug 'quramy/vim-js-pretty-template'                                      " highlights JavaScript's Template Strings in other FileType syntax rule
 	Plug 'scrooloose/nerdcommenter'                                           " intensely orgasmic commenting
 	Plug 'severin-lemaignan/vim-minimap'                                      " A Sublime-like minimap for VIM
+	Plug 'shougo/vimproc.vim', { 'do': 'make' }                               " required by tsuquyomi
 	Plug 'sirver/ultisnips'                                                   " the ultimate snippet solution for Vim
 	Plug 'sjl/gundo.vim'                                                      " visualize your Vim undo tree
 	Plug 'suan/vim-instant-markdown', { 'do': 'npm i -g instant-markdown-d' } " Instant Markdown previews
 	Plug 'svermeulen/vim-easyclip'                                            " Simplified clipboard functionality for Vim
 	Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                       " enables tern completions
 	Plug 'terryma/vim-multiple-cursors'                                       " attempt at Sublime Text's multiple selection feature
-	Plug 'tmux-plugins/vim-tmux-focus-events'                                 " restores FocusGained/FocusLost autocommand events when inside Tmux.
 	Plug 'tmux-plugins/vim-tmux'                                              " proper syntax highlighting etc.
+	Plug 'tmux-plugins/vim-tmux-focus-events'                                 " restores FocusGained/FocusLost autocommand events when inside Tmux.
 	Plug 'tpope/vim-abolish'                                                  " find, substitute, and abbreviate multiple variants of a word
 	Plug 'tpope/vim-dispatch'                                                 " asynchronous build and test dispatcher
 	Plug 'tpope/vim-fugitive'                                                 " git of the gods plugin
@@ -73,19 +76,19 @@ set shell=bash\ -i
 	Plug 'tpope/vim-surround'                                                 " provides mappings to delete, change and add surrounding pairs
 	Plug 'tpope/vim-unimpaired'                                               " pairs of handy bracket mappings
 	Plug 'triglav/vim-visual-increment'                                       " increasing sequence of numbers or letters via visual mode
-	Plug 'Valloric/MatchTagAlways'                                            " always highlights the enclosing html/xml tags
-	Plug 'Valloric/YouCompleteMe',  { 'do': './install.py' }                  " the ultimate vim completion engine
+	Plug 'valloric/MatchTagAlways'                                            " always highlights the enclosing html/xml tags
+	Plug 'valloric/YouCompleteMe',  { 'do': './install.py' }                  " the ultimate vim completion engine
 	Plug 'vim-airline/vim-airline'                                            " Lean & mean status/tabline for vim that's light as air.
 	Plug 'vim-airline/vim-airline-themes'                                     " A collection of themes for vim-airline
 	Plug 'vim-scripts/bufexplorer.zip'                                        " quickly and easily switch between buffers
 	Plug 'vim-scripts/searchcomplete'                                         " tab-complete words while typing in a search
-	Plug 'kshenoy/vim-signature'                                              " Plugin to toggle, display and navigate marks
 	Plug 'vim-scripts/text-object-left-and-right'                             " create text object for left and right of a statement
 	Plug 'w0rp/ale'                                                           " Asynchronous Lint Engine
 	Plug 'wellle/targets.vim'                                                 " provides additional text objects
 	Plug 'wellle/tmux-complete.vim'                                           " insert mode completion of words in adjacent tmux panes
 	Plug 'wellle/visual-split.vim'                                            " control splits with visual selections or text objects
-	Plug 'Yggdroot/indentLine'                                                " display the indention levels with thin vertical lines
+	Plug 'wgwoods/vim-systemd-syntax'                                         " Syntax highlighting for systemd service files
+	Plug 'yggdroot/indentLine'                                                " display the indention levels with thin vertical lines
 	Plug 'zenbro/mirror.vim'                                                  " edit remote files on multiple environments
 	Plug 'zhaocai/GoldenView.Vim'                                             " Always have a nice view for vim split windows
 	" }}} End General

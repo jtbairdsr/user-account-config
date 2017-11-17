@@ -1,82 +1,95 @@
 #!/bin/bash
 
 function remap_caps_lock () {
-    # Set the internal field seperator to new line
-    IFS=$'\n'
-    # get a list of keyboards and split them into an array on each new line
-    info=($(ioreg -n IOHIDKeyboard -r | grep -e 'class IOHIDKeyboard' -e VendorID\" -e Product))
-    # declare a counter
-    let n=0
-    # loop over each line in the array so we can pull out the vendorID and productID of each keyboard
-    for i in "${info[@]}"; do
-        # Set the internal field seperator so that we can split each element again
-        IFS=$' = '
-        # increment our counter
-        let n+=1
-        # declare variables in this scope
-        set vendorID
-        set productID
-        # if we are on the third element then it is the vendorID
-        if [[ $n -eq 3 ]]; then
-            # parse out the actual id
-            array=($i)
-            vendorID=${array[2]}
-        # if we are on the fourth element then it is the productID
-        elif [[ $n -eq 4 ]]; then
-            # parse out the actual id
-            array=($i)
-            productID=${array[2]}
-            # write the new keybinding for this keyboard
-            defaults -currentHost write -g "com.apple.keyboard.modifiermapping.$vendorID-$productID-0" -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>2</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'
-            # reset the counter to zero so we can work our way over the next keyboard
-            let n=0
-        fi
-    done
+	# Set the internal field seperator to new line
+	IFS=$'\n'
+	# get a list of keyboards and split them into an array on each new line
+	info=($(ioreg -n IOHIDKeyboard -r | grep -e 'class IOHIDKeyboard' -e VendorID\" -e Product))
+	# declare a counter
+	let n=0
+	# loop over each line in the array so we can pull out the vendorID and productID of each keyboard
+	for i in "${info[@]}"; do
+		# Set the internal field seperator so that we can split each element again
+		IFS=$' = '
+		# increment our counter
+		let n+=1
+		# declare variables in this scope
+		set vendorID
+		set productID
+		# if we are on the third element then it is the vendorID
+		if [[ $n -eq 3 ]]; then
+			# parse out the actual id
+			array=($i)
+			vendorID=${array[2]}
+		# if we are on the fourth element then it is the productID
+		elif [[ $n -eq 4 ]]; then
+			# parse out the actual id
+			array=($i)
+			productID=${array[2]}
+			# write the new keybinding for this keyboard
+			defaults -currentHost write -g "com.apple.keyboard.modifiermapping.$vendorID-$productID-0" -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>2</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'
+			# reset the counter to zero so we can work our way over the next keyboard
+			let n=0
+		fi
+	done
 }
 
 function link_dotfiles () {
-    set -e
-    CONFIG_DIRECTORY="$HOME/.user-account-config"
-    SOURCE_LOCATION="$CONFIG_DIRECTORY/dotfiles"
-    TARGET_LOCATION="$HOME"
+	set -e
+	CONFIG_DIRECTORY="$HOME/.user-account-config"
+	SOURCE_LOCATION="$CONFIG_DIRECTORY/dotfiles"
+	TARGET_LOCATION="$HOME"
 
-    #---------------------------- Install oh-my-zsh ----------------------------
-    echo "Installing oh-my-zsh..."
+	# ------------------------------------------------ Install oh-my-zsh -----------------------------------------------
+	echo "Installing oh-my-zsh..."
 
-    "$CONFIG_DIRECTORY/tools/install-oh-my-zsh"
-    # remove the custom dir in .oh-my-zsh so that we can link to our custom dir
-    rm -rf "$HOME/.oh-my-zsh/custom"
-    # link our custom dir to .oh-my-zsh
-    ln -sf "$CONFIG_DIRECTORY/custom" "$HOME/.oh-my-zsh"
-    echo "Setting ZSH as default shell..."
-    chsh -s /bin/zsh
+	"$CONFIG_DIRECTORY/tools/install-oh-my-zsh"
 
-    #------------------------ Install my custom dofiles ------------------------
-    find "$SOURCE_LOCATION" -mindepth 1 -maxdepth 1 | cut -sd / -f 6- | while read -r file; do
-        ln -sf "$SOURCE_LOCATION/$file" "$TARGET_LOCATION/.$file"
-    done
+	# remove the custom dir in .oh-my-zsh so that we can link to our custom dir
+	rm -rf "$HOME/.oh-my-zsh/custom"
 
-    #------------------------------- Link ~/bin --------------------------------
-    ln -sf "$CONFIG_DIRECTORY/bin" "$HOME"
+	# link our custom dir to .oh-my-zsh
+	ln -sf "$CONFIG_DIRECTORY/custom" "$HOME/.oh-my-zsh"
+	echo "Setting ZSH as default shell..."
+	chsh -s /bin/zsh
 
-    #----------------------- Create shortcuts directory ------------------------
-    # create_shortcuts
+	# populate git submodules in the custom dir
+	local CWD
+	CWD="$(pwd)"
+	cd "$HOME/.oh-my-zsh/custom"
+	git submodule init
+	git submodule update
+	cd "$CWD"
 
-    #------------------------------- Reload zsh --------------------------------
+	# -------------------------------------------- Install my custom dofiles -------------------------------------------
+	find "$SOURCE_LOCATION" -mindepth 1 -maxdepth 1 | cut -sd / -f 6- | while read -r file; do
+		ln -sf "$SOURCE_LOCATION/$file" "$TARGET_LOCATION/.$file"
+	done
+
+	# ------------------------------------------------- Link nvim config -----------------------------------------------
+	[ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
+	ln -s "$CONFIG_DIRECTORY/nvim" "$HOME/.config/nvim"
+	ln -s "$CONFIG_DIRECTORY/nvim/init.vim" "$HOME/.nvimrc"
+
+	# ---------------------------------------------------- Link ~/bin --------------------------------------------------
+	ln -sf "$CONFIG_DIRECTORY/bin" "$HOME"
+
+	# -------------------------------------------- Create shortcuts directory ------------------------------------------
+	create_shortcuts
+
+	# ---------------------------------------------------- Reload zsh --------------------------------------------------
 	exec zsh -ls
 	echo "Environment is setup"
 }
 
 function create_shortcuts {
-    mkdir "$HOME/.shortcuts"
-    for file in "work" "try" "school"; do
-        echo $HOME >  ~/.shortcuts/"$file"
-    done
-    echo "$HOME/.user-account-config" > ~/.shortcuts/config
-}
+	if [ ! -d "$HOME/.shortcuts" ]; then
+		mkdir "$HOME/.shortcuts"
 
-function setup_sublime () {
-	cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages || exit
-	rm -rf User
-	ln -s ~/Dropbox/Sublime/User
+		for file in "work" "try" "school"; do
+			echo "$HOME" >  ~/.shortcuts/"$file"
+		done
+
+		echo "$HOME/.user-account-config" > ~/.shortcuts/config
+	fi
 }

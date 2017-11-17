@@ -16,7 +16,7 @@ alias gm="git mergetool"                    # create a simple git mergetool alia
 alias grc="git rebase --continue"           # create a simple alias to continue a git rebase
 alias gxa="gitx --all"                      # create a simple alias to open gitx on all branches
 alias h=history                             # shorthand for history
-alias vi='mvim -v'                          # redirect vi to mvim.
+alias vi=vim                                # redirect vi to vim.
 alias vim=nvim                              # use macvim in the terminal
 alias showenv='env | grep -i'               # grep env variables for a specific value
 
@@ -52,7 +52,7 @@ pidport () {
 
 # shortcut to search processes for a keyword
 showpid () {
-	ps ${SHOWPIDFLAGS:--auxl} | head -1 >&2; ps ${SHOWPIDFLAGS:--auxl} | grep -v grep | grep -i "$1"
+	ps "${SHOWPIDFLAGS:--auxl}" | head -1 >&2; ps "${SHOWPIDFLAGS:--auxl}" | grep -v grep | grep -i "$1"
 }
 
 # find a process that matches a search string and show the port to which it is bound
@@ -64,7 +64,7 @@ whatport () {
 build () {
 	CWD=$(pwd)
 	service=$(jq -r ".name" package.json)
-	cd /src/ewb || exit 1
+	cd /src/ewb-holdings/microservices || return 1
 	npm run build "$service"
 	trap 'cd "$CWD"' EXIT
 }
@@ -73,10 +73,10 @@ build () {
 testCI () {
 	cp .gitlabci.yml temp.gitlab-ci.yml
 
-	sed '/docker login.*/c\
+	#  shellcheck disable=SC1004,SC2016
+	sed -i -e '/docker login.*/c\
 		\ \ \ \ - docker login -u jtbairdsr@me.com -p QvD-FCZ-66m-F2k registry.gitlab.com\
-		' .gitlab-ci.yml | sed 's/$CI_BUILD_REF_NAME/test/g' > deleteme.yml
-	mv deleteme.yml .gitlab-ci.yml
+		' -e 's/$CI_BUILD_REF_NAME/test/g' .gitlab-ci.yml
 	gitlab-runner exec docker --docker-privileged "$1"
 
 	trap 'mv temp.gitlab-ci.yml .gitlab-ci.yml' EXIT
@@ -90,29 +90,46 @@ copy () {
 # docker-compose -------------------------------------------------------------------------------------------------------
 
 dc-start () {
-	if [ -z $1 ]; then
+	if [ -z "$1" ]; then
 		echo 'requrires a process name...'
 		echo -e "\nUsage:\t$0 <process_name>"
 		return 1
 	fi
-	docker-compose -f ${DOCKER_COMPOSE_FILE:-docker-compose.yml} up -d $1
+	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" up -d "$*"
 }
 
 dc-build () {
-	if [ -z $1 ]; then
+	if [ -z "$1" ]; then
 		echo 'requrires a process name...'
 		echo -e "\nUsage:\t$0 <process_name>"
 		return 1
 	fi
-	docker-compose -f ${DOCKER_COMPOSE_FILE:-docker-compose.yml} build $1
+	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" build "$*"
 }
 
 dc-stop () {
-	if [ -z $1 ]; then
+	if [ -z "$1" ]; then
 		echo 'requrires a process name...'
 		echo -e "\nUsage:\t$0 <process_name>"
 		return 1
 	fi
-	docker-compose -f ${DOCKER_COMPOSE_FILE:-docker-compose.yml} stop $1
+	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" stop "$*"
 }
 
+dc-exec () {
+	if [ -z "$1" ]; then
+		echo 'requrires a process name...'
+		echo -e "\nUsage:\t$0 <process_name>"
+		return 1
+	fi
+	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" exec "$1" sh -o vi
+}
+
+dc-logs () {
+if [ -z "$1" ]; then
+	echo 'requrires a process name...'
+	echo -e "\nUsage:\t$0 <process_name>"
+	return 1
+fi
+docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" logs "$*"
+}

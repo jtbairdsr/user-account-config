@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SWD=$(pwd) # cash the staring working directory
-cd ${BASH_SOURCE%/*} || exit
+cd "${BASH_SOURCE%/*}" || exit
 cwd=$(pwd)
 
 . colors
@@ -13,9 +13,9 @@ if ! xcode-select -p > /dev/null; then
 	xcode-select --install
 fi
 
-cd $cwd && ./brew || exit
+cd "$cwd" && ./brew || exit
 
-cd $cwd && ./cask-apps || exit
+cd "$cwd" && ./cask-apps || exit
 
 # ==================================================================================================================== #
 #                                      Tweak Mac settings to be the way I like it                                      #
@@ -36,8 +36,8 @@ while true; do
 		yn=${yn:-"Yes"}
 		case "$yn" in
 			[Yy]* )
-				echo -e "Your computer's name is $(format red $name)"
-				echo -e "It will show up on your LAN as $(format red $name.local)"
+				echo -e "Your computer's name is $(format red "$name")"
+				echo -e "It will show up on your LAN as $(format red "$name.local")"
 				break 2
 				;;
 			* )

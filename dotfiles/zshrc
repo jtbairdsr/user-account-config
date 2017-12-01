@@ -20,57 +20,38 @@ prompt walters
 # time that oh-my-zsh is loaded.
 export ZSH_THEME="powerlevel9k/powerlevel9k"
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-export DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want disable red dots displayed while waiting for completion
-# DISABLE_COMPLETION_WAITING_DOTS="true"
-
 # Which plugins would you like to load? (find plugins in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 export plugins=(
-	vi-mode                    #  This plugin increase vi-like zsh functionality.
-	autojump
-	brew                       #  package manger http://brew.sh/
-	colored-man-pages          #  Adds colors to manpages
-	colorize                   #  cat with syntax highlighting support
-	copydir                    #  Copies current dir full path to clipboard
-	copyfile                   #  copies selected file content to clipboard
-	cp                         #  cp with progress bar (rsync)
-	docker-compose             #  A copy of the completion script from the docker-compose git repo.
-	docker                     #  application shipment tool https://github.com/dotbutt/docker
-	extract                    #  'x' alias - swiss knife for archive extracting
-	git                        #  The git plugin provides many aliases and a few useful functions.
-	git-flow                   #  autocompletion for git-flow
-	github                     #  cli access, url shortener
-	jump                       #  Easily jump around the file system by manually adding marks
-	mysql-colorize             #  Colorization for mysql
-	node                       #  NodeJS docs easy access via CLI
-	npm                        #  package manager for NodeJS
-	nvm                        #  NodeJS version manager
-	osx                        #  MacOS completions and iTunes control
-	pip                        #  Python package manager http://www.pip-installer.org/en/latest/
-	sudo                       #  toggle sudo with esc esc
-	taskwarrior                #  autocompletion for http://taskwarrior.org
-	tmux
-	tmuxinator
-	tugboat                    #  Digital Ocean droplet manager
-	yeoman                     #  autocompletion for yeoman
-	zsh-autosuggestions        #  Fish-like fast/unobtrusive autosuggestions for zsh
-	zsh-better-npm-completeion #  Better completion for npm
-	zsh-completions            #  this is simply a clone of zsh-users/zsh-completions repo
-	zsh-nvm                    #  manages my nvm installation
-	zsh-syntax-highlighting    #  commandline syntax highlighting
-	history-substring-search   #  This is a clean-room implementation of the Fish shell's history search
+vi-mode                    #  This plugin increase vi-like zsh functionality.
+brew                       #  package manger http://brew.sh/
+colored-man-pages          #  Adds colors to manpages
+colorize                   #  cat with syntax highlighting support
+copydir                    #  Copies current dir full path to clipboard
+copyfile                   #  copies selected file content to clipboard
+dc                         #  custom plugin that provides the dc shortcuts I use with docker-compose
+docker-compose             #  A copy of the completion script from the docker-compose git repo.
+docker                     #  application shipment tool https://github.com/dotbutt/docker
+extract                    #  'x' alias - swiss knife for archive extracting
+git                        #  The git plugin provides many aliases and a few useful functions.
+git-flow                   #  autocompletion for git-flow
+mysql-colorize             #  Colorization for mysql
+npm                        #  package manager for NodeJS
+nvm                        #  NodeJS version manager
+osx                        #  MacOS completions and iTunes control
+pip                        #  Python package manager http://www.pip-installer.org/en/latest/
+sudo                       #  toggle sudo with esc esc
+taskwarrior                #  autocompletion for http://taskwarrior.org
+tmux
+tmuxinator
+tugboat                    #  Digital Ocean droplet manager
+yeoman                     #  autocompletion for yeoman
+zsh-autosuggestions        #  Fish-like fast/unobtrusive autosuggestions for zsh
+zsh-better-npm-completeion #  Better completion for npm
+zsh-completions            #  this is simply a clone of zsh-users/zsh-completions repo
+zsh-nvm                    #  manages my nvm installation
+zsh-syntax-highlighting    #  commandline syntax highlighting
+history-substring-search   #  This is a clean-room implementation of the Fish shell's history search
 )
 
 # shellcheck source=/Users/jonathan/.oh-my-zsh/oh-my-zsh.sh
@@ -98,14 +79,13 @@ setopt NO_NOMATCH # fixes an issue with ^ when using it in git
 
 zmodload zsh/files # this command makes most file operations faster: rm/ln/mv/chmod/chgrp/mkdir/rmdir
 
-# shellcheck source=$HOME/.aliases
-source ~/.zaliases
+# shellcheck source=$HOME/.zaliases
+. ~/.zaliases
 
 # shellcheck source=$HOME/.iterm2_shell_integration.zsh
-[ -f ~/.iterm2_shell_integration.zsh ] && . ~/.iterm2_shell_integration.zsh
+[ -f ~/.iterm2_shell_integration.zsh ] && \. ~/.iterm2_shell_integration.zsh
 
-# enables zsh-completions plugin
-autoload -U compinit && compinit
+autoload -U compinit && compinit # enables zsh-completions plugin
 
 export NVM_DIR="$HOME/.nvm"
 # shellcheck source=$HOME/.nvm/nvm.sh

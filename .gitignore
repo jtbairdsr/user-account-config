@@ -3,13 +3,14 @@
 /temp/
 **/.DS_Store
 **/*.swp
-**/Session.vim
+   **/Session.vim
 /safety/
 
 nvim/plugged
 nvim/swap
 nvim/shada
 nvim/rplugin.vim
+nvim/log
 
 vim/plugged/
 vim/.netrwhist

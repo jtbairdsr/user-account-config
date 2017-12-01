@@ -52,6 +52,7 @@ pidport () {
 
 # shortcut to search processes for a keyword
 showpid () {
+	# shellcheck disable=SC2009
 	ps "${SHOWPIDFLAGS:--auxl}" | head -1 >&2; ps "${SHOWPIDFLAGS:--auxl}" | grep -v grep | grep -i "$1"
 }
 
@@ -71,7 +72,7 @@ build () {
 
 # run local instance of gitlab ci to test configuration...
 testCI () {
-	cp .gitlabci.yml temp.gitlab-ci.yml
+	cp .gitlab-ci.yml temp.gitlab-ci.yml
 
 	#  shellcheck disable=SC1004,SC2016
 	sed -i -e '/docker login.*/c\
@@ -87,49 +88,3 @@ copy () {
 	pbcopy < "$1"
 }
 
-# docker-compose -------------------------------------------------------------------------------------------------------
-
-dc-start () {
-	if [ -z "$1" ]; then
-		echo 'requrires a process name...'
-		echo -e "\nUsage:\t$0 <process_name>"
-		return 1
-	fi
-	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" up -d "$*"
-}
-
-dc-build () {
-	if [ -z "$1" ]; then
-		echo 'requrires a process name...'
-		echo -e "\nUsage:\t$0 <process_name>"
-		return 1
-	fi
-	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" build "$*"
-}
-
-dc-stop () {
-	if [ -z "$1" ]; then
-		echo 'requrires a process name...'
-		echo -e "\nUsage:\t$0 <process_name>"
-		return 1
-	fi
-	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" stop "$*"
-}
-
-dc-exec () {
-	if [ -z "$1" ]; then
-		echo 'requrires a process name...'
-		echo -e "\nUsage:\t$0 <process_name>"
-		return 1
-	fi
-	docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" exec "$1" sh -o vi
-}
-
-dc-logs () {
-if [ -z "$1" ]; then
-	echo 'requrires a process name...'
-	echo -e "\nUsage:\t$0 <process_name>"
-	return 1
-fi
-docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" logs "$*"
-}

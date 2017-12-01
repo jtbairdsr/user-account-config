@@ -62,7 +62,6 @@ set shell=bash\ -i
 	Plug 'sjl/gundo.vim'                                                      " visualize your Vim undo tree
 	Plug 'suan/vim-instant-markdown', { 'do': 'npm i -g instant-markdown-d' } " Instant Markdown previews
 	Plug 'svermeulen/vim-easyclip'                                            " Simplified clipboard functionality for Vim
-	Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                       " enables tern completions
 	Plug 'terryma/vim-multiple-cursors'                                       " attempt at Sublime Text's multiple selection feature
 	Plug 'tmux-plugins/vim-tmux'                                              " proper syntax highlighting etc.
 	Plug 'tmux-plugins/vim-tmux-focus-events'                                 " restores FocusGained/FocusLost autocommand events when inside Tmux.
@@ -77,7 +76,6 @@ set shell=bash\ -i
 	Plug 'tpope/vim-unimpaired'                                               " pairs of handy bracket mappings
 	Plug 'triglav/vim-visual-increment'                                       " increasing sequence of numbers or letters via visual mode
 	Plug 'valloric/MatchTagAlways'                                            " always highlights the enclosing html/xml tags
-	Plug 'valloric/YouCompleteMe',  { 'do': './install.py' }                  " the ultimate vim completion engine
 	Plug 'vim-airline/vim-airline'                                            " Lean & mean status/tabline for vim that's light as air.
 	Plug 'vim-airline/vim-airline-themes'                                     " A collection of themes for vim-airline
 	Plug 'vim-scripts/bufexplorer.zip'                                        " quickly and easily switch between buffers
@@ -93,6 +91,12 @@ set shell=bash\ -i
 	Plug 'zhaocai/GoldenView.Vim'                                             " Always have a nice view for vim split windows
 	" }}} End General
 
+	" YCM {{{
+	Plug 'tenfyzhong/CompleteParameter.vim'
+	Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                       " enables tern completions
+	Plug 'valloric/YouCompleteMe',  { 'do': './install.py --js-completer' }   " the ultimate vim completion engine
+	" }}}
+
 	" Deoplete {{{ ------------------------------------------------------------------------------------------------
 	Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " asynchronous keyword completion system
 	Plug 'shougo/deoplete-zsh'                                    " Zsh completion for deoplete.nvim
@@ -105,6 +109,7 @@ set shell=bash\ -i
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " this adds syntax for nerdtree on most common file extensions.
 	Plug 'scrooloose/nerdtree-project-plugin'      " proof of concept for nerdtree projects
 	Plug 'xuyuanp/nerdtree-git-plugin'             " makes NERDTree show git status flags
+	Plug 'octref/RootIgnore'                       " Set wildignore from git repo root
 	" }}} End NERDTree
 
 	" Unused plugins that I might want later. {{{ -----------------------------------------------------------------
@@ -196,6 +201,13 @@ set shell=bash\ -i
 		" enable usage of asynchronous dispatch
 		let g:angular_cli_use_dispatch = 1
 	" }}}
+
+	" -------- Autoformat -------- {{{ - bundle name: chiel92/vim-autoformat ---------------------------------------
+		" map format to <F3>
+		noremap <F3> :Autoformat<CR>
+		" format file on save
+		au nvimrc BufWrite * :Autoformat
+	" }}} End Autoformat
 
 	" --------- CloseTag --------- {{{ - bundle name: alvan/closetag ( Not Installed ) -----------------------------
 		" Add > at current position without closing the current tag, default is ''
@@ -351,12 +363,13 @@ set shell=bash\ -i
 		noremap \nf  :NERDTreeFind<CR>
 		noremap <F5> :NERDTreeToggle<CR>
 
-		let g:NERDTreeWinPos           = 'left' " place nerdtree on the left
-		let g:NERDTreeQuitOnOpen       = 1      " close the tree when we open a file
-		let g:NERDTreeAutoDeleteBuffer = 1      " delete the buffer when NERDTree is used to delete a file...
-		let g:NERDTreeMinimalUI        = 1      " make it prettier
-		let g:NERDTreeDirArrows        = 1      " make it prettier
-		let g:NERDTreeHijackNetrw      = 1      " use nerdtree instead of netrw
+		let g:NERDTreeWinPos            = 'left' " place nerdtree on the left
+		let g:NERDTreeQuitOnOpen        = 1      " close the tree when we open a file
+		let g:NERDTreeAutoDeleteBuffer  = 1      " delete the buffer when NERDTree is used to delete a file...
+		let g:NERDTreeMinimalUI         = 1      " make it prettier
+		let g:NERDTreeDirArrows         = 1      " make it prettier
+		let g:NERDTreeHijackNetrw       = 1      " use nerdtree instead of netrw
+		let g:NERDTreeRespectWildIgnore = 1      " don't show files/directories in .gitignore
 
 		" close the tab if NERDTree is the only window left open
 		autocmd nvimrc bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

@@ -10,5 +10,5 @@ export IS_LAPTOP=true                                  # This enables a battery 
 export APACHE_ENV='develop'
 export SYSTEM_NODE='v8.5.0'                            # This hides the nvm segment for this version
 export EDITOR='nvim'
-PATH=$PATH:~/Library/Python/2.7/bin:/Applications/VMware\ Fusion.app/Contents/Library:~/.composer/vendor/bin
+PATH=$PATH:~/Library/Python/2.7/bin:/Applications/VMware\ Fusion.app/Contents/Library:~/.composer/vendor/bin:~/.config/yarn/global/node_modules/.bin:~/Library/Python/3.6/bin
 CDPATH=$CDPATH:/usr/local:~/work:/Users:~/Documents:/Volumes:~/Documents/BuilderFusion

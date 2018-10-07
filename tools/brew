@@ -21,30 +21,17 @@ if test ! "$(type brew)"; then
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
 fi
 
-#----------------------------------------------- Update Homebrew recipes -----------------------------------------------
-format green "Updating Homebrew----------------------------------------------------------------------------------------"
-brew update
-
-# --------------------------------------------- Taps for certain formulae ----------------------------------------------
-
 #---------------------------------------- Install miscellaneous brew utilities -----------------------------------------
 format green "Installing other brew utilities -------------------------------------------------------------------------"
 
 apps=(
-	aws-elasticbeanstalk    #  Use the EB CLI to create and manage AWS Elastic Beanstalk environments.
-	awscli                  #  A unified tool to manage your AWS services
-	carthage                #  A simple, decentralized dependency manager for Xcode
 	cmake                   #  A family of tools designed to build, test and package software.
 	coreutils               #  adds color to ls
 	docker
 	docker-compose
 	fontconfig              #  A library for configuring and customizing font access.
-	fontforge               #  A free and open source font editor
 	freetype                #  A freely available software library to render fonts.
 	git                     #  the backbone of all version control
-	git-flow                #  Git extensions to provide high-level repository operations.
-	heroku                  #  A tool for creating and managing Heroku apps from the command line.
-	hub                     #  A command-line wrapper for git that makes you better at GitHub
 	imagemagick             #  Use to create, edit, compose, or convert bitmap images.
 	openssl                 #  provides a robust, commercial-grade, and full-featured toolkit for the TLS and SSL protocols.
 	p7zip                   #  utility for opening zip64 files.

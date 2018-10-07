@@ -9,7 +9,7 @@ cd ${BASH_SOURCE%/*} || exit
 format green "Installing Hombrew Cask----------------------------------------------------------------------------------"
 brew tap caskroom/cask
 
-brew cask cleanup
+brew cleanup
 
 # ------------------------------------------- Add the needed taps for cask ---------------------------------------------
 brew tap caskroom/fonts    # Adds fonts
@@ -17,56 +17,33 @@ brew tap caskroom/versions # Adds versions
 
 # Apps
 apps=(
-	# ----------------------------------------------------- Browsers ---------------------------------------------------
-	firefox              # Firefox browser for testing
-	google-chrome        # Chrome browser for testing
-
 	# ------------------------------------------------------ Fonts -----------------------------------------------------
-	font-fontawesome           # Font Awesome gives you scalable vector icons that can instantly be customized
-	font-monoid-nerd-font-mono # Monoid + Powerline, Font Awesome, Octicons, Devicons, and other icon fonts.
+	font-fontawesome      # Font Awesome gives you scalable vector icons that can instantly be customized
+	font-monoid-nerd-font # Monoid + Powerline, Font Awesome, Octicons, Devicons, and other icon fonts.
 
 	# ---------------------------------------------------- Quicklook ---------------------------------------------------
-	betterzipql         # contents of compressed archives.
-	inloop-qlplayground # Xcode Playgrounds. Supports single and multiple paged playgrounds.
 	provisionql         # iOS & OSX profiles
 	qlcolorcode         # source code with syntax highlighting
-	qldds               # previews and metadata for "DirectDraw Surface" (DDS) texture files.
 	qlimagesize         # display dimensions/size of images in title bar and preview unsupported formats like WebP & bpg.
 	qlmarkdown          # Markdown files.
 	qlprettypatch       # patch files.
-	qlrest              # reStructuredText files. Renders a preview using Python, Docutils and Pygments.
 	qlstephen           # plain text files without a file extension
-	qlswift             # Swift files
 	qlvideo             # shows static previews, cover art and metadata for most types of video files.
-	scriptql            # AppleScript
 	suspicious-package  # OS X Installer Packages
 
 	# ------------------------------------------------------- Misc -----------------------------------------------------
-	adobe-reader       # More powerful than other PDF software
 	alfred             # much better than spotlight (checkout the workflows)
 	appcleaner         # A small application which allows you to thoroughly uninstall unwanted apps.
 	bettertouchtool    # configure many gestures for your Magic Mouse, Macbook Trackpad and Magic Trackpad
-	betterzip          # the next generation of archiving
-	cheatsheet         # Just hold the ⌘-Key a bit longer to get a list of all short cuts in the current app
-	dash               # Dash is an API Documentation Browser and Code Snippet Manager.
-	dashlane           # My perferred password manager
-	duet               # Ex-Apple Engineers turn your iPad into an extra display.
-	fontforge          # a free and open source font editor
-	handbrake          # to encode all media
+	docker             # provides the docker gui
 	insomnia           # Finally, a REST client you'll love! Debug APIs like a human, not a robot
 	iterm2-nightly     # iTerm2 brings the terminal into the modern age with features you never knew you always wanted.
-	java               # make sure it is up to date
 	joinme             # FREE - Robust remote screen sharing/confrencing
-	keybase            # A free, open source security app. It's also a public directory of people.
 	macvim             # the macOS port of vim
-	netgeargenie       # App for managing netgear routers
 	robo-3t            # Mongodb Gui
 	rowanj-gitx        # my personal preference on gui git client
 	slack              # Work Instant Messanger
-	sequel-pro-nightly # Mysql Gui
 	virtualbox         # VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product
-	vlc                # because it can do all media
-	zeplin             # Design hand-off has never been easier. Generate styleguides and resources, automatically.
 )
 
 
@@ -84,7 +61,7 @@ brew cask install "${apps[@]}"
 
 # ------------------------------------------------------ Cleanup -------------------------------------------------------
 format green "Cleaning up ---------------------------------------------------------------------------------------------"
-brew cask cleanup
+brew cleanup
 
 trap 'cd $SWD' EXIT
 

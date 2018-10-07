@@ -7,7 +7,7 @@ cd "${BASH_SOURCE%/*}" || exit
 
 format green "Git global config ---------------------------------------------------------------------------------------"
 git config --global user.name "Jonathan Baird"
-git config --global user.email "jtbairdj@gmail.com"
+git config --global user.email "jtbairdsr@me.com"
 
 trap 'cd $SWD' EXIT
 

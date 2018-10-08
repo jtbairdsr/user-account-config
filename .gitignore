@@ -3,7 +3,7 @@
 /temp/
 **/.DS_Store
 **/*.swp
-   **/Session.vim
+**/Session.vim
 /safety/
 
 nvim/plugged

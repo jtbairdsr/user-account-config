@@ -75,4 +75,4 @@ export POWERLEVEL9K_TIME_BACKGROUND="black"
 
 # ================================================ Initialize Prompts ==================================================
 export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( vi_mode os_icon host context_joined dir dir_writable status )
-export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( command_execution_time nvm vcs time )
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( command_execution_time nvm docker_machine vcs time )

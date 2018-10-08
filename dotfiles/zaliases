@@ -1,27 +1,30 @@
 #!/bin/bash
 
 # ------------------------------------------------ Add Default Flags --------------------------------------------------
-alias df='df -h'                            # make `df` human redable by default
-alias ftp='ftp -i'                          # turn off interactive prompting by default
-alias grep='grep --color'                   # Mark up the matching text with an expression in GREP_COLOR env variable.
-alias ls='ls -GFA'                          # make ls more useful (file type markers, everything but . and .. etc.)
-alias ping="ping -c5"                       # make ping stop after 5 requests
-alias scp='scp -C'                          # Compression enable. Passes the -C flag to ssh(1) to enable compression.
+alias df='df -h'          # make `df` human redable by default
+alias ftp='ftp -i'        # turn off interactive prompting by default
+alias grep='grep --color' # Mark up the matching text with an expression in GREP_COLOR env variable.
+alias ls='ls -GFA'        # make ls more useful (file type markers, everything but . and .. etc.)
+alias ping="ping -c5"     # make ping stop after 5 requests
+alias scp='scp -C'        # Compression enable. Passes the -C flag to ssh(1) to enable compression.
+alias top='top -o cpu'    # sort top by %CPU
 
 # --------------------------------------------------- short hand ------------------------------------------------------
-alias dnow='sudo shutdown -h now; exit'     # shutdown the machine now
-alias fgrep='grep -F'                       # Interpret pattern as a set of fixed strings
-alias gs="git status"                       # create a simple git status alias
-alias gm="git mergetool"                    # create a simple git mergetool alias
-alias grc="git rebase --continue"           # create a simple alias to continue a git rebase
-alias gxa="gitx --all"                      # create a simple alias to open gitx on all branches
-alias h=history                             # shorthand for history
-alias vi=vim                                # redirect vi to vim.
-alias vim=nvim                              # use macvim in the terminal
-alias showenv='env | grep -i'               # grep env variables for a specific value
+alias dnow='sudo shutdown -h now; exit'                # shutdown the machine now
+alias fgrep='grep -F'                                  # Interpret pattern as a set of fixed strings
+alias gs="git status"                                  # create a simple git status alias
+alias gm="git mergetool"                               # create a simple git mergetool alias
+alias grc="git rebase --continue"                      # create a simple alias to continue a git rebase
+alias gxa="gitx --all"                                 # create a simple alias to open gitx on all branches
+alias h=history                                        # shorthand for history
+alias vi=vim                                           # redirect vi to vim.
+alias vim=nvim                                         # use macvim in the terminal
+alias showenv='env | grep -i'                          # grep env variables for a specific value
+alias pull-tasks='~/.config/bugwarrior/pull-script.sh' # pull tasks from github/gitlab
+alias dm='docker-machine'                              # simplify the docker-machine command
 
 # ----------------------------------------------------- VirtualBox -----------------------------------------------------
-alias vblist='VBoxManage list runningvms' #  show running vms
+alias vblist='VBoxManage list runningvms' # show running vms
 
 # ----------------------------------------------------- docker --------------------------------------------------------
 alias dockerimgsrm='docker rmi -f `docker images -q`'
@@ -45,6 +48,11 @@ alias mux='tmuxinator'
 alias fixLicenses="INJECT_LICENSES=1 git commit --allow-empty -m 'Add/update licenses for all maintained files' --edit"
 
 # ----------------------------------------------------- functions ------------------------------------------------------
+# install dependency and its types to a node project...
+tsinstall () {
+	npm i --save "$1" && npm i --save-dev "@types/$1"
+}
+
 # find process that is attached to a specific port
 pidport () {
 	lsof -n -i4TCP:"$1" | grep LISTEN
@@ -88,3 +96,11 @@ copy () {
 	pbcopy < "$1"
 }
 
+
+swarm_bash () {
+	docker exec -it "$1.1.$(docker service ps -f name="$1".1 "$1" -q | head -n 1)" bash -o vi
+}
+
+swarm_sh () {
+	docker exec -it "$1.1.$(docker service ps -f name="$1".1 "$1" -q | head -n 1)" sh -o vi
+}

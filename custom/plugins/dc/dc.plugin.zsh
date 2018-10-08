@@ -60,7 +60,7 @@ if [ -z "$1" ]; then
 	echo -e "\nUsage:\t$0 <process_name>"
 	return 1
 fi
-docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" exec "$1" sh -o vi
+docker-compose -f "${DOCKER_COMPOSE_FILE:-docker-compose.yml}" exec "$1" bash -o vi
 }
 
 dc-logs () {

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+/usr/local/bin/task sync
+
+/usr/local/bin/task rc.bulk=0 status:pending intheamtrellolistname:'Icebox' modify stage:icebox  &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending intheamtrellolistname:'To Do'  modify stage:backlog &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending intheamtrellolistname:'Next'   modify stage:next    &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending intheamtrellolistname:'Doing'  modify stage:doing   &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending intheamtrellolistname:'Deploy' modify stage:deploy  &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending intheamtrellolistname:'Done'   modify stage:done    &> /dev/null
+
+/usr/local/bin/task rc.bulk=0 status:pending stage:'icebox'  stop  &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending stage:'backlog' stop  &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending stage:'next'    stop  &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending stage:'doing'   start &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending stage:'deploy'  stop  &> /dev/null
+/usr/local/bin/task rc.bulk=0 status:pending stage:'done'   'done' &> /dev/null
+
+/usr/local/bin/task sync &> /dev/null

@@ -27,12 +27,13 @@ alias dm='docker-machine'                              # simplify the docker-mac
 alias vblist='VBoxManage list runningvms' # show running vms
 
 # ----------------------------------------------------- docker --------------------------------------------------------
-alias dockerimgsrm='docker rmi -f `docker images -q`'
-alias dockercontsrm='docker rm `docker ps -aq --no-trunc`'
+alias dockimgsrm='docker rmi -f $(docker images -q)'                            # remove all images
+alias dockcontrm='docker rm $(docker ps -aq)'                                   # remove all containers
+alias dockexitrm='docker ps -a | grep Exit | cut -d " " -f 1 | xargs docker rm' # remove all stopped containers
 
 # -------------------------------------------------------- Misc --------------------------------------------------------
 #  shellcheck disable=SC2139,SC2154
-alias Ping="$(which ping)"                                          # an alias to a ping that won't end
+alias Ping="\ping"                                                  # an alias to a ping that won't end
 alias rzsh='echo relaunching zsh.......;exec zsh -ls'               # an alias for relaunching zsh
 alias clr='colorize'                                                # a shortened version of the colorize alias
 alias lncustom='ln -fhs $config/custom ~/.oh-my-zsh/custom && rzsh' # ln $config/custom into .oh-my-zsh
@@ -78,19 +79,6 @@ build () {
 	trap 'cd "$CWD"' EXIT
 }
 
-# run local instance of gitlab ci to test configuration...
-testCI () {
-	cp .gitlab-ci.yml temp.gitlab-ci.yml
-
-	#  shellcheck disable=SC1004,SC2016
-	sed -i -e '/docker login.*/c\
-		\ \ \ \ - docker login -u jtbairdsr@me.com -p QvD-FCZ-66m-F2k registry.gitlab.com\
-		' -e 's/$CI_BUILD_REF_NAME/test/g' .gitlab-ci.yml
-	gitlab-runner exec docker --docker-privileged "$1"
-
-	trap 'mv temp.gitlab-ci.yml .gitlab-ci.yml' EXIT
-}
-
 # copy file contents to the global clipboard...
 copy () {
 	pbcopy < "$1"
@@ -103,4 +91,8 @@ swarm_bash () {
 
 swarm_sh () {
 	docker exec -it "$1.1.$(docker service ps -f name="$1".1 "$1" -q | head -n 1)" sh -o vi
+}
+
+microservice_image_id () {
+	docker inspect "registry.gitlab.com/ewb-development/ewb-microservices/$1" | grep Id
 }

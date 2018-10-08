@@ -19,92 +19,74 @@ endif
 call plug#begin()
 
 " General {{{ -------------------------------------------------------------------------------------------------
-Plug 'airblade/vim-rooter'                                                " Changes Vim working directory to project root
-Plug 'alvan/vim-closetag'                                                 " Auto close (X)HTML tags
-Plug 'bdauria/angular-cli.vim'                                            " support for angular-cli, directly inside Vim
-Plug 'bronson/vim-visual-star-search'                                     " Start a * or # search from a visual block
-Plug 'cakebaker/scss-syntax.vim'                                          " syntax file for scss
-Plug 'chr4/nginx.vim'                                                     " Improved nginx vim plugin (incl. syntax highlighting)
-Plug 'chrisbra/Colorizer'                                                 " color hex codes and color names
-Plug 'chrisbra/csv.vim'                                                   " A Filetype plugin for csv files
-Plug 'christoomey/vim-tmux-navigator'                                     " Seamless navigation between tmux panes and vim splits
-Plug 'ctrlpvim/ctrlp.vim'                                                 " Full path fuzzy file, buffer, mru, tag, ... finder
-Plug 'danhodos/vim-comb', { 'do': 'npm i -g csscomb' }                    " Tool for sorting CSS properties in specific order
-Plug 'easymotion/vim-easymotion'                                          " Vim motion on speed
-Plug 'editorconfig/editorconfig-vim'                                      " This is an EditorConfig plugin for Vim
-Plug 'edkolev/tmuxline.vim'                                               " Simple tmux statusline generator: supports powerline symbols and airline integration
-Plug 'ervandew/supertab'                                                  " allows you to use <Tab> for all your insert completion needs
-Plug 'farmergreg/vim-lastplace'                                           " Intelligently reopen files at your last edit position
-Plug 'godlygeek/tabular'                                                  " for text filtering and alignment
-Plug 'gregsexton/gitv', { 'on': [ 'Gitv' ] }                              " a 'gitk clone' plugin. Visualy isnpect a repo
-Plug 'heavenshell/vim-jsdoc'                                              " Generate JSDoc to your JavaScript code
-Plug 'herringtondarkholme/yats.vim'                                       " The most advanced TypeScript Syntax Highlighting
-Plug 'honza/vim-snippets'                                                 " contains snippets files for various programming languages
-Plug 'jiangmiao/auto-pairs'                                               " insert or delete brackets, parens, quotes in pairs
-Plug 'jtbairdsr/vim-center-comment'                                       " for formatting comments to center
-Plug 'kshenoy/vim-signature'                                              " Plugin to toggle, display and navigate marks
-Plug 'leshill/vim-json'                                                   " Syntax highlighting for JSON
-Plug 'mhinz/vim-signify'                                                  " shows a VCS diff in the sign column
-Plug 'mhinz/vim-startify'                                                 " provides a start screen for Vim and Neovim.
-Plug 'michaeljsmith/vim-indent-object'                                    " defines text object for lines of code at the same indent level
-Plug 'mileszs/ack.vim'                                                    " run ack (or ag) from Vim
-Plug 'nikvdp/ejs-syntax'                                                  " syntax file for editing ejs files in vim
-Plug 'ntpeters/vim-better-whitespace'                                     " Better whitespace highlighting
-Plug 'othree/es.next.syntax.vim'                                          " ES.Next syntax for Vim
-Plug 'othree/javascript-libraries-syntax.vim'                             " Syntax files for JavaScript libraries (underscore angular etc.)
-Plug 'othree/yajs.vim'                                                    " Yet Another JavaScript Syntax for Vim
-Plug 'plasticboy/vim-markdown'                                            " Syntax highlighting, matching rules and mappings for Markdown
-Plug 'quramy/vim-js-pretty-template'                                      " highlights JavaScript's Template Strings in other FileType syntax rule
-Plug 'scrooloose/nerdcommenter'                                           " intensely orgasmic commenting
-Plug 'severin-lemaignan/vim-minimap'                                      " A Sublime-like minimap for VIM
-Plug 'shougo/denite.nvim',                                                " Dark powered asynchronous unite all interfaces for Neovim/Vim8
-Plug 'sirver/ultisnips'                                                   " the ultimate snippet solution for Vim
-Plug 'sjl/gundo.vim'                                                      " visualize your Vim undo tree
-Plug 'suan/vim-instant-markdown', { 'do': 'npm i -g instant-markdown-d' } " Instant Markdown previews
-Plug 'svermeulen/vim-easyclip'                                            " Simplified clipboard functionality for Vim
-Plug 'terryma/vim-multiple-cursors'                                       " attempt at Sublime Text's multiple selection feature
-Plug 'tmux-plugins/vim-tmux'                                              " proper syntax highlighting etc.
-Plug 'tmux-plugins/vim-tmux-focus-events'                                 " restores FocusGained/FocusLost autocommand events when inside Tmux.
-Plug 'tpope/vim-abolish'                                                  " find, substitute, and abbreviate multiple variants of a word
-Plug 'tpope/vim-dispatch'                                                 " asynchronous build and test dispatcher
-Plug 'tpope/vim-fugitive'                                                 " git of the gods plugin
-Plug 'tpope/vim-obsession'                                                " continuously updated session files
-Plug 'tpope/vim-repeat'                                                   " enable repeating supported plugin maps with '.'
-Plug 'tpope/vim-sleuth'                                                   " automatically adjusts 'shiftwidth' and 'expandtab'
-Plug 'tpope/vim-speeddating'                                              " use CTRL-A/CTRL-X to increment dates, times, and more
-Plug 'tpope/vim-surround'                                                 " provides mappings to delete, change and add surrounding pairs
-Plug 'tpope/vim-unimpaired'                                               " pairs of handy bracket mappings
-Plug 'triglav/vim-visual-increment'                                       " increasing sequence of numbers or letters via visual mode
-Plug 'valloric/MatchTagAlways'                                            " always highlights the enclosing html/xml tags
-Plug 'vim-airline/vim-airline'                                            " Lean & mean status/tabline for vim that's light as air.
-Plug 'vim-airline/vim-airline-themes'                                     " A collection of themes for vim-airline
-Plug 'vim-scripts/bufexplorer.zip'                                        " quickly and easily switch between buffers
-Plug 'vim-scripts/searchcomplete'                                         " tab-complete words while typing in a search
-Plug 'vim-scripts/text-object-left-and-right'                             " create text object for left and right of a statement
-Plug 'w0rp/ale'                                                           " Asynchronous Lint Engine
-Plug 'wellle/targets.vim'                                                 " provides additional text objects
-Plug 'wellle/tmux-complete.vim'                                           " insert mode completion of words in adjacent tmux panes
-Plug 'wellle/visual-split.vim'                                            " control splits with visual selections or text objects
-Plug 'wgwoods/vim-systemd-syntax'                                         " Syntax highlighting for systemd service files
-Plug 'yggdroot/indentLine'                                                " display the indention levels with thin vertical lines
-Plug 'zenbro/mirror.vim'                                                  " edit remote files on multiple environments
-Plug 'zhaocai/GoldenView.Vim'                                             " Always have a nice view for vim split windows
-Plug 'digitaltoad/vim-pug'                                                " Pug (formerly Jade) template engine syntax highlighting and indention
+Plug 'airblade/vim-rooter'                               " Changes Vim working directory to project root
+Plug 'alvan/vim-closetag'                                " Auto close (X)HTML tags
+Plug 'bronson/vim-visual-star-search'                    " Start a * or # search from a visual block
+Plug 'cakebaker/scss-syntax.vim'                         " syntax file for scss
+Plug 'chr4/nginx.vim'                                    " Improved nginx vim plugin (incl. syntax highlighting)
+Plug 'chrisbra/Colorizer'                                " color hex codes and color names
+Plug 'chrisbra/csv.vim'                                  " A Filetype plugin for csv files
+Plug 'christoomey/vim-tmux-navigator'                    " Seamless navigation between tmux panes and vim splits
+Plug 'csscomb/vim-csscomb', { 'do': 'npm i -g csscomb' } " Tool for sorting CSS properties in specific order
+Plug 'easymotion/vim-easymotion'                         " Vim motion on speed
+Plug 'editorconfig/editorconfig-vim'                     " This is an EditorConfig plugin for Vim
+Plug 'edkolev/tmuxline.vim'                              " Simple tmux statusline generator: powerline symbols and airline integration
+Plug 'ervandew/supertab'                                 " allows you to use <Tab> for all your insert completion needs
+Plug 'farmergreg/vim-lastplace'                          " Intelligently reopen files at your last edit position
+Plug 'godlygeek/tabular'                                 " for text filtering and alignment
+Plug 'herringtondarkholme/yats.vim'                      " The most advanced TypeScript Syntax Highlighting
+Plug 'honza/vim-snippets'                                " contains snippets files for various programming languages
+Plug 'jiangmiao/auto-pairs'                              " insert or delete brackets, parens, quotes in pairs
+Plug 'jtbairdsr/vim-center-comment'                      " for formatting comments to center
+Plug 'kshenoy/vim-signature'                             " Plugin to toggle, display and navigate marks
+Plug 'leshill/vim-json'                                  " Syntax highlighting for JSON
+Plug 'mhinz/vim-signify'                                 " shows a VCS diff in the sign column
+Plug 'michaeljsmith/vim-indent-object'                   " defines text object for lines of code at the same indent level
+Plug 'mileszs/ack.vim'                                   " run ack (or ag) from Vim
+Plug 'ntpeters/vim-better-whitespace'                    " Better whitespace highlighting
+Plug 'othree/es.next.syntax.vim'                         " ES.Next syntax for Vim
+Plug 'othree/javascript-libraries-syntax.vim'            " Syntax files for JavaScript libraries (underscore angular etc.)
+Plug 'plasticboy/vim-markdown'                           " Syntax highlighting, matching rules and mappings for Markdown
+Plug 'scrooloose/nerdcommenter'                          " intensely orgasmic commenting
+Plug 'shougo/denite.nvim',                               " Dark powered asynchronous unite all interfaces for Neovim/Vim8
+Plug 'sirver/ultisnips'                                  " the ultimate snippet solution for Vim
+Plug 'sjl/gundo.vim'                                     " visualize your Vim undo tree
+Plug 'svermeulen/vim-easyclip'                           " Simplified clipboard functionality for Vim
+Plug 'terryma/vim-multiple-cursors'                      " attempt at Sublime Text's multiple selection feature
+Plug 'tmux-plugins/vim-tmux'                             " proper syntax highlighting etc.
+Plug 'tmux-plugins/vim-tmux-focus-events'                " restores FocusGained/FocusLost autocommand events when inside Tmux.
+Plug 'tpope/vim-abolish'                                 " find, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/vim-fugitive'                                " git of the gods plugin
+Plug 'tpope/vim-obsession'                               " continuously updated session files
+Plug 'tpope/vim-repeat'                                  " enable repeating supported plugin maps with '.'
+Plug 'tpope/vim-sleuth'                                  " automatically adjusts 'shiftwidth' and 'expandtab'
+Plug 'tpope/vim-speeddating'                             " use CTRL-A/CTRL-X to increment dates, times, and more
+Plug 'tpope/vim-surround'                                " provides mappings to delete, change and add surrounding pairs
+Plug 'tpope/vim-unimpaired'                              " pairs of handy bracket mappings
+Plug 'triglav/vim-visual-increment'                      " increasing sequence of numbers or letters via visual mode
+Plug 'valloric/MatchTagAlways'                           " always highlights the enclosing html/xml tags
+Plug 'vim-airline/vim-airline'                           " Lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline-themes'                    " A collection of themes for vim-airline
+Plug 'vim-scripts/bufexplorer.zip'                       " quickly and easily switch between buffers
+Plug 'vim-scripts/searchcomplete'                        " tab-complete words while typing in a search
+Plug 'vim-scripts/text-object-left-and-right'            " create text object for left and right of a statement
+Plug 'w0rp/ale'                                          " Asynchronous Lint Engine
+Plug 'wellle/targets.vim'                                " provides additional text objects
+Plug 'wellle/tmux-complete.vim'                          " insert mode completion of words in adjacent tmux panes
+Plug 'wellle/visual-split.vim'                           " control splits with visual selections or text objects
+Plug 'wgwoods/vim-systemd-syntax'                        " Syntax highlighting for systemd service files
+Plug 'yggdroot/indentLine'                               " display the indention levels with thin vertical lines
+Plug 'zhaocai/GoldenView.Vim'                            " Always have a nice view for vim split windows
+Plug 'pangloss/vim-javascript'                           " Yet Another JavaScript Syntax for Vim
+Plug 'maxmellon/vim-jsx-pretty'                          " React JSX syntax highlighting and indenting for vim.
+Plug 'machakann/vim-highlightedyank'                     " Make the yanked region apparent!
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'chiel92/vim-autoformat', { 'do': 'npm i -g js-beautify remark-cli fixjson xo typescript-formatter' }
 " }}} End General
-
-" TaskWiki {{{ ------------------------------------------------------------------------------------------------
-Plug 'tbabej/taskwiki', { 'do' : 'sudo -H pip3 install tasklib' } " Proper project management with Taskwarrior in vim.
-Plug 'vimwiki/vimwiki'                                            " Personal Wiki for Vim (required for Taskwiki)
-Plug 'powerman/vim-plugin-AnsiEsc'                                " adds color support in charts
-Plug 'majutsushi/tagbar'                                          " provides taskwiki file navigation
-Plug 'farseer90718/vim-taskwarrior'                               " enables grid view.
-" }}}
 
 " LanguageClient {{{ ------------------------------------------------------------------------------------------
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'junegunn/fzf'                                           " (Optional) Multi-entry selection UI.
-Plug 'roxma/nvim-completion-manager'                          " (Completion plugin option 1)
-Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " asynchronous keyword completion system
 " }}}
 
 " YCM {{{ -----------------------------------------------------------------------------------------------------
@@ -121,28 +103,16 @@ Plug 'shougo/neoinclude.vim'                                  " include completi
 " }}} End Deoplete
 
 " NERDTree {{{ ------------------------------------------------------------------------------------------------
-Plug 'scrooloose/nerdtree'                     " allows you to explore your filesystem and open files/directories.
+Plug 'albfan/nerdtree'                         " allows you to explore your filesystem and open files/directories.
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " this adds syntax for nerdtree on most common file extensions.
 Plug 'scrooloose/nerdtree-project-plugin'      " proof of concept for nerdtree projects
-Plug 'xuyuanp/nerdtree-git-plugin'             " makes NERDTree show git status flags
+Plug 'albfan/nerdtree-git-plugin'              " makes NERDTree show git status flags
 Plug 'octref/RootIgnore'                       " Set wildignore from git repo root
 " }}} End NERDTree
-
-" Unused plugins that I might want later. {{{ -----------------------------------------------------------------
-" Plug 'akz92/vim-ionic2'                 " Ionic 2 syntax highlighting
-" Plug 'burnettk/vim-angular'             " Some niceties for using Vim with the AngularJS(1.*) framework
-" Plug 'janko-m/vim-test'                 " a vim wrapper for running tests on different granularities
-" Plug 'maksimr/vim-karma'                " lightweight Karma runner
-" Plug 'matthewsimo/angular-vim-snippets' " snippets for AngularJS(1.*): JavaScript, HTML, CoffeeScript, HAML.
-" Plug 'vim-scripts/a.vim'                " swtich between source files and header files quickly
-" Plug 'vim-scripts/closetag.vim'         " eases redundant typing when writing html or xml files
-" Plug 'chiel92/vim-autoformat'                                           " Format code with one button press
-" }}} End Unused
 
 " Color schemes {{{ -------------------------------------------------------------------------------------------
 Plug 'blueyed/vim-diminactive' " dim inactive windows
 Plug 'altercation/vim-colors-solarized'
-" Plug 'flazz/vim-colorschemes'  " any colorscheme I could want...
 " }}} End Color schemes
 
 " !!!MUST BE LOADED LAST!!! {{{ -------------------------------------------------------------------------------
@@ -183,9 +153,9 @@ endif
 
 " ------------ ALE ----------- {{{ - bundle name: w0rp/ale -----------------------------------------------------
 let g:ale_fix_on_save                = 1   " fix files automatically on save.
-let g:ale_completion_enabled         = 1   " Enable completion where available.
+let g:ale_completion_enabled         = 0   " Enable completion where available.
 let g:ale_sign_column_always         = 1   " keep the sign gutter open always
-let g:ale_set_quickfix               = 1   " use the quckfix window
+let g:ale_set_quickfix               = 0   " use the quckfix window
 let g:ale_sign_error                 = '' " change the error sign
 let g:ale_sign_error                 = '' " change the error sign
 let g:ale_sign_warning               = '' " change the warning sign
@@ -194,15 +164,13 @@ let g:airline#extensions#ale#enabled = 1   " add to status line...
 
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-			\ 'javascript': ['eslint'],
-			\ 'scss': ['prettier'],
-			\ 'css': ['prettier'],
+			\ 'javascript': ['xo'],
 			\ }
 
 let g:ale_linters = {
 			\ 'html': ['HTMLHint', 'proselint'],
 			\ 'dockerfile': ['hadolint'],
-			\ 'javascript': ['eslint', 'flow', 'prettier'],
+			\ 'javascript': ['xo', 'eslint', 'flow', 'prettier'],
 			\ 'typescript': ['tsserver', 'tslint'],
 			\ 'css': ['stylelint'],
 			\ 'scss': ['stylelint', 'prettier'],
@@ -219,20 +187,13 @@ let g:ale_linters = {
 			\ }
 " }}} End ALE
 
-" -------- Angular CLI ------- {{{ - bundle name: bdauria/angular-cli.vim --------------------------------------
-" initialize in all html and typescript files
-autocmd nvimrc FileType typescript,html call angular_cli#init()
-
-" enable usage of asynchronous dispatch
-let g:angular_cli_use_dispatch = 1
-" }}} End Angular CLI
-
 " -------- Autoformat -------- {{{ - bundle name: chiel92/vim-autoformat ---------------------------------------
 " map format to <F3>
-" noremap <F3> :Autoformat<CR>
+noremap <F3> :Autoformat<CR>
 " format file on save
-" au nvimrc FileType yaml,vim,css let b:autoformat_autoindent = 0
-" au nvimrc FileType yaml,css let b:autoformat_retab          = 0
+au nvimrc FileType yaml,vim,css let b:autoformat_autoindent = 0
+au nvimrc FileType yaml,css let b:autoformat_retab          = 0
+au nvimrc * :Autoformat
 " }}} End Autoformat
 
 " ------- Color Schemes ------ {{{ - bundle name: flazz/vim-colorschemes ---------------------------------------
@@ -259,21 +220,6 @@ function! CSScomb()
 	redraw!
 endfunction
 " }}} End CSScomb
-
-" ---------- CtrlP ----------- {{{ - bundle name: ctrlpvim/ctrlp.vim -------------------------------------------
-nnoremap <C-p> :CtrlP<CR>
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.exe          " Windows
-
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['package.json']
-if executable('ag')
-	let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " use ag 'the silver searcher' because it is blisteringly fast
-else
-	let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " ignore everything that .gitignore ignores
-endif
-" }}} End CtrlP
 
 " --------- Deoplete --------- {{{ - bundle name: shougo/deoplete.nvim -----------------------------------------
 let g:deoplete#enable_at_startup = 1
@@ -317,9 +263,15 @@ noremap <Leader>gl :Glog<CR>
 noremap <Leader>gd :Gvdiff<CR>
 " }}} End Fugitive
 
+" FZF {{{ - bundle name: junegunn/fzf.vim
+map <C-Space> :Files<CR>
+" End FZF}}}
+
 " -------- GoldenView -------- {{{ - bundle name: zhaocai/GoldenView.Vim ---------------------------------------
 let g:goldenview__enable_default_mapping = 0
 let g:goldenview__enable_at_startup      = 1
+
+nmap <Silent> <Leader>tgv <Plug>ToggleGoldenViewAutoResize
 " }}} End GoldenView
 
 " ---------- Gundo ----------- {{{ - bundle name: sjl/gundo.vim ------------------------------------------------
@@ -337,7 +289,7 @@ set list lcs=tab:\│\                        "  show tabs
 " -------- JavaScript -------- {{{ - bundle name: pangloss/vim-javascript --------------------------------------
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
-" }}} End Vim Javascript
+" }}} End Javascript
 
 " Javascript Libraries Syntax  {{{ - bundle name: othree/javascript-libraries-syntax.vim -----------------------
 let g:used_javascript_libs = 'underscore,angularjs,jquery'
@@ -352,14 +304,10 @@ let g:jsdoc_enable_es6         = 1 " Enable ES6 shorthand function, arrow functi
 nmap <silent> <C-1> ?function<cr>:noh<cr><Plug>(jsdoc)
 " }}} End JSDoc
 
-" ----- JSPrettyTemplate ----- {{{ - bundle name: Quramy/vim-js-pretty-template --------------------------------
-" Register tag name associated the filetype
-call jspretmpl#register_tag('md', 'markdown')
-call jspretmpl#register_tag('sql', 'sql')
-
-autocmd nvimrc FileType javascript JsPreTmpl html
-autocmd nvimrc FileType typesciprt JsPreTmpl html
-" }}} End JSPrettyTemplate
+" -------- JSX-Pretty -------- {{{ - bundle name: maxmellon/vim-jsx-pretty -------------------------------------
+let g:vim_jsx_pretty_enable_jsx_highlight = 1
+let g:vim_jsx_pretty_colorful_config = 1
+" }}} End JSX-Pretty
 
 " ------ LanguageClient ------ {{{ - bundle name: autozimu/LanguageClient-neovim -------------------------------
 " Required for operations modifying multiple buffers like rename.

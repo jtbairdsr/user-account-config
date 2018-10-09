@@ -6,11 +6,13 @@
 **/Session.vim
 /safety/
 
+nvim/autoload
 nvim/plugged
 nvim/swap
 nvim/shada
 nvim/rplugin.vim
 nvim/log
+nvim/.netrwhist
 
 vim/plugged/
 vim/.netrwhist

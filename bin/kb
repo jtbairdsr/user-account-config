@@ -35,10 +35,14 @@ shift
 
 case $subcommand in
 	add)
-		while getopts ":b:" opt; do
+		while getopts ":b:s:" opt; do
 			case ${opt} in
 				b)
 					board=$OPTARG
+					shift $((OPTIND-1))
+					;;
+				s)
+					stage=$OPTARG
 					shift $((OPTIND-1))
 					;;
 				\?)
@@ -48,7 +52,7 @@ case $subcommand in
 			esac
 		done
 
-		task add "board:${board:-$KB_DEFAULT_BOARD}" "stage:$KB_DEFAULT_STAGE" "$@"
+		task add "board:${board:-$KB_DEFAULT_BOARD}" "stage:${stage:-$KB_DEFAULT_STAGE}" "$@"
 		"$0" "$board"
 		;;
 	move)
@@ -85,6 +89,20 @@ case $subcommand in
 				echo "$stage is not a recognized stage..."
 				exit 1;;
 		esac
+
+		/Users/jonathan/bin/tsync
+
+		"$0"
+		;;
+	move-board)
+		task=$1
+		shift
+		board=$1
+
+		# we need to not double quote the tasks so that it can split and we can pass queries to tw and move more than one
+		# task at a time...
+		# shellcheck disable=SC2086
+		task rc.bulk=0 $task modify board:"$board"
 
 		/Users/jonathan/bin/tsync
 

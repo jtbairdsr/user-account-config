@@ -1,0 +1,88 @@
+#!/bin/bash
+
+DOCKER_ENV=$1
+
+DOCKER_COMPOSE_FILE="/src/ewb-holdings/smithbox/docker-compose.yml"
+
+sed -i .bak "s/\${DOCKER_ENV}/$DOCKER_ENV/g" "$DOCKER_COMPOSE_FILE"
+
+prod_virtual_host='app.smithbox.com'
+prod_virtual_hosts='app.smithbox.com www.smithbox.com smithbox.com'
+prod_spaces_name='smithbox'
+prod_spaces_key='3RSRNJPVIVUTWORTE5ZV'
+prod_spaces_secret='0VIKn5PLbTiehmRdaweZH0ET6Bo/k7De17gbzWIM1O4'
+prod_db_password='password'
+prod_db_root_password='111111'
+prod_twilio_acct='AC3b555401900719fcf21e2abde0974c19'
+prod_twilio_token='8bc94cf5172bd776064524a6ad2e4be8'
+
+stage_virtual_host='stage-app.smithbox.com'
+stage_virtual_hosts='stage-app.smithbox.com stage.smithbox.com'
+stage_spaces_name='stage-smithbox'
+stage_spaces_key='RSWMJ7MCFYKMEDZS4EQS'
+stage_spaces_secret='T+L+EX3H5h6wk1uGz7jN+Sb95cVS/0LhnVw/RjS9bYw'
+
+deva_virtual_host='deva-app.smithbox.com'
+deva_virtual_hosts='deva-app.smithbox.com deva.smithbox.com'
+deva_db_password='andrew rocks development'
+# shellcheck disable=SC2016
+deva_db_root_password='bU-,AZ8GEg7KBd$XYp'
+
+
+case $DOCKER_ENV in
+	prod)
+		VIRTUAL_HOSTS=$prod_virtual_hosts
+		VIRTUAL_HOST=$prod_virtual_host
+		SPACES_NAME=$prod_spaces_name
+		SPACES_KEY=$prod_spaces_key
+		SPACES_SECRET=$prod_spaces_secret
+		DB_PASSWORD=$prod_db_password
+		MYSQL_PASSWORD=$prod_db_password
+		MYSQL_ROOT_PASSWORD=$prod_db_root_password
+		TWILIO_ACCT=$prod_twilio_acct
+		TWILIO_TOKEN=$prod_twilio_token
+		;;
+	stage)
+		VIRTUAL_HOSTS=$stage_virtual_hosts
+		VIRTUAL_HOST=$stage_virtual_host
+		SPACES_NAME=$stage_spaces_name
+		SPACES_KEY=$stage_spaces_key
+		SPACES_SECRET=$stage_spaces_secret
+		DB_PASSWORD=$prod_db_password
+		MYSQL_PASSWORD=$prod_db_password
+		MYSQL_ROOT_PASSWORD=$prod_db_root_password
+		TWILIO_ACCT=$prod_twilio_acct
+		TWILIO_TOKEN=$prod_twilio_token
+		;;
+	deva)
+		VIRTUAL_HOSTS=$deva_virtual_hosts
+		VIRTUAL_HOST=$deva_virtual_host
+		SPACES_NAME=$stage_spaces_name
+		SPACES_KEY=$stage_spaces_key
+		SPACES_SECRET=$stage_spaces_secret
+		DB_PASSWORD=$deva_db_password
+		MYSQL_PASSWORD=$deva_db_password
+		MYSQL_ROOT_PASSWORD=$deva_db_root_password
+		TWILIO_ACCT=$prod_twilio_acct
+		TWILIO_TOKEN=$prod_twilio_token
+		;;
+	*) echo "$ENV isn't a valid environment"; exit 1
+esac
+
+export VIRTUAL_HOSTS
+export VIRTUAL_HOST
+export SPACES_NAME
+export DOCKER_ENV
+export SPACES_KEY
+export SPACES_SECRET
+export DB_PASSWORD
+export MYSQL_PASSWORD
+export MYSQL_ROOT_PASSWORD
+export TWILIO_ACCT
+export TWILIO_TOKEN
+
+docker stack deploy -c "$DOCKER_COMPOSE_FILE" "$DOCKER_ENV"
+
+trap 'mv "$DOCKER_COMPOSE_FILE".bak "$DOCKER_COMPOSE_FILE"' EXIT
+
+# vim:syntax=sh

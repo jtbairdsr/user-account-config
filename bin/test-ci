@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# run local instance of gitlab ci to test configuration...
+
+job=$1
+image=${2:-registry.gitlab.com/ewb-development/ewb-microservices/$(jq -r .imageName package.json)}
+
+gitlab-runner exec docker \
+	--docker-privileged \
+	--env "SSH_PRIVATE_KEY=$(cat ~/.ssh/ewbCI_rsa)" \
+	--env "SSH_SERVER_HOSTKEYS=$(cat ~/bin/ewb-hostkeys)" \
+	--env "CI_COMMIT_REF_SLUG=test" \
+	--env "CI_BUILD_REF_NAME=test" \
+	    --env "CI_REGISTRY_USER=jtbairdsr@me.com" \
+	--env "CI_REGISTRY_PASSWORD=Z_zCipP6ti1zxsA3B62s" \
+	--env "CI_REGISTRY_IMAGE=$image" \
+	--env "CI_REGISTRY=registry.gitlab.com" \
+	"$job"
+
+# vim:syntax=sh

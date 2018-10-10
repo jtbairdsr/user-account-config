@@ -1,0 +1,41 @@
+#!/bin/bash
+
+ENV=$1
+
+# shellcheck disable=SC2016
+DB_PASSWORD='-),Ac$Cjmh.2}wXWr)#v[BgGm'
+STORE_API_KEY=e6e47aa4a66530b39392512f3c913d17
+
+code_prod="MTIzMzcwMjM3MXxlLXdlZGRpbmdiYW5kc3wxfC4u"
+client_id_prod=1AEB4F28
+secret_key_prod="7F3C-831F-8ADE-1A0A"
+
+secret_key_stage="812B-98CE-987A-D7ED"
+client_id_stage=EF45002E
+code_stage="MTY1MjU3MjE5NnxlLXdlZGRpbmdiYW5kc3wzfC4u"
+
+case $ENV in
+	prod)
+		CODE=$code_prod
+		CLIENT_ID=$client_id_prod
+		SECRET_KEY=$secret_key_prod
+		compose_file=docker-compose.yml
+		;;
+	stage)
+		CODE=$code_stage
+		CLIENT_ID=$client_id_stage
+		SECRET_KEY=$secret_key_stage
+		compose_file=docker-compose-stage.yml
+		;;
+	*) echo "$ENV isn't a valid environment"; exit 1
+esac
+
+export STORE_API_KEY
+export DB_PASSWORD
+export CODE
+export CLIENT_ID
+export SECRET_KEY
+
+docker stack deploy -c "/src/ewb-holdings/microservices/$compose_file" "$ENV"
+
+# vim:syntax=sh

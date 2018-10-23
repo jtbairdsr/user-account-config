@@ -1,0 +1,37 @@
+#!/bin/bash
+
+SWD=$(pwd) # cash the staring working directory
+cd "${BASH_SOURCE%/*}" || exit
+
+. colors
+. functions
+
+# -------------------------------------------- Get computer name from user ------------------------------------------- #
+while true; do
+	read -rp "Enter computer's name: ($(hostname))" name
+	name=${name:-$(hostname)}
+	while true; do
+		read -rp "Are you happy with a computer named "$'\033[0;31m'"$name"$'\033[0m'"? (Y/n) " yn
+		yn=${yn:-"Yes"}
+		case "$yn" in
+			[Yy]* )
+				echo -e "Your computer's name is $(format red "$name")"
+				echo -e "It will show up on your LAN as $(format red "$name.local")"
+				break 2
+				;;
+			* )
+				break
+				;;
+		esac
+	done
+done
+
+# Set computer name (as done via Systm Preferences → Sharing)
+sudo scutil --set ComputerName "$name"
+sudo scutil --set HostName "$name"
+sudo scutil --set LocalHostName "$name"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$name"
+
+trap 'cd $SWD' EXIT
+
+# vim:tabstop=4:shiftwidth=4

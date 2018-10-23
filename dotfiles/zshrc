@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ! -n "$SSH_CLIENT" ]]; then
+if [ -z "$TMUX" ]; then
 	# zsh tmux settings
 	export ZSH_TMUX_AUTOSTART=true
 fi

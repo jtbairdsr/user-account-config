@@ -22,8 +22,6 @@ call plug#begin()
 Plug 'airblade/vim-rooter'                               " Changes Vim working directory to project root
 Plug 'alvan/vim-closetag'                                " Auto close (X)HTML tags
 Plug 'bronson/vim-visual-star-search'                    " Start a * or # search from a visual block
-Plug 'cakebaker/scss-syntax.vim'                         " syntax file for scss
-Plug 'chr4/nginx.vim'                                    " Improved nginx vim plugin (incl. syntax highlighting)
 Plug 'chrisbra/Colorizer'                                " color hex codes and color names
 Plug 'chrisbra/csv.vim'                                  " A Filetype plugin for csv files
 Plug 'christoomey/vim-tmux-navigator'                    " Seamless navigation between tmux panes and vim splits
@@ -34,26 +32,20 @@ Plug 'edkolev/tmuxline.vim'                              " Simple tmux statuslin
 Plug 'ervandew/supertab'                                 " allows you to use <Tab> for all your insert completion needs
 Plug 'farmergreg/vim-lastplace'                          " Intelligently reopen files at your last edit position
 Plug 'godlygeek/tabular'                                 " for text filtering and alignment
-Plug 'herringtondarkholme/yats.vim'                      " The most advanced TypeScript Syntax Highlighting
 Plug 'honza/vim-snippets'                                " contains snippets files for various programming languages
 Plug 'jiangmiao/auto-pairs'                              " insert or delete brackets, parens, quotes in pairs
 Plug 'jtbairdsr/vim-center-comment'                      " for formatting comments to center
 Plug 'kshenoy/vim-signature'                             " Plugin to toggle, display and navigate marks
-Plug 'leshill/vim-json'                                  " Syntax highlighting for JSON
 Plug 'mhinz/vim-signify'                                 " shows a VCS diff in the sign column
 Plug 'michaeljsmith/vim-indent-object'                   " defines text object for lines of code at the same indent level
 Plug 'mileszs/ack.vim'                                   " run ack (or ag) from Vim
 Plug 'ntpeters/vim-better-whitespace'                    " Better whitespace highlighting
-Plug 'othree/es.next.syntax.vim'                         " ES.Next syntax for Vim
-Plug 'othree/javascript-libraries-syntax.vim'            " Syntax files for JavaScript libraries (underscore angular etc.)
-Plug 'plasticboy/vim-markdown'                           " Syntax highlighting, matching rules and mappings for Markdown
 Plug 'scrooloose/nerdcommenter'                          " intensely orgasmic commenting
 Plug 'shougo/denite.nvim',                               " Dark powered asynchronous unite all interfaces for Neovim/Vim8
 Plug 'sirver/ultisnips'                                  " the ultimate snippet solution for Vim
 Plug 'sjl/gundo.vim'                                     " visualize your Vim undo tree
 Plug 'svermeulen/vim-easyclip'                           " Simplified clipboard functionality for Vim
 Plug 'terryma/vim-multiple-cursors'                      " attempt at Sublime Text's multiple selection feature
-Plug 'tmux-plugins/vim-tmux'                             " proper syntax highlighting etc.
 Plug 'tmux-plugins/vim-tmux-focus-events'                " restores FocusGained/FocusLost autocommand events when inside Tmux.
 Plug 'tpope/vim-abolish'                                 " find, substitute, and abbreviate multiple variants of a word
 Plug 'tpope/vim-fugitive'                                " git of the gods plugin
@@ -74,16 +66,31 @@ Plug 'w0rp/ale'                                          " Asynchronous Lint Eng
 Plug 'wellle/targets.vim'                                " provides additional text objects
 Plug 'wellle/tmux-complete.vim'                          " insert mode completion of words in adjacent tmux panes
 Plug 'wellle/visual-split.vim'                           " control splits with visual selections or text objects
-Plug 'wgwoods/vim-systemd-syntax'                        " Syntax highlighting for systemd service files
 Plug 'yggdroot/indentLine'                               " display the indention levels with thin vertical lines
 Plug 'zhaocai/GoldenView.Vim'                            " Always have a nice view for vim split windows
-Plug 'pangloss/vim-javascript'                           " Yet Another JavaScript Syntax for Vim
-Plug 'maxmellon/vim-jsx-pretty'                          " React JSX syntax highlighting and indenting for vim.
 Plug 'machakann/vim-highlightedyank'                     " Make the yanked region apparent!
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'chiel92/vim-autoformat', { 'do': 'npm i -g js-beautify remark-cli fixjson xo typescript-formatter' }
 " }}} End General
+
+" Syntax Highlighting {{{
+Plug 'cakebaker/scss-syntax.vim'              " syntax file for scss
+Plug 'chr4/nginx.vim'                         " Improved nginx vim plugin (incl. syntax highlighting)
+Plug 'herringtondarkholme/yats.vim'           " The most advanced TypeScript Syntax Highlighting
+Plug 'leshill/vim-json'                       " Syntax highlighting for JSON
+Plug 'othree/es.next.syntax.vim'              " ES.Next syntax for Vim
+Plug 'othree/javascript-libraries-syntax.vim' " Syntax files for JavaScript libraries (underscore angular etc.)
+Plug 'plasticboy/vim-markdown'                " Syntax highlighting, matching rules and mappings for Markdown
+Plug 'tmux-plugins/vim-tmux'                  " proper syntax highlighting etc.
+Plug 'wgwoods/vim-systemd-syntax'             " Syntax highlighting for systemd service files
+Plug 'pangloss/vim-javascript'                " Yet Another JavaScript Syntax for Vim
+Plug 'maxmellon/vim-jsx-pretty'               " React JSX syntax highlighting and indenting for vim.
+Plug 'nikvdp/ejs-syntax'                      " syntax highlighting for javascript EJS html templates
+Plug 'digitaltoad/vim-pug'                    " Pug (formerly Jade) template engine syntax highlighting and indention
+Plug 'hail2u/vim-css3-syntax'                 " CSS3 syntax
+Plug 'othree/html5.vim'                                  " HTML5 omnicomplete and syntax
+" }}} End Syntax Highlighting
 
 " LanguageClient {{{ ------------------------------------------------------------------------------------------
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }

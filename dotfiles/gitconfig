@@ -23,9 +23,6 @@
 [status]
 	submodulesummary = 1
 
-[commit]
-	template = /Users/jonathan/.stCommitMsg
-
 [diff]
 	tool = p4mergetool
 
@@ -86,8 +83,6 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree-Beta.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-[commit]
-	template = /Users/jonathan/.stCommitMsg
 [gitflow "branch"]
 	master = production
 	develop = master

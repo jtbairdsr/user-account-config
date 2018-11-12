@@ -64,7 +64,6 @@ Plug 'vim-scripts/searchcomplete'                        " tab-complete words wh
 Plug 'vim-scripts/text-object-left-and-right'            " create text object for left and right of a statement
 Plug 'w0rp/ale'                                          " Asynchronous Lint Engine
 Plug 'wellle/targets.vim'                                " provides additional text objects
-Plug 'wellle/tmux-complete.vim'                          " insert mode completion of words in adjacent tmux panes
 Plug 'wellle/visual-split.vim'                           " control splits with visual selections or text objects
 Plug 'yggdroot/indentLine'                               " display the indention levels with thin vertical lines
 Plug 'zhaocai/GoldenView.Vim'                            " Always have a nice view for vim split windows
@@ -89,24 +88,36 @@ Plug 'maxmellon/vim-jsx-pretty'               " React JSX syntax highlighting an
 Plug 'nikvdp/ejs-syntax'                      " syntax highlighting for javascript EJS html templates
 Plug 'digitaltoad/vim-pug'                    " Pug (formerly Jade) template engine syntax highlighting and indention
 Plug 'hail2u/vim-css3-syntax'                 " CSS3 syntax
-Plug 'othree/html5.vim'                                  " HTML5 omnicomplete and syntax
+Plug 'othree/html5.vim'                       " HTML5 omnicomplete and syntax
 " }}} End Syntax Highlighting
 
 " LanguageClient {{{ ------------------------------------------------------------------------------------------
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 " }}}
 
-" YCM {{{ -----------------------------------------------------------------------------------------------------
-Plug 'tenfyzhong/CompleteParameter.vim'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                     " enables tern completions
-Plug 'valloric/YouCompleteMe',  { 'do': './install.py --js-completer' } " the ultimate vim completion engine
-" }}}
 
 " Deoplete {{{ ------------------------------------------------------------------------------------------------
-Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " asynchronous keyword completion system
-Plug 'shougo/deoplete-zsh'                                    " Zsh completion for deoplete.nvim
-Plug 'shougo/neco-vim'                                        " vim completions for deoplete
-Plug 'shougo/neoinclude.vim'                                  " include completion framework for deoplete
+if has('nvim')
+    Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }    " asynchronous keyword completion system
+else
+    Plug 'shougo/deoplete.nvim',     " asynchronous keyword completion system
+    Plug 'roxma/nvim-yarmp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+" Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " enables tern completions
+Plug 'shougo/neco-syntax'                                        " Syntax source for neocomplete/deoplete/ncm
+Plug 'shougo/deoplete-zsh'                                       " Zsh completion for deoplete.nvim
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}       " Typescript tooling for Neovim
+Plug 'wellle/tmux-complete.vim'                                  " insert mode completion of words in adjacent tmux panes
+Plug 'thalesmello/webcomplete.vim'                               " completes words from your browser
+" Plug 'quramy/vision'                                           " for writing JSON with JSON Schema
+Plug 'ujihisa/neco-look'                                         " A neocomplcache plugin for English, using look command
+Plug 'shougo/echodoc.vim'                                        " Print documents in echo area
+Plug 'wokalski/autocomplete-flow'                                " Flow autocompletion for deoplete + neosnippet
+Plug 'shougo/neco-vim'                                           " vim completions for deoplete
+Plug 'shougo/neoinclude.vim'                                     " include completion framework for deoplete
+Plug 'dnitro/vim-pug-complete', {'for': ['jade', 'pug']}         " omni-completion support for pug (formerly jade) template engine
 " }}} End Deoplete
 
 " NERDTree {{{ ------------------------------------------------------------------------------------------------
@@ -375,6 +386,10 @@ au BufRead,BufNewFile,BufEnter *.scss set filetype=scss.css
 au BufRead,BufNewFile,BufEnter *.scss set syntax=scss
 " }}} End SCSS-Syntax
 
+" --------- SuperTab --------- {{{ - bundle name: ervandew/supertab --------------------------------------------
+let g:SuperTabDefaultCompletionType = "<c-n>"
+" }}} End SuperTab
+
 " --------- Tabular ---------- {{{ - bundle name: godlygeek/tabular --------------------------------------------
 function! TabMapper(mapping, alignment)
 	execute 'map '.a:mapping.' :Tabularize '.a:alignment."<CR>:call repeat#set('".a:mapping."')\<CR>"
@@ -419,7 +434,64 @@ let g:task_rc_override = 'rc.defaultwidth=0'
 let g:taskwiki_source_tw_colors = 'yes'
 " }}} End TaskWiki
 
-" --------- Tmuxline --------- {{{ - bundle name: edkolev/tmuxline.vim'
+" --------- TernJS ----------  {{{ - bundle name: carlitux/deoplete-ternjs -------------------------------------
+" Set bin if you have many instalations
+" let g:deoplete#sources#ternjs#tern_bin = '/path/to/tern_bin'
+let g:deoplete#sources#ternjs#timeout = 1
+
+" Whether to include the types of the completions in the result data.
+" Default: 0
+let g:deoplete#sources#ternjs#types = 1
+
+" Whether to include the distance (in scopes for variables, in prototypes for properties) between the completions and
+" the origin position in the result data.
+" Default: 0
+let g:deoplete#sources#ternjs#depths = 1
+
+" Whether to include documentation strings (if found) in the result data.
+" Default: 0
+let g:deoplete#sources#ternjs#docs = 1
+
+" When on, only completions that match the current word at the given point will be returned. Turn this off to get all
+" results, so that you can filter on the client side.
+" Default: 1
+let g:deoplete#sources#ternjs#filter = 0
+
+" Whether to use a case-insensitive compare between the current word and potential completions.
+" Default 0
+let g:deoplete#sources#ternjs#case_insensitive = 1
+
+" When completing a property and no completions are found, Tern will use some heuristics to try and return some
+" properties anyway. Set this to 0 to turn that off.
+" Default: 1
+let g:deoplete#sources#ternjs#guess = 0
+
+" Determines whether the result set will be sorted.
+" Default: 1
+let g:deoplete#sources#ternjs#sort = 0
+
+" When disabled, only the text before the given position is considered part of the word. When enabled (the default),
+" the whole variable name that the cursor is on will be included.
+" Default: 1
+let g:deoplete#sources#ternjs#expand_word_forward = 0
+
+" Whether to ignore the properties of Object.prototype unless they have been spelled out by at least two characters.
+" Default: 1
+let g:deoplete#sources#ternjs#omit_object_prototype = 0
+
+" Whether to include JavaScript keywords when completing something that is not a property.
+" Default: 0
+let g:deoplete#sources#ternjs#include_keywords = 1
+
+" If completions should be returned when inside a literal.
+" Default: 1
+let g:deoplete#sources#ternjs#in_literal = 1
+
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [ 'jsx' ]
+"  }}}
+
+" --------- Tmuxline --------- {{{ - bundle name: edkolev/tmuxline.vim -----------------------------------------
 let g:tmuxline_theme = 'airline'
 let g:tmuxline_preset = {
     		\ 'a': ' #S #{?client_prefix, Prefix,}',
@@ -433,6 +505,10 @@ let g:tmuxline_preset = {
     		\ }
 " }}}
 
+" ------ Tmux Complete ----- {{{ - bundle name: wellle/tmux-complete.vim ---------------------------------------
+let g:tmuxcomplete#trigger = ''
+" }}} End Tmux Complete
+
 " ------ Tmux Navigator ------ {{{ - bundle name: christoomey/vim-tmux-navigator -------------------------------
 nmap <BS> :TmuxNavigateLeft<CR>
 " }}} End Tmux Navigator
@@ -440,6 +516,10 @@ nmap <BS> :TmuxNavigateLeft<CR>
 " --------- UltiSnips -------- {{{ - bundle name: SirVer/ultisnips ---------------------------------------------
 let g:UltiSnipsExpandTrigger = '<c-e>'
 " }}} End UltiSnips
+
+" ---------- Vision ---------- {{{ - bundle name: Quramy/vision ------------------------------------------------
+" autocmd BufRead,BufNewFile package.json,.gitlab-ci.yml Vison
+" }}} End Vision
 
 " ----- Visual Increment ----- {{{ - bundle name: triglav/vim-visual-increment ---------------------------------
 	set nrformats=alpha " lets me increment columns of letters as well as numbers
@@ -450,14 +530,6 @@ let g:UltiSnipsExpandTrigger = '<c-e>'
 nnoremap <leader>* :call ack#Ack('grep', '--literal ' . shellescape(expand("<cword>")))<CR>
 vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ack#Ack('grep', '--literal ' . shellescape(@/))<CR>
 " }}} End Visual Star Search
-
-" ------------ YCM ----------- {{{ - bundle name: Valloric/YouCompleteMe ---------------------------------------
-if !exists('g:ycm_semantic_triggers')
-	let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
-" }}} End YCM
-
 " }}} END PLUGIN SETTINGS
 
 " KEY REMAPPING {{{ ============================================================================================
@@ -512,6 +584,7 @@ set textwidth=120
 hi clear SignColumn            " fix sign column background colors
 hi Folded term=bold cterm=bold
 set fillchars="fold: "         " remove the dashes from folds
+set signcolumn=yes
 " }}} END VIM APPEARANCE
 
 " VIM BEHAVIOR {{{ =============================================================================================
@@ -520,6 +593,7 @@ set fillchars="fold: "         " remove the dashes from folds
 "----------------------------------------------------------------------------------------------------------------------"
 filetype plugin indent on      " load filetype-specific plugin and indent files
 
+set noshowmode                 " hide -- INSERT -- from command area since it is in the statusline
 set wildmenu                   " visual autocomplete for command menu
 set lazyredraw                 " redraw the screen only when we need to
 set showmatch                  " highlight matching {}[]()

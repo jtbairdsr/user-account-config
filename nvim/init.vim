@@ -71,6 +71,18 @@ Plug 'machakann/vim-highlightedyank'                     " Make the yanked regio
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'chiel92/vim-autoformat', { 'do': 'npm i -g js-beautify remark-cli fixjson xo typescript-formatter' }
+Plug 'shmargum/vim-sass-colors'                          " sass/scss color variable highlighting (works with imports)
+Plug 'rrethy/vim-illuminate'                             " selectively illuminating other uses of the current word under the cursor
+Plug 'sbdchd/neoformat'                                  " for formatting code
+Plug 'junegunn/gv.vim'                                   " A git commit browser in Vim
+Plug 'eugen0329/vim-esearch'                             " Perform search in files easily
+Plug 'andrewradev/splitjoin.vim'                         " simplifies the transition between multiline and single-line code
+Plug 'junegunn/vim-easy-align'                           " A simple, easy-to-use alignment plugin
+Plug 'majutsushi/tagbar'                                 " displays tags in a window, ordered by scope
+Plug 'konfekt/fastfold'                                  " Speed up Vim by updating folds only when called-for
+Plug 'sjl/vitality.vim'                                  " Make Vim play nicely with iTerm 2 and tmux
+Plug 'junegunn/goyo.vim'                                 " Distraction-free writing in Vim
+Plug 'tpope/vim-dispatch'                                " Asynchronous build and test dispatcher
 " }}} End General
 
 " Syntax Highlighting {{{
@@ -129,8 +141,9 @@ Plug 'octref/RootIgnore'                       " Set wildignore from git repo ro
 " }}} End NERDTree
 
 " Color schemes {{{ -------------------------------------------------------------------------------------------
-Plug 'blueyed/vim-diminactive' " dim inactive windows
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'        " Optimized Solarized colorschemes. Best served with true-color terminals!
+Plug 'blueyed/vim-diminactive'          " dim inactive windows
+Plug 'altercation/vim-colors-solarized' " precision colorscheme
 " }}} End Color schemes
 
 " !!!MUST BE LOADED LAST!!! {{{ -------------------------------------------------------------------------------
@@ -152,17 +165,28 @@ endif
 let g:ag_working_path_mode = 'r'
 " }}} End ACK
 
+" ---------- eSearch --------- {{{ - bundle name: eugen0329/vim-esearch ----------------------------------------
+let g:esearch = {
+  			\ 'adapter':    'ag',
+  			\ 'backend':    'nvim',
+  			\ 'out':        'qflist',
+  			\ 'batch_size': 1000,
+  			\ 'use':        ['visual', 'hlsearch', 'last', 'clipboard', 'system_clipboard', 'word_under_cursor'],
+  			\}
+" }}} End ACK
+
 " ---------- Airline --------- {{{ - bundle names: vim-airline/vim-airline, vim-airline-themes -----------------
 let g:airline_powerline_fonts  = 1
 let g:virtualenv_auto_activate = 1
 
-set laststatus=2
+" set laststatus=2
 
-let g:airline#extensions#tabline#enabled     = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#fnamemod    = ':t'
-let g:airline#extensions#tmuxline#enabled    = 0
-let g:airline#extensions#virtualenv#enabled  = 1
+let g:airline#extensions#tabline#enabled              = 1
+let g:airline#extensions#tabline#tab_nr_type          = 1
+let g:airline#extensions#tabline#fnamemod             = ':t'
+let g:airline#extensions#tmuxline#enabled             = 0
+let g:airline#extensions#virtualenv#enabled           = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
 
 if exists('colorchange')
 	let g:airline#extensions#tmuxline#enabled = 1
@@ -183,6 +207,7 @@ let g:airline#extensions#ale#enabled = 1   " add to status line...
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
 			\ 'javascript': ['xo'],
+			\ 'typescript': ['tslint'],
 			\ }
 
 let g:ale_linters = {
@@ -203,22 +228,37 @@ let g:ale_linters = {
 			\ 'bash': ['shellcheck', 'shell -n flag'],
 			\ 'bourne shell': ['shellcheck', 'shell -n flag'],
 			\ }
+
+nmap <silent><Leader>j <Plug>(ale_next)
+nmap <silent><Leader>J <Plug>(ale_last)
+nmap <silent><Leader>k <Plug>(ale_previous)
+nmap <silent><Leader>K <Plug>(ale_first)
 " }}} End ALE
 
 " -------- Autoformat -------- {{{ - bundle name: chiel92/vim-autoformat ---------------------------------------
 " map format to <F3>
 noremap <F3> :Autoformat<CR>
 " format file on save
-au nvimrc FileType yaml,vim,css let b:autoformat_autoindent = 0
-au nvimrc FileType yaml,css let b:autoformat_retab          = 0
-au nvimrc * :Autoformat
+au nvimrc  FileType                  yaml,vim,css  let b:autoformat_autoindent = 0
+au nvimrc  FileType                  yaml,css      let b:autoformat_retab      = 0
+" au nvimrc  BufWritePre,FileWritePre  *             :Autoformat
 " }}} End Autoformat
 
 " ------- Color Schemes ------ {{{ - bundle name: flazz/vim-colorschemes ---------------------------------------
 set background=light  " default to a nice light background
-colorscheme solarized " a nice color scheme
-let g:solarized_termtrans = 1
-let g:solarized_visibility = 'low'
+colorscheme solarized8_high " a nice color scheme
+let g:solarized_termtrans       = 1
+let g:solarized_visibility      = 'low'
+let g:solarized_contrast        = 'high'
+let g:solarized_diffmode        = 'high'
+let g:solarized_term_italics    = 1
+let g:solarized_extra_hi_groups = 1
+let g:solarized_statusline      = 'low'
+
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
 
 " create a mapping that lets me change from light to dark on the fly
 " map <F1> :set background=light<CR>
@@ -228,10 +268,20 @@ call togglebg#map('<F1>')
 " map <F2> :set background=dark<CR>
 " }}} End Color Schemes
 
+" --------- Colorizer -------- {{{ - bundle name: chrisbra/Colorizer -------------------------------------------
+" let g:colorizer_auto_color = 1
+" let g:colorizer_skip_comments = 1
+" let g:colorizer_x11_names = 1
+" }}} End Colorizer
+
+" -------- CSS3 Syntax ------- {{{ - bundle name: hail2u/vim-css3-syntax -----------------------------------
+autocmd FileType css setlocal iskeyword+=-
+" }}} End CSScomb
+
 " ---------- CSScomb --------- {{{ - bundle name: danhodos/vim-comb --------------------------------------------
 " Automatically comb your CSS on save
 autocmd nvimrc BufWritePre,FileWritePre *.css,*.less,*.scss,*.sass silent! :call CSScomb()
-autocmd nvimrc FileType scss,css nnoremap <buffer> <F6> :call CSScomb()<CR>
+autocmd nvimrc FileType *.scss,*.css nnoremap <buffer> <F6> :call CSScomb()<CR>
 
 function! CSScomb()
 	execute 'silent !csscomb '.expand('%')
@@ -272,16 +322,30 @@ nmap <Leader>cf <Plug>EasyClipToggleFormattedPaste
 map <Space> <Plug>(easymotion-prefix)
 " }}}End EasyMotion
 
+" ------- EditorConfig ------- {{{ - bundle name: editorconfig/editorconfig-vim --------------------------------
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" }}} End EditorConfig
+
 " --------- Fugitive --------- {{{ - bundle name: tpope/vim-fugitive -------------------------------------------
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gw :Gwrite<CR>
-noremap <Leader>gr :Gread<CR>
-noremap <Leader>gl :Glog<CR>
-noremap <Leader>gd :Gvdiff<CR>
+" general mappings
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gd :Gvdiff<CR>
+nnoremap <Leader>gp :Dispatch! git push<CR>
+nnoremap <Leader>g- :Silent Git stash<CR>:e<CR>
+nnoremap <Leader>g+ :Silent Git stash pop<CR>:e<CR>
+
+" diff mappings
+nnoremap <Leader>du :diffupdate<CR>
+vnoremap do :diffget <bar> diffupdate<CR>
+vnoremap dp :diffput <bar> diffupdate<CR>
+nnoremap <Leader>dol :diffget //3 <bar> diffupdate<CR>
+nnoremap <Leader>doh :diffget //2 <bar> diffupdate<CR>
 " }}} End Fugitive
 
-" FZF {{{ - bundle name: junegunn/fzf.vim
+" ------------ FZF ----------- {{{ - bundle name: junegunn/fzf.vim ---------------------------------------------
 map <C-Space> :Files<CR>
 " End FZF}}}
 
@@ -314,12 +378,37 @@ let g:used_javascript_libs = 'underscore,angularjs,jquery'
 " }}}
 
 " ----------- JSDoc ---------- {{{ - bundle name: heavenshell/vim-jsdoc-----------------------------------------
-let g:jsdoc_allow_input_prompt = 1 " Allow prompt for interactive input
-let g:jsdoc_input_description  = 1 " Prompt for a function description
-let g:jsdoc_enable_es6         = 1 " Enable ES6 shorthand function, arrow functions
+let g:jsdoc_allow_input_prompt = 1              " Allow prompt for interactive input
+let g:jsdoc_input_description  = 1              " Prompt for a function description
+" let g:jsdoc_enable_es6         = 1              " Enable ES6 shorthand function, arrow functions
+let g:jsdoc_additional_descriptions = 1         " Prompt for a value for @name, add it to the JSDoc block comment along with the @function tag.
+let g:jsdoc_param_description_separator = '   ' " Characters used to separate @param name and description.
+let g:jsdoc_custom_args_hook = {
+    \    '_req\|req': {
+    \        'type': '{Request}',
+    \        'description':  'an object that represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on'
+    \    },
+    \    '_res\|res': {
+    \        'type': '{Response}',
+    \        'description':  'an object that represents the HTTP response that an Express app sends when it gets an HTTP request'
+    \    },
+    \    'next': {
+    \        'type': '{NextFunction}',
+    \        'description':  'the callback function that will take us to the next middleware.  If you pass an error it will respond to the client with a 500 server error'
+    \    },
+    \    'callback\|cb': {
+    \        'type': '{function}',
+    \        'description':  'The callback function.'
+    \    }
+    \}
+let g:jsdoc_type_hook = {
+    \    'Request': 'an object that represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on',
+    \    'Response': 'an object that represents the HTTP response that an Express app sends when it gets an HTTP request',
+    \    'NextFunction': 'the callback function that will take us to the next middleware.  If you pass an error it will respond to the client with a 500 server error'
+    \}
 
 " puts jsdoc above last function
-nmap <silent> <C-1> ?function<cr>:noh<cr><Plug>(jsdoc)
+nmap <silent> <Leader>jsd ?function<cr>:noh<cr><Plug>(jsdoc)
 " }}} End JSDoc
 
 " -------- JSX-Pretty -------- {{{ - bundle name: maxmellon/vim-jsx-pretty -------------------------------------
@@ -332,8 +421,8 @@ let g:vim_jsx_pretty_colorful_config = 1
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'typescript': ['javascript-typescript-stdio']
-    \ }
+	\ 'typescript': ['javascript-typescript-stdio']
+	\ }
 let g:LanguageClient_logginlevel = 'DEBUG'
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -353,10 +442,11 @@ let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespa
 " }}} End NERD-Commenter
 
 " --------- NERD-Tree -------- {{{ - bundle name: scrooloose/nerdtree ------------------------------------------
-noremap <Leader>nf  :NERDTreeFind<CR>
+noremap <Leader>nf    :NERDTreeFind<CR>
+noremap <Leader><C-n> :NERDTreeToggle<CR>
 
 let g:NERDTreeWinPos            = 'left' " place nerdtree on the left
-let g:NERDTreeQuitOnOpen        = 1      " close the tree when we open a file
+let g:NERDTreeQuitOnOpen        = 0      " close the tree when we open a file
 let g:NERDTreeAutoDeleteBuffer  = 1      " delete the buffer when NERDTree is used to delete a file...
 let g:NERDTreeMinimalUI         = 1      " make it prettier
 let g:NERDTreeDirArrows         = 1      " make it prettier
@@ -399,6 +489,7 @@ call TabMapper(',a:', '/:\zs')
 call TabMapper(',a=', '/=')
 call TabMapper(',a,', '/,\zs')
 call TabMapper(',a)', '/)\zs')
+call TabMapper(',a}', '/}\zs')
 call TabMapper(',af', '/from')
 
 function! MapCommentAlign(commentstring)
@@ -536,8 +627,8 @@ vnoremap <leader>* :<C-u>call VisualStarSearchSet('/', 'raw')<CR>:call ack#Ack('
 "----------------------------------------------------------------------------------------------------------------------"
 "                                                     Key Remapping                                                    "
 "----------------------------------------------------------------------------------------------------------------------"
-nnoremap <Leader>ev :vsp $MYVIMRC<CR>    " edit vimrc
-nnoremap <Leader>ez :vsp ~/.zshrc<CR>    " edit zshrc
+nnoremap <Leader>ev :tabe $MYVIMRC<CR>   " edit vimrc
+nnoremap <Leader>ez :tabe ~/.zshrc<CR>   " edit zshrc
 nnoremap <Leader>sv :source $MYVIMRC<CR> " reload vimrc
 nnoremap <Leader>s :mksession<CR>        " save session
 nnoremap <Leader><Space> :nohlsearch<CR> " turn of search highlight

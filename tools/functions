@@ -49,7 +49,7 @@ function link_dotfiles () {
 	rm -rf "$HOME/.oh-my-zsh/custom"
 
 	# link our custom dir to .oh-my-zsh
-	ln -sf "$CONFIG_DIRECTORY/custom" "$HOME/.oh-my-zsh"
+	ln -sfn "$CONFIG_DIRECTORY/custom" "$HOME/.oh-my-zsh"
 	echo "Setting ZSH as default shell..."
 	chsh -s /bin/zsh
 
@@ -63,16 +63,16 @@ function link_dotfiles () {
 
 	# -------------------------------------------- Install my custom dofiles -------------------------------------------
 	find "$SOURCE_LOCATION" -mindepth 1 -maxdepth 1 | cut -sd / -f 6- | while read -r file; do
-		ln -sf "$SOURCE_LOCATION/$file" "$TARGET_LOCATION/.$file"
+		ln -sfn "$SOURCE_LOCATION/$file" "$TARGET_LOCATION/.$file"
 	done
 
 	# ------------------------------------------------- Link nvim config -----------------------------------------------
 	[ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
-	ln -s "$CONFIG_DIRECTORY/nvim" "$HOME/.config/nvim"
-	ln -s "$CONFIG_DIRECTORY/nvim/init.vim" "$HOME/.nvimrc"
+	ln -sfn "$CONFIG_DIRECTORY/nvim" "$HOME/.config/nvim"
+	ln -sfn "$CONFIG_DIRECTORY/nvim/init.vim" "$HOME/.nvimrc"
 
 	# ---------------------------------------------------- Link ~/bin --------------------------------------------------
-	ln -sf "$CONFIG_DIRECTORY/bin" "$HOME"
+	ln -sfn "$CONFIG_DIRECTORY/bin" "$HOME"
 
 	# -------------------------------------------- Create shortcuts directory ------------------------------------------
 	create_shortcuts

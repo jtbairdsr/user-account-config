@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "$TMUX" ]; then
+	export ZSH_TMUX_AUTOSTART=true
+fi
+
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
 autoload -Uz promptinit
@@ -77,7 +81,6 @@ zmodload zsh/files # this command makes most file operations faster: rm/ln/mv/ch
 
 # shellcheck source=$HOME/.zaliases
 . ~/.zaliases
-. ~/.zsh/docker-machine-wrapper.bash
 
 # shellcheck source=$HOME/.iterm2_shell_integration.zsh
 [ -f ~/.iterm2_shell_integration.zsh ] && \. ~/.iterm2_shell_integration.zsh

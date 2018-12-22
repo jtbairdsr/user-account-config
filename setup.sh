@@ -33,7 +33,6 @@ case "$OSTYPE" in
 	linux* )  . tools/linux   ;;
 	* )       . tools/freebsd ;;
 esac
-exit
 
 format green "Setting up for development-------------------------------------------------------------------------------"
 # GIT

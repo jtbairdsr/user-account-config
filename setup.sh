@@ -48,6 +48,7 @@ sudo -H pip  install --upgrade neovim
 sudo -H pip2 install --upgrade neovim
 sudo -H pip3 install --upgrade neovim
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 format green "Linking dot files----------------------------------------------------------------------------------------"
 link_dotfiles

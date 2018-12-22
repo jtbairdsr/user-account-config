@@ -24,6 +24,7 @@ apps=(
 	tmux                    #  A terminal multiplexer
 	tree                    #  A recursive directory listing command that produces a depth indented listing of files.
 	wget                    #  A free software package for retrieving files using HTTP, HTTPS and FTP
+	xdg-utils
 	zsh
 	zsh-syntax-highlighting #  Fish shell like syntax highlighting for Zsh.
 )

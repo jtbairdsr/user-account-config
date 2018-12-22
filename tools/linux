@@ -43,6 +43,8 @@ if [ -f /etc/debian_version ]; then
 	sudo apt-get autoclean
 	sudo apt-get clean
 	sudo apt-get autoremove
+
+	. tmux-debian
 else
 	format red "------------------------------ !!! Don't know how to setup this distro !!! ------------------------------"
 fi

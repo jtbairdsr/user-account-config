@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+SWD=$(pwd) # cash the staring working directory
+cd "${BASH_SOURCE%/*}" || exit
+
+. colors
+
+format green "Building Tmux from source -------------------------------------------------------------------------------"
+
+rm -fr /tmp/tmux
+
+git clone https://github.com/tmux/tmux.git /tmp/tmux
+
+cd /tmp/tmux
+
+git checkout 2.8
+
+sh autogen.sh
+
+./configure && make
+
+sudo make install
+
+cd -
+
+rm -fr /tmp/tmux

@@ -1,7 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/jonathan/git/feeding-tracker'
-let g:netrw_dirhist_2='/Users/jonathan/git/product-cards'
-let g:netrw_dirhist_3='/Users/jonathan/git'
-let g:netrw_dirhist_4='/Users/jonathan/git/product-cards'
-let g:netrw_dirhist_5='/Users/jonathan/floobits/jtbairdsr/vim-center-comment'
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/Users/jonathan/.tmux/plugins/tmux-inactive-panes'

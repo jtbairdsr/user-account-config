@@ -22,13 +22,12 @@ call plug#begin()
 Plug 'airblade/vim-rooter'                               " Changes Vim working directory to project root
 Plug 'alvan/vim-closetag'                                " Auto close (X)HTML tags
 Plug 'bronson/vim-visual-star-search'                    " Start a * or # search from a visual block
-Plug 'chrisbra/Colorizer'                                " color hex codes and color names
 Plug 'chrisbra/csv.vim'                                  " A Filetype plugin for csv files
 Plug 'christoomey/vim-tmux-navigator'                    " Seamless navigation between tmux panes and vim splits
 Plug 'csscomb/vim-csscomb', { 'do': 'npm i -g csscomb' } " Tool for sorting CSS properties in specific order
 Plug 'easymotion/vim-easymotion'                         " Vim motion on speed
 Plug 'editorconfig/editorconfig-vim'                     " This is an EditorConfig plugin for Vim
-Plug 'edkolev/tmuxline.vim'                              " Simple tmux statusline generator: powerline symbols and airline integration
+Plug 'edkolev/tmuxline.vim'                              " tmux statusline (airline) generator: powerline symbols
 Plug 'ervandew/supertab'                                 " allows you to use <Tab> for all your insert completion needs
 Plug 'farmergreg/vim-lastplace'                          " Intelligently reopen files at your last edit position
 Plug 'godlygeek/tabular'                                 " for text filtering and alignment
@@ -37,16 +36,16 @@ Plug 'jiangmiao/auto-pairs'                              " insert or delete brac
 Plug 'jtbairdsr/vim-center-comment'                      " for formatting comments to center
 Plug 'kshenoy/vim-signature'                             " Plugin to toggle, display and navigate marks
 Plug 'mhinz/vim-signify'                                 " shows a VCS diff in the sign column
-Plug 'michaeljsmith/vim-indent-object'                   " defines text object for lines of code at the same indent level
+Plug 'michaeljsmith/vim-indent-object'                   " defines text object for lines of code with same indent level
 Plug 'mileszs/ack.vim'                                   " run ack (or ag) from Vim
 Plug 'ntpeters/vim-better-whitespace'                    " Better whitespace highlighting
 Plug 'scrooloose/nerdcommenter'                          " intensely orgasmic commenting
-Plug 'shougo/denite.nvim',                               " Dark powered asynchronous unite all interfaces for Neovim/Vim8
+Plug 'shougo/denite.nvim',                               " Dark powered asynchronous: unite all interfaces Neovim/Vim8
 Plug 'sirver/ultisnips'                                  " the ultimate snippet solution for Vim
 Plug 'sjl/gundo.vim'                                     " visualize your Vim undo tree
 Plug 'svermeulen/vim-easyclip'                           " Simplified clipboard functionality for Vim
 Plug 'terryma/vim-multiple-cursors'                      " attempt at Sublime Text's multiple selection feature
-Plug 'tmux-plugins/vim-tmux-focus-events'                " restores FocusGained/FocusLost autocommand events when inside Tmux.
+Plug 'tmux-plugins/vim-tmux-focus-events'                " restores FocusGained/FocusLost autocommand events inside Tmux
 Plug 'tpope/vim-abolish'                                 " find, substitute, and abbreviate multiple variants of a word
 Plug 'tpope/vim-fugitive'                                " git of the gods plugin
 Plug 'tpope/vim-obsession'                               " continuously updated session files
@@ -71,65 +70,62 @@ Plug 'machakann/vim-highlightedyank'                     " Make the yanked regio
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'chiel92/vim-autoformat', { 'do': 'npm i -g js-beautify remark-cli fixjson xo typescript-formatter' }
-Plug 'shmargum/vim-sass-colors'                          " sass/scss color variable highlighting (works with imports)
-Plug 'rrethy/vim-illuminate'                             " selectively illuminating other uses of the current word under the cursor
+Plug 'rrethy/vim-illuminate'                             " selectively highlight other uses of the word under the cursor
 Plug 'sbdchd/neoformat'                                  " for formatting code
 Plug 'junegunn/gv.vim'                                   " A git commit browser in Vim
 Plug 'eugen0329/vim-esearch'                             " Perform search in files easily
-Plug 'andrewradev/splitjoin.vim'                         " simplifies the transition between multiline and single-line code
+Plug 'andrewradev/splitjoin.vim'                         " simplifies swapping between multiline and single-line code
 Plug 'junegunn/vim-easy-align'                           " A simple, easy-to-use alignment plugin
 Plug 'majutsushi/tagbar'                                 " displays tags in a window, ordered by scope
 Plug 'konfekt/fastfold'                                  " Speed up Vim by updating folds only when called-for
 Plug 'sjl/vitality.vim'                                  " Make Vim play nicely with iTerm 2 and tmux
 Plug 'junegunn/goyo.vim'                                 " Distraction-free writing in Vim
 Plug 'tpope/vim-dispatch'                                " Asynchronous build and test dispatcher
+Plug 'heavenshell/vim-jsdoc'
+Plug 'pedrohdz/vim-yaml-folds'                           " YAML, RAML, EYAML & SaltStack SLS folding
+" Plug 'shmargum/vim-sass-colors'                          " plugin with sass/scss color variable highlighting (works with imports)
 " }}} End General
 
-" Syntax Highlighting {{{
+" Syntax Highlighting {{{ -------------------------------------------------------------------------------------
 Plug 'cakebaker/scss-syntax.vim'              " syntax file for scss
 Plug 'chr4/nginx.vim'                         " Improved nginx vim plugin (incl. syntax highlighting)
 Plug 'herringtondarkholme/yats.vim'           " The most advanced TypeScript Syntax Highlighting
-Plug 'leshill/vim-json'                       " Syntax highlighting for JSON
+" Plug 'leshill/vim-json'                       " Syntax highlighting for JSON
+Plug 'elzr/vim-json'                          " A better JSON:  distinct highlighting of keywords vs values
+Plug 'othree/yajs.vim'                        " Yet Another JavaScript Syntax
 Plug 'othree/es.next.syntax.vim'              " ES.Next syntax for Vim
 Plug 'othree/javascript-libraries-syntax.vim' " Syntax files for JavaScript libraries (underscore angular etc.)
 Plug 'plasticboy/vim-markdown'                " Syntax highlighting, matching rules and mappings for Markdown
 Plug 'tmux-plugins/vim-tmux'                  " proper syntax highlighting etc.
 Plug 'wgwoods/vim-systemd-syntax'             " Syntax highlighting for systemd service files
 Plug 'pangloss/vim-javascript'                " Yet Another JavaScript Syntax for Vim
-Plug 'maxmellon/vim-jsx-pretty'               " React JSX syntax highlighting and indenting for vim.
 Plug 'nikvdp/ejs-syntax'                      " syntax highlighting for javascript EJS html templates
 Plug 'digitaltoad/vim-pug'                    " Pug (formerly Jade) template engine syntax highlighting and indention
 Plug 'hail2u/vim-css3-syntax'                 " CSS3 syntax
 Plug 'othree/html5.vim'                       " HTML5 omnicomplete and syntax
+Plug 'cespare/vim-toml'                       " syntax for TOML
+Plug 'maralla/vim-toml-enhance'               " vim-toml syntax color enhancement
+
+" WARNING: This breaks TypeScript syntax highlighting.
+" Plug 'maxmellon/vim-jsx-pretty'               " React JSX syntax highlighting and indenting for vim.
 " }}} End Syntax Highlighting
 
 " LanguageClient {{{ ------------------------------------------------------------------------------------------
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 " }}}
 
-
 " Deoplete {{{ ------------------------------------------------------------------------------------------------
-if has('nvim')
-    Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }    " asynchronous keyword completion system
-else
-    Plug 'shougo/deoplete.nvim',     " asynchronous keyword completion system
-    Plug 'roxma/nvim-yarmp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-" Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }    " asynchronous keyword completion system
+Plug 'tenfyzhong/CompleteParameter.vim'                          " Complete parameter after select the completion
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " enables tern completions
-Plug 'shougo/neco-syntax'                                        " Syntax source for neocomplete/deoplete/ncm
+" Plug 'shougo/neco-syntax'                                        " Syntax source for neocomplete/deoplete/ncm
 Plug 'shougo/deoplete-zsh'                                       " Zsh completion for deoplete.nvim
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}       " Typescript tooling for Neovim
-Plug 'wellle/tmux-complete.vim'                                  " insert mode completion of words in adjacent tmux panes
-Plug 'thalesmello/webcomplete.vim'                               " completes words from your browser
-" Plug 'quramy/vision'                                           " for writing JSON with JSON Schema
-Plug 'ujihisa/neco-look'                                         " A neocomplcache plugin for English, using look command
-Plug 'shougo/echodoc.vim'                                        " Print documents in echo area
-Plug 'wokalski/autocomplete-flow'                                " Flow autocompletion for deoplete + neosnippet
-Plug 'shougo/neco-vim'                                           " vim completions for deoplete
-Plug 'shougo/neoinclude.vim'                                     " include completion framework for deoplete
-Plug 'dnitro/vim-pug-complete', {'for': ['jade', 'pug']}         " omni-completion support for pug (formerly jade) template engine
+Plug 'wellle/tmux-complete.vim'                                  " insert mode completion of words in other tmux panes
+Plug 'quramy/vison'                                              " for writing JSON with JSON Schema
+" Plug 'shougo/neco-vim'                                           " vim completions for deoplete
+" Plug 'shougo/neoinclude.vim'                                     " include completion framework for deoplete
+Plug 'dnitro/vim-pug-complete', {'for': ['jade', 'pug']}         " omni-completion support for pug
 " }}} End Deoplete
 
 " NERDTree {{{ ------------------------------------------------------------------------------------------------
@@ -138,6 +134,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " this adds syntax for nerdtree o
 Plug 'scrooloose/nerdtree-project-plugin'      " proof of concept for nerdtree projects
 Plug 'albfan/nerdtree-git-plugin'              " makes NERDTree show git status flags
 Plug 'octref/RootIgnore'                       " Set wildignore from git repo root
+Plug 'EvanDotPro/nerdtree-chmod'               " A plugin for NERDTree that allows for chmod'ing files.
 " }}} End NERDTree
 
 " Color schemes {{{ -------------------------------------------------------------------------------------------
@@ -146,8 +143,12 @@ Plug 'blueyed/vim-diminactive'          " dim inactive windows
 Plug 'altercation/vim-colors-solarized' " precision colorscheme
 " }}} End Color schemes
 
+" Conquer of Completion {{{ -------------------------------------------------------------------------------------------
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" }}} End Color schemes
+
 " !!!MUST BE LOADED LAST!!! {{{ -------------------------------------------------------------------------------
-Plug 'ryanoasis/vim-devicons' " Adds file type glyphs/icons to NERDTree, vim-airline, and others
+" Plug 'ryanoasis/vim-devicons' " Adds file type glyphs/icons to NERDTree, vim-airline, and others
 " }}} End Color schemes
 
 call plug#end()
@@ -206,14 +207,14 @@ let g:airline#extensions#ale#enabled = 1   " add to status line...
 
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-			\ 'javascript': ['xo'],
+			\ 'javascript': ['eslint'],
 			\ 'typescript': ['tslint'],
 			\ }
 
 let g:ale_linters = {
 			\ 'html': ['HTMLHint', 'proselint'],
 			\ 'dockerfile': ['hadolint'],
-			\ 'javascript': ['xo', 'eslint', 'flow', 'prettier'],
+			\ 'javascript': ['eslint', 'flow', 'prettier'],
 			\ 'typescript': ['tsserver', 'tslint'],
 			\ 'css': ['stylelint'],
 			\ 'scss': ['stylelint', 'prettier'],
@@ -227,12 +228,13 @@ let g:ale_linters = {
 			\ 'json': ['jsonlint', 'prettier'],
 			\ 'bash': ['shellcheck', 'shell -n flag'],
 			\ 'bourne shell': ['shellcheck', 'shell -n flag'],
+			\ 'pug': ['puglint'],
 			\ }
 
-nmap <silent><Leader>j <Plug>(ale_next)
-nmap <silent><Leader>J <Plug>(ale_last)
-nmap <silent><Leader>k <Plug>(ale_previous)
-nmap <silent><Leader>K <Plug>(ale_first)
+nmap <silent><Leader>aj <Plug>(ale_next)
+nmap <silent><Leader>aJ <Plug>(ale_last)
+nmap <silent><Leader>ak <Plug>(ale_previous)
+nmap <silent><Leader>aK <Plug>(ale_first)
 " }}} End ALE
 
 " -------- Autoformat -------- {{{ - bundle name: chiel92/vim-autoformat ---------------------------------------
@@ -245,7 +247,7 @@ au nvimrc  FileType                  yaml,css      let b:autoformat_retab      =
 " }}} End Autoformat
 
 " ------- Color Schemes ------ {{{ - bundle name: flazz/vim-colorschemes ---------------------------------------
-set background=light  " default to a nice light background
+set background=light
 colorscheme solarized8_high " a nice color scheme
 let g:solarized_termtrans       = 1
 let g:solarized_visibility      = 'low'
@@ -261,18 +263,16 @@ set termguicolors
 
 
 " create a mapping that lets me change from light to dark on the fly
-" map <F1> :set background=light<CR>
 call togglebg#map('<F1>')
-
-" create a mapping that lets me change from light to dark on the fly
-" map <F2> :set background=dark<CR>
 " }}} End Color Schemes
 
-" --------- Colorizer -------- {{{ - bundle name: chrisbra/Colorizer -------------------------------------------
-" let g:colorizer_auto_color = 1
-" let g:colorizer_skip_comments = 1
-" let g:colorizer_x11_names = 1
-" }}} End Colorizer
+" ----- CompleteParameter ---- {{{ - bundle name: tenfyzhong/CompleteParameter.vim -----------------------------
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+" }}} CompleteParameter
 
 " -------- CSS3 Syntax ------- {{{ - bundle name: hail2u/vim-css3-syntax -----------------------------------
 autocmd FileType css setlocal iskeyword+=-
@@ -280,8 +280,8 @@ autocmd FileType css setlocal iskeyword+=-
 
 " ---------- CSScomb --------- {{{ - bundle name: danhodos/vim-comb --------------------------------------------
 " Automatically comb your CSS on save
-autocmd nvimrc BufWritePre,FileWritePre *.css,*.less,*.scss,*.sass silent! :call CSScomb()
-autocmd nvimrc FileType *.scss,*.css nnoremap <buffer> <F6> :call CSScomb()<CR>
+autocmd nvimrc BufWritePre,FileWritePre *.css,*.less,*.sass silent! :call CSScomb()
+autocmd nvimrc FileType *.css nnoremap <buffer> <F6> :call CSScomb()<CR>
 
 function! CSScomb()
 	execute 'silent !csscomb '.expand('%')
@@ -311,10 +311,6 @@ let g:EasyClipEnableBlackHoleRedirect = 0
 
 set clipboard=unnamed
 
-nmap <C-f> <Plug>EasyClipSwapPasteForward
-nmap <C-d> <Plug>EasyClipSwapPasteBackwards
-imap <C-v> <Plug>EasyClipInsertModePaste
-cmap <C-v> <Plug>EasyClipCommandModePaste
 nmap <Leader>cf <Plug>EasyClipToggleFormattedPaste
 " }}} End EasyClip
 
@@ -346,12 +342,12 @@ nnoremap <Leader>doh :diffget //2 <bar> diffupdate<CR>
 " }}} End Fugitive
 
 " ------------ FZF ----------- {{{ - bundle name: junegunn/fzf.vim ---------------------------------------------
-map <C-Space> :Files<CR>
+map <C-Space> :call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standard --others --cached', 'options': '--multi'}))<CR>
 " End FZF}}}
 
 " -------- GoldenView -------- {{{ - bundle name: zhaocai/GoldenView.Vim ---------------------------------------
 let g:goldenview__enable_default_mapping = 0
-let g:goldenview__enable_at_startup      = 1
+let g:goldenview__enable_at_startup      = 0
 
 nmap <Silent> <Leader>tgv <Plug>ToggleGoldenViewAutoResize
 " }}} End GoldenView
@@ -361,10 +357,12 @@ nnoremap <F5> :GundoToggle<CR>
 " }}} End Gundo
 
 " -------- IndentLine -------- {{{ - bundle name: Yggdroot/indentLine ------------------------------------------
-let g:indentLine_setColors            = 0
-" let g:indentLine_leadingSpaceEnabled  = 1 " mark leading spaces
-let g:indentLine_leadingSpaceChar     = '.' " char to mark leading spaces
-let g:indentLine_showFirstIndentLevel = 0
+let g:indentLine_setColors             = 0
+" let g:indentLine_leadingSpaceEnabled = 1   " mark leading spaces
+let g:indentLine_leadingSpaceChar      = '.' " char to mark leading spaces
+let g:indentLine_showFirstIndentLevel  = 0
+let g:indentLine_concealcursor         = ""
+
 set list lcs=tab:\│\                        "  show tabs
 " }}} End IndentLine
 
@@ -386,15 +384,18 @@ let g:jsdoc_param_description_separator = '   ' " Characters used to separate @p
 let g:jsdoc_custom_args_hook = {
     \    '_req\|req': {
     \        'type': '{Request}',
-    \        'description':  'an object that represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on'
+    \        'description':  'an object that represents the HTTP request and has properties for the request query'.
+    \                        'string, parameters, body, HTTP headers, and so on'
     \    },
     \    '_res\|res': {
     \        'type': '{Response}',
-    \        'description':  'an object that represents the HTTP response that an Express app sends when it gets an HTTP request'
+    \        'description':  'an object that represents the HTTP response that an Express app sends when it gets an'.
+    \                        'HTTP request'
     \    },
     \    'next': {
     \        'type': '{NextFunction}',
-    \        'description':  'the callback function that will take us to the next middleware.  If you pass an error it will respond to the client with a 500 server error'
+    \        'description':  'the callback function that will take us to the next middleware.  If you pass an error it'.
+    \                        'will respond to the client with a 500 server error'
     \    },
     \    'callback\|cb': {
     \        'type': '{function}',
@@ -402,9 +403,12 @@ let g:jsdoc_custom_args_hook = {
     \    }
     \}
 let g:jsdoc_type_hook = {
-    \    'Request': 'an object that represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on',
-    \    'Response': 'an object that represents the HTTP response that an Express app sends when it gets an HTTP request',
-    \    'NextFunction': 'the callback function that will take us to the next middleware.  If you pass an error it will respond to the client with a 500 server error'
+    \    'Sequest': 'an object that represents the HTTP request and has properties for the request query string,'.
+    \               'parameters, body, HTTP headers, and so on',
+    \    'Response': 'an object that represents the HTTP response that an Express app sends when it gets an HTTP'.
+    \                'request',
+    \    'NextFunction': 'the callback function that will take us to the next middleware.  If you pass an error it'.
+    \                     'will respond to the client with a 500 server error'
     \}
 
 " puts jsdoc above last function
@@ -420,14 +424,14 @@ let g:vim_jsx_pretty_colorful_config = 1
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
+let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_serverCommands = {
-	\ 'typescript': ['javascript-typescript-stdio']
-	\ }
-let g:LanguageClient_logginlevel = 'DEBUG'
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'sh': ['bash-language-server', 'start']
+    \ }
 
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+nnoremap <leader>K :call LanguageClient_textDocument_hover()<CR>
 " }}}
 
 " ------ NERD-Commenter ------ {{{ - bundle name: scrooloose/nerdcommenter -------------------------------------
@@ -456,9 +460,6 @@ let g:NERDTreeRespectWildIgnore = 1      " don't show files/directories in .giti
 " close the tab if NERDTree is the only window left open
 autocmd nvimrc bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" start nerdtree if we open a directory
-" autocmd nvimrc StdinReadPre * let s:std_in=1
-" autocmd nvimrc VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " }}} End NERD-Tree
 
 " ------ NERD-Tree Git ------- {{{ - bundle name: xuyuanp/nerdtree-git-plugin ----------------------------------
@@ -470,6 +471,12 @@ let g:NERDTreeIgnoredStatus = 1
 let g:NERDTreeHighlightFolders         = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " }}} End NERDTree Syntax Highlighting
+
+" ----- Nvim-Typescript ------ {{{ - bundle name: mhartington/nvim-typescript ----------------------------------
+	nmap <silent><Leader>tsg :TSGetCodeFix<CR>
+	nmap <silent><Leader>tsi :TSImport<CR>
+	nmap <silent><Leader>tsr :TSRename<CR>
+" }}} End Nvim-Typescript
 
 " -------- SCSS-Syntax ------- {{{ - bundle name: cakebaker/scss-syntax.vim ------------------------------------
 au BufRead,BufNewFile,BufEnter *.scss set filetype=scss.css
@@ -585,22 +592,23 @@ let g:deoplete#sources#ternjs#filetypes = [ 'jsx' ]
 " --------- Tmuxline --------- {{{ - bundle name: edkolev/tmuxline.vim -----------------------------------------
 let g:tmuxline_theme = 'airline'
 let g:tmuxline_preset = {
-    		\ 'a': ' #S #{?client_prefix, Prefix,}',
-    		\ 'b': ' %a %h-%d %H:%M ',
-    		\ 'c': ' #(~/bin/now-playing.sh) ',
-    		\ 'win': ['#I', '#W'],
-    		\ 'cwin': ['#I', '#W'],
-    		\ 'x': ' #U@#H ',
-    		\ 'y': ' #(~/bin/ip-info.sh) ',
-    		\ 'z': '#{tasks_status} #{battery_status_fg}#[fg=white]#{battery_status_bg} #{battery_icon} #{battery_percentage} #{battery_remain} #{cpu_fg_color}#[fg=white]#{cpu_bg_color}  #{cpu_icon}#{cpu_percentage} ',
-    		\ }
-" }}}
+			\ 'a': '#{?client_prefix,PREFIX  ,#{?pane_in_mode, COPY  ,}}#S',
+			\ 'b': '#U@#H  #(~/bin/ip-info.sh)',
+			\ 'c': '#{cpu_fg_color}#{cpu_percentage} ',
+			\ 'win': ['#I', '#W'],
+			\ 'cwin': ['#I', '#W'],
+			\ 'x': '#{battery_status_fg}#{battery_icon}  #{battery_percentage} #{battery_remain}',
+			\ 'y': ' %a %h-%d %H:%M#{?@timer-running,  #(~/bin/bettertouchtool/timer-app/timer-app-manager.sh),}',
+			\ 'z': '#(~/bin/now-playing.sh)',
+			\ }
+" }}} End Tmuxline
 
 " ------ Tmux Complete ----- {{{ - bundle name: wellle/tmux-complete.vim ---------------------------------------
 let g:tmuxcomplete#trigger = ''
 " }}} End Tmux Complete
 
 " ------ Tmux Navigator ------ {{{ - bundle name: christoomey/vim-tmux-navigator -------------------------------
+let g:tmux_navigator_disable_when_zoomed = 1
 nmap <BS> :TmuxNavigateLeft<CR>
 " }}} End Tmux Navigator
 
@@ -608,9 +616,13 @@ nmap <BS> :TmuxNavigateLeft<CR>
 let g:UltiSnipsExpandTrigger = '<c-e>'
 " }}} End UltiSnips
 
-" ---------- Vision ---------- {{{ - bundle name: Quramy/vision ------------------------------------------------
-" autocmd BufRead,BufNewFile package.json,.gitlab-ci.yml Vison
-" }}} End Vision
+" --------- Vim-JSON --------- {{{ - bundle name: elzr/vim-json ------------------------------------------------
+
+" }}} End Vim-JSON
+
+" ---------- Vison ----------- {{{ - bundle name: Quramy/vison -------------------------------------------------
+autocmd BufRead,BufNewFile package.json,.gitlab-ci.yml Vison
+" }}} End Vison
 
 " ----- Visual Increment ----- {{{ - bundle name: triglav/vim-visual-increment ---------------------------------
 	set nrformats=alpha " lets me increment columns of letters as well as numbers
@@ -656,8 +668,8 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 fun! s:SetColorColumn()
 	" highlight the last column of the textwidth
 	if exists('+colorcolumn')
-		" In Vim >= 7.3, also highlight columns 160+
-		let &colorcolumn=&textwidth.','.join(range(160,500),',')
+		" In Vim >= 7.3
+		let &colorcolumn=&textwidth
 	else
 		" fallback for Vim < v7.3
 		autocmd vimrc BufWinEnter * let w:m2=matchadd('ErrorMsg','\%>'.&textwidth.'v.\+', -1)
@@ -720,15 +732,9 @@ set showcmd                    " show command in bottom bar
 
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit! " save with sudo
 
-autocmd nvimrc BufWritePre * :%s/\s\+$//e                        " clear all trailing whitespace on save
+autocmd nvimrc BufWritePre * :%s/\s\+$//e                " clear all trailing whitespace on save
+autocmd filetype crontab setlocal nobackup nowritebackup " this lets vim edit the crontab on mac without error
 
-" Change color scheme to dark at night but light during the day
-" let s:hour = strftime('%H')
-" if s:hour >= 6 && s:hour < 18
-"     set background=light
-" else
-"     set background=dark
-" endif
 " }}} END VIM BEHAVIOR
 
 " VIM FUNCTIONS {{{ ============================================================================================
@@ -765,5 +771,10 @@ command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-arg
 command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>''
 " }}} END VIM FUNCTIONS
+
+" this fixes devicons on resourcing vimrc
+if exists("g:loaded_webdevicons")
+	call webdevicons#refresh()
+endif
 
 " vim:foldmethod=marker:foldlevel=0:tabstop=4:shiftwidth=4:noexpandtab

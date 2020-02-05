@@ -1,0 +1,7 @@
+{
+	"tslint.autoFixOnSave": true,
+	"tslint.configFile": "./tslint-staged.json",
+	"tsserver.implicitProjectConfig.experimentalDecorators": true,
+	"typescript.preferences.importModuleSpecifier": "relative",
+	"typescript.format.enabled": true
+}

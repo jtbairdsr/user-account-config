@@ -4,7 +4,7 @@
 
 [user]
 	name = Jonathan Baird
-	email = jtbairdj@gmail.com
+	email = jonathan@smithbox.com
 
 [credential]
 	helper = osxkeychain
@@ -19,12 +19,14 @@
 	ptg = push origin HEAD:ref/for/master\n
 	cm = commit -m
 	rim = rebase -i master
+	lg = log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=local
 
 [status]
 	submodulesummary = 1
 
 [diff]
 	tool = p4mergetool
+	external = /Users/jonathan/bin/git-diff-cmd.sh
 
 [difftool]
 	prompt = false

@@ -9,6 +9,9 @@ prompt walters
 # shellcheck source=$HOME/.zpowerlevel9k
 . ~/.zpowerlevel9k
 
+# shellcheck source=$HOME/.zspaceship
+# . ~/.zspaceship
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -35,15 +38,13 @@ npm                        #  package manager for NodeJS
 nvm                        #  NodeJS version manager
 osx                        #  MacOS completions and iTunes control
 pip                        #  Python package manager http://www.pip-installer.org/en/latest/
-project-tasks
 sudo                       #  toggle sudo with esc esc
 taskwarrior                #  autocompletion for http://taskwarrior.org
 tmux
 tmuxinator
 tugboat                    #  Digital Ocean droplet manager
-yeoman                     #  autocompletion for yeoman
 zsh-autosuggestions        #  Fish-like fast/unobtrusive autosuggestions for zsh
-zsh-better-npm-completeion #  Better completion for npm
+zsh-better-npm-completion  #  Better completion for npm
 zsh-completions            #  this is simply a clone of zsh-users/zsh-completions repo
 zsh-nvm                    #  manages my nvm installation
 zsh-syntax-highlighting    #  commandline syntax highlighting
@@ -96,3 +97,12 @@ fpath=(~/.zsh/completion $fpath)
 
 # this is for ternjs in vim, it lets it load all the files that it needs
 ulimit -n 2048
+
+# this hides tmux resurect commands from history
+HISTCONTROL=ignoreboth
+
+# make my history globaly unique
+setopt HIST_IGNORE_ALL_DUPS
+
+# this makes the history-substring-search fuzy
+export HISTORY_SUBSTRING_SEARCH_FUZZY='TRUE'

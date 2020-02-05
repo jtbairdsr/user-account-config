@@ -9,7 +9,14 @@ alias ping="ping -c5"     # make ping stop after 5 requests
 alias scp='scp -C'        # Compression enable. Passes the -C flag to ssh(1) to enable compression.
 alias top='top -o cpu'    # sort top by %CPU
 
+alias cls='colorls --light --sd'
+alias cll='cls -Al'
+alias clsa='cls -A'
+alias clsg='cls --gs'
+alias clst='cls --tree'
+
 # --------------------------------------------------- short hand ------------------------------------------------------
+alias ssh='TERM=xterm-256color ssh'                   # set a reasonable terminal for ssh
 alias dnow='sudo shutdown -h now; exit'                # shutdown the machine now
 alias fgrep='grep -F'                                  # Interpret pattern as a set of fixed strings
 alias gs="git status"                                  # create a simple git status alias
@@ -33,7 +40,7 @@ alias dockexitrm='docker ps -a | grep Exit | cut -d " " -f 1 | xargs docker rm' 
 
 # -------------------------------------------------------- Misc --------------------------------------------------------
 #  shellcheck disable=SC2139,SC2154
-alias Ping="\ping"                                                  # an alias to a ping that won't end
+alias Ping="\\ping"                                                  # an alias to a ping that won't end
 alias rzsh='echo relaunching zsh.......;exec zsh -ls'               # an alias for relaunching zsh
 alias clr='colorize'                                                # a shortened version of the colorize alias
 alias lncustom='ln -fhs $config/custom ~/.oh-my-zsh/custom && rzsh' # ln $config/custom into .oh-my-zsh
